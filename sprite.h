@@ -7,6 +7,7 @@
 #include <glad/glad.h>
 #include <glm/glm.hpp>
 
+#include "entity.h"
 #include "renderer_2d.h"
 #include "texture.h"
 
@@ -16,16 +17,11 @@ class Renderer2D;
 * @brief El sprite es un contenedor con la informacion de como debe comportarse una textura en pantalla.
 * Construye un sprite a partir de la referencia de una textura compartida.
 */
-class Sprite
+class Sprite : public Entity
 {
 private:
     //Referencia a la textura del sprite. Tipo std::shared_ptr<Texture>
     std::shared_ptr<Texture> texture;
-
-    //Es la posicion donde se va a dibujar la textura. Tipo glm::vec2
-    glm::vec2 position = { 0,0 };
-    //Es el tamaño que tendra la textura. Tipo glm::vec2
-    glm::vec2 size = { 0,0 };
 
     //Indica los indices de los frames vec2(indice_horizontal, indice_vertical). Tipo glm::vec2
     glm::ivec2 frameIndex = { 0,0 };
@@ -65,18 +61,6 @@ public:
     //SETTERS
 
     /**
-     * @brief Cambia el valor de variable position del sprite
-     * * @param _position Es la posicion donde se va a dibujar el sprite. Tipo glm::vec2
-     */
-    void setPosition(const glm::vec2& _position) { position = _position; }
-
-    /**
-     * @brief Cambia el valor de variable size del sprite
-     * * @param _size Es el tamaño que tendra la textura. Tipo glm::vec2
-     */
-    void setSize(const glm::vec2& _size) { size = _size; }
-
-    /**
      * @brief Cambia el valor de variable frameIndex del sprite
      * * @param _frameIndex Indica los indices de los frames vec2(indice_horizontal, indice_vertical). Tipo glm::vec2
      */
@@ -106,11 +90,6 @@ public:
      * @brief obtiene la referencia a la textura del sprite.Tipo std::shared_ptr<Texture>
      */
     std::shared_ptr<Texture> getTexture() const { return texture; }
-
-    /**
-     * @brief obtiene la posicion donde se va a dibujar la textura. Tipo glm::vec2
-     */
-    glm::vec2 getPosition() const { return position; }
 
     /**
      * @brief obtiene el tamaño que tendra la textura. Tipo glm::vec2

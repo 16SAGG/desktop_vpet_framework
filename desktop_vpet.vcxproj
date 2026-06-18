@@ -172,6 +172,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ebo.h" />
+    <ClInclude Include="entity.h" />
     <ClInclude Include="process.h" />
     <ClInclude Include="renderer_2d.h" />
     <ClInclude Include="shader.h" />

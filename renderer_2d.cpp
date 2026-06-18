@@ -36,7 +36,7 @@ void Renderer2D::draw(const Sprite& sprite, const glm::mat4& projection) const{
 	sprite.getTexture() -> bind();
 
 	glm::mat4 model = glm::mat4(1.0f);
-	model = glm::translate(model, glm::vec3(sprite.getPosition(), 0.0f));
+	model = glm::translate(model, glm::vec3(sprite.getGlobalPosition(), 0.0f));
 	model = glm::scale(model, glm::vec3(sprite.getSize(), 1.0f));
 
 	glUniformMatrix4fv(glGetUniformLocation(shader.getID(), "model"), 1, GL_FALSE, glm::value_ptr(model));
