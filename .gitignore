@@ -1,5 +1,4 @@
 # Archivos ejecutables
-*.exe
 *.obj
 *.o
 *.out
