@@ -99,5 +99,8 @@
     <Image Include="texture.png">
       <Filter>Archivos de recursos\textures</Filter>
     </Image>
+    <Image Include="texture_2.png">
+      <Filter>Archivos de recursos\textures</Filter>
+    </Image>
   </ItemGroup>
 </Project>

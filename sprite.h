@@ -15,12 +15,23 @@ public:
     glm::vec2 position;
     glm::vec2 size;
 
-    glm::vec2 uvOffset;
-    glm::vec2 uvScale;
+    glm::ivec2 frameIndex;
+    glm::vec2 frameOffset;
+    glm::vec2 frameSize;
+    glm::vec2 frameGap;
 
-    Sprite(const Texture& _texture, const glm::vec2 _position, const glm::vec2 _size, const glm::vec2 _uvOffset, const glm::vec2 _uvScale);
+    Sprite(
+        const Texture& _texture, 
+        const glm::vec2& _position,
+        const glm::vec2& _size,
+        const glm::ivec2& _frameIndex,
+        const glm::vec2& _frameOffset,
+        const glm::vec2& _frameSize,
+        const glm::vec2& _frameGap
+    );
 
     void setPosition(const glm::vec2 _position);
+    glm::vec2 getUVOffset() const;
 };
 
 #endif

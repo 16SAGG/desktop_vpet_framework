@@ -11,7 +11,6 @@
 Texture::Texture(const char* image, const GLenum texType, const GLenum slot, const GLenum format, const GLenum pixelType) {
 	type = texType;
 	
-	int widthImg, heightImg, numColCh;
 	unsigned char* bytes = stbi_load(image, &widthImg, &heightImg, &numColCh, 0);
 
 	glGenTextures(1, &ID);

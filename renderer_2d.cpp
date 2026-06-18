@@ -34,7 +34,9 @@ Renderer2D::Renderer2D() : shader("default.vert", "default.frag") {
 	VBO1.unbind();
 	EBO1.unbind();
 }
-
+#include <string>
+#include <fstream>
+#include <iostream>
 /**
  * @brief Renderiza un objeto 2D con una textura y transformación específica.
  * * Utiliza matrices para posicionar y escalar el objeto en el mundo virtual,
@@ -55,6 +57,10 @@ void Renderer2D::draw(const Sprite& sprite, const glm::mat4& projection) const{
 
 	glUniformMatrix4fv(glGetUniformLocation(shader.ID, "model"), 1, GL_FALSE, glm::value_ptr(model));
 	glUniformMatrix4fv(glGetUniformLocation(shader.ID, "projection"), 1, GL_FALSE, glm::value_ptr(projection));
+
+	glUniform2f(glGetUniformLocation(shader.ID, "textureSize"), (float)sprite.texture.widthImg, (float)sprite.texture.heightImg);
+	glUniform2fv(glGetUniformLocation(shader.ID, "uvOffset"), 1, glm::value_ptr(sprite.getUVOffset()));
+	glUniform2fv(glGetUniformLocation(shader.ID, "frameSize"), 1, glm::value_ptr(sprite.frameSize));
 
 	glBindVertexArray(VAO_id);
 	glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
