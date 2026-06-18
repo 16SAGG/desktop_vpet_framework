@@ -12,6 +12,10 @@
 
 class Renderer2D;
 
+/**
+* @brief El sprite es un contenedor con la informacion de como debe comportarse una textura en pantalla.
+* Construye un sprite a partir de la referencia de una textura compartida.
+*/
 class Sprite
 {
 private:
@@ -35,8 +39,7 @@ public:
     //METHODS
 
     /**
-     * @brief El sprite es un contenedor con la informacion de como debe comportarse una textura en pantalla.
-     * Construye un sprite a partir de la referencia de una textura compartida.
+     * @brief Constructor de Sprite
      * * @example
      * //Ejemplo de definicion:
      * auto textureShared = std::make_shared<Texture>("texture.png", GL_TEXTURE_2D, GL_TEXTURE0, GL_RGBA, GL_UNSIGNED_BYTE);

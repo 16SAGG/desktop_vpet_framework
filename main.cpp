@@ -7,13 +7,13 @@
 #include "renderer_2d.h"
 #include "sprite.h"
 #include "window.h"
-#include "proccess.h"
+#include "process.h"
 
 int main() {
 	Window window(800, 600);
 	if (!window.window) return -1;
 
-	Proccess proccess(window.window);
+	Process process(window.window);
 
 	Renderer2D renderer;
 
@@ -32,7 +32,7 @@ int main() {
 	float posY = 100.0f;
 	float velocidad = 200.0f;
 
-	proccess.run([&](float deltaTime) {
+	process.run([&](float deltaTime) {
 		posX += velocidad * deltaTime;
 
 		if (posX > 800.0f) posX = 0.0f;

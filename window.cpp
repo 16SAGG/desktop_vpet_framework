@@ -1,10 +1,5 @@
 #include "window.h"
 
-/**
- * @brief Ventana del juego.
- * * @param width Ancho de la ventana. Tipo GLuint
- * * @param height Alto de la ventana. Tipo GLuint
- */
 Window :: Window(const GLuint width, const GLuint height) : window(nullptr), projection(glm::mat4(1.0f)) {
 	if (!glfwInit()) return;
 

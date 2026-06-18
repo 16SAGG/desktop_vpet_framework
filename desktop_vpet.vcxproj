@@ -156,9 +156,9 @@
     <ClCompile Include="..\..\Users\Hp\Desktop\C++\glad\src\glad.c" />
     <ClCompile Include="ebo.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="proccess.cpp" />
+    <ClCompile Include="process.cpp" />
     <ClCompile Include="renderer_2d.cpp" />
-    <ClCompile Include="shader_class.cpp" />
+    <ClCompile Include="shader.cpp" />
     <ClCompile Include="sprite.cpp" />
     <ClCompile Include="stb.cpp" />
     <ClCompile Include="texture.cpp" />
@@ -172,9 +172,9 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ebo.h" />
-    <ClInclude Include="proccess.h" />
+    <ClInclude Include="process.h" />
     <ClInclude Include="renderer_2d.h" />
-    <ClInclude Include="shader_class.h" />
+    <ClInclude Include="shader.h" />
     <ClInclude Include="sprite.h" />
     <ClInclude Include="texture.h" />
     <ClInclude Include="vao.h" />

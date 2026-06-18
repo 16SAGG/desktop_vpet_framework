@@ -3,8 +3,8 @@
 Sprite :: Sprite(const std::shared_ptr<Texture> _texture):
 	texture (_texture)
 {
-    size = glm::vec2((float)_texture->widthImg, (float)_texture->heightImg);
-    frameSize = glm::vec2((float)_texture->widthImg, (float)_texture->heightImg);
+    size = glm::vec2((float)_texture -> getWidthImg(), (float)_texture -> getHeightImg());
+    frameSize = glm::vec2((float)_texture->getWidthImg(), (float)_texture->getHeightImg());
 }
 
 Sprite Sprite::createFromPath(const char* path, Renderer2D& _renderer) {

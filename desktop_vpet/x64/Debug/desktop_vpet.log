@@ -1,7 +1,11 @@
-﻿  main.cpp
+﻿  texture.cpp
+  vao.cpp
+C:\Workspace\desktop_vpet_framework\vao.cpp(18,63): warning C4244: 'argumento': conversión de 'const GLsizeiptr' a 'GLsizei'; posible pérdida de datos
+  window.cpp
 C:\Program Files (x86)\Windows Kits\10\Include\10.0.26100.0\shared\minwindef.h(130,9): warning C4005: 'APIENTRY': redefinición de macro
-  (compilando archivo de origen "main.cpp")
+  (compilando archivo de origen "window.cpp")
       C:\Workspace\desktop_vpet_framework\Libraries\include\glad\glad.h(32,9):
       vea la definición anterior de “APIENTRY”
   
+  Generando código...
   desktop_vpet.vcxproj -> C:\Workspace\desktop_vpet_framework\x64\Debug\desktop_vpet.exe

@@ -27,7 +27,7 @@
     <ClCompile Include="main.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
-    <ClCompile Include="shader_class.cpp">
+    <ClCompile Include="shader.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
     <ClCompile Include="vbo.cpp">
@@ -54,7 +54,7 @@
     <ClCompile Include="window.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
-    <ClCompile Include="proccess.cpp">
+    <ClCompile Include="process.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
   </ItemGroup>
@@ -67,7 +67,7 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="shader_class.h">
+    <ClInclude Include="shader.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
     <ClInclude Include="vbo.h">
@@ -91,7 +91,7 @@
     <ClInclude Include="window.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
-    <ClInclude Include="proccess.h">
+    <ClInclude Include="process.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
   </ItemGroup>

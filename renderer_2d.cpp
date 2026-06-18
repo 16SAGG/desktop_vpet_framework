@@ -14,14 +14,9 @@ const GLuint INDICES[] = {
 	0, 2, 3
 };
 
-/**
- * @brief Constructor: Inicializa el pipeline de renderizado 2D.
- * * Este proceso carga el programa de shaders y prepara el VAO, VBO y EBO
- * con los datos necesarios para dibujar un cuadrado texturizado.
- */
 Renderer2D::Renderer2D() : shader("default.vert", "default.frag") {
 	VAO VAO1;
-	VAO_id = VAO1.ID;
+	VAO_id = VAO1.getID();
 	VAO1.bind();
 
 	VBO VBO1(VERTICES, sizeof(VERTICES));
@@ -36,14 +31,6 @@ Renderer2D::Renderer2D() : shader("default.vert", "default.frag") {
 	EBO1.unbind();
 }
 
-/**
- * @brief Renderiza un objeto 2D con una textura y transformación específica.
- * * Utiliza matrices para posicionar y escalar el objeto en el mundo virtual,
- * y envía estos datos al shader para su procesamiento final.
- * * @param sprite Objeto sprite que se aplicará sobre la geometría. Tipo Sprite&
- * @param projection Matriz 4x4 de proyección que define cómo se mapean las coordenadas
- * del mundo a la pantalla (útil para manejar la relación de aspecto). Tipo glm::mat4&
- */
 void Renderer2D::draw(const Sprite& sprite, const glm::mat4& projection) const{
 	shader.activate();
 	sprite.getTexture() -> bind();
@@ -52,12 +39,12 @@ void Renderer2D::draw(const Sprite& sprite, const glm::mat4& projection) const{
 	model = glm::translate(model, glm::vec3(sprite.getPosition(), 0.0f));
 	model = glm::scale(model, glm::vec3(sprite.getSize(), 1.0f));
 
-	glUniformMatrix4fv(glGetUniformLocation(shader.ID, "model"), 1, GL_FALSE, glm::value_ptr(model));
-	glUniformMatrix4fv(glGetUniformLocation(shader.ID, "projection"), 1, GL_FALSE, glm::value_ptr(projection));
+	glUniformMatrix4fv(glGetUniformLocation(shader.getID(), "model"), 1, GL_FALSE, glm::value_ptr(model));
+	glUniformMatrix4fv(glGetUniformLocation(shader.getID(), "projection"), 1, GL_FALSE, glm::value_ptr(projection));
 
-	glUniform2f(glGetUniformLocation(shader.ID, "textureSize"), (float)sprite.getTexture() -> widthImg, (float)sprite.getTexture() -> heightImg);
-	glUniform2fv(glGetUniformLocation(shader.ID, "uvOffset"), 1, glm::value_ptr(sprite.getUVOffset()));
-	glUniform2fv(glGetUniformLocation(shader.ID, "frameSize"), 1, glm::value_ptr(sprite.getFrameSize()));
+	glUniform2f(glGetUniformLocation(shader.getID(), "textureSize"), (float)sprite.getTexture() -> getWidthImg(), (float)sprite.getTexture() -> getHeightImg());
+	glUniform2fv(glGetUniformLocation(shader.getID(), "uvOffset"), 1, glm::value_ptr(sprite.getUVOffset()));
+	glUniform2fv(glGetUniformLocation(shader.getID(), "frameSize"), 1, glm::value_ptr(sprite.getFrameSize()));
 
 	glBindVertexArray(VAO_id);
 	glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);

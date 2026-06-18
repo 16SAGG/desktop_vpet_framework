@@ -13,12 +13,22 @@
 #include <windows.h>
 #endif
 
+/**
+ * @brief Gestiona la ventana de la aplicacion
+ */
 class Window
 {
 public:
+	// Referencia a la ventana
 	GLFWwindow* window;
+	// Proyección ortográfica 2D: convierte píxeles del mundo a coordenadas de clip.
 	glm::mat4 projection;
 
+	/**
+	 * @brief Constructor de window.
+	 * * @param width Ancho de la ventana. Tipo GLuint
+	 * * @param height Alto de la ventana. Tipo GLuint
+	 */
 	Window(const GLuint width, const GLuint height);
 };
 

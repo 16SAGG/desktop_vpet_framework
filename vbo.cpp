@@ -1,11 +1,5 @@
 #include "vbo.h"
 
-/**
- * @brief VBO(Vertex Buffer Object) es el "almacén" donde guardaremos los datos de los vértices
- * * @param Vertices Matriz de vertices. Tipo GLfloat
- * @param size Tamaño de la matriz de vertices. Tipo GLsizeiptr
- */
-
 VBO::VBO(const GLfloat* vertices, const GLsizeiptr size)
 {
 	glGenBuffers(1, &ID);
@@ -21,25 +15,16 @@ VBO::VBO(const GLfloat* vertices, const GLsizeiptr size)
 	glBufferData(GL_ARRAY_BUFFER, size, vertices, GL_STATIC_DRAW);
 }
 
-/**
- * @brief Activa el VBO
- */
 void VBO::bind() const
 {
 	glBindBuffer(GL_ARRAY_BUFFER, ID);
 }
 
-/**
- * @brief Desactiva el VBO
- */
 void VBO::unbind() const
 {
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
 }
 
-/**
- * @brief Elimina el VBO
- */
 void VBO::deleteVBO() const
 {
 	glDeleteBuffers(1, &ID);
