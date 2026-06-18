@@ -12,7 +12,8 @@
 #include "vbo.h"
 #include "ebo.h"
 #include "texture.h"
-#include "sprite.h"
+
+class Sprite;
 
 class Renderer2D
 {

@@ -1,4 +1,5 @@
 #include "renderer_2d.h"
+#include "sprite.h"
 
 // POS_X, POS_Y, POS_Z,    COLOR_R, COLOR_G, COLOR_B,   TEX_U, TEX_V
 const GLfloat VERTICES[] = {
@@ -34,33 +35,29 @@ Renderer2D::Renderer2D() : shader("default.vert", "default.frag") {
 	VBO1.unbind();
 	EBO1.unbind();
 }
-#include <string>
-#include <fstream>
-#include <iostream>
+
 /**
  * @brief Renderiza un objeto 2D con una textura y transformación específica.
  * * Utiliza matrices para posicionar y escalar el objeto en el mundo virtual,
  * y envía estos datos al shader para su procesamiento final.
- * * @param texture Objeto de textura que se aplicará sobre la geometría. Tipo Texture&
- * @param pos Vector 2D (x, y) que indica la posición del objeto en el mundo. Tipo glm::vec2
- * @param size Vector 2D (ancho, alto) que indica la escala o dimensiones del objeto. Tipo glm::vec2
+ * * @param sprite Objeto sprite que se aplicará sobre la geometría. Tipo Sprite&
  * @param projection Matriz 4x4 de proyección que define cómo se mapean las coordenadas
  * del mundo a la pantalla (útil para manejar la relación de aspecto). Tipo glm::mat4&
  */
 void Renderer2D::draw(const Sprite& sprite, const glm::mat4& projection) const{
 	shader.activate();
-	sprite.texture.bind();
+	sprite.getTexture() -> bind();
 
 	glm::mat4 model = glm::mat4(1.0f);
-	model = glm::translate(model, glm::vec3(sprite.position, 0.0f));
-	model = glm::scale(model, glm::vec3(sprite.size, 1.0f));
+	model = glm::translate(model, glm::vec3(sprite.getPosition(), 0.0f));
+	model = glm::scale(model, glm::vec3(sprite.getSize(), 1.0f));
 
 	glUniformMatrix4fv(glGetUniformLocation(shader.ID, "model"), 1, GL_FALSE, glm::value_ptr(model));
 	glUniformMatrix4fv(glGetUniformLocation(shader.ID, "projection"), 1, GL_FALSE, glm::value_ptr(projection));
 
-	glUniform2f(glGetUniformLocation(shader.ID, "textureSize"), (float)sprite.texture.widthImg, (float)sprite.texture.heightImg);
+	glUniform2f(glGetUniformLocation(shader.ID, "textureSize"), (float)sprite.getTexture() -> widthImg, (float)sprite.getTexture() -> heightImg);
 	glUniform2fv(glGetUniformLocation(shader.ID, "uvOffset"), 1, glm::value_ptr(sprite.getUVOffset()));
-	glUniform2fv(glGetUniformLocation(shader.ID, "frameSize"), 1, glm::value_ptr(sprite.frameSize));
+	glUniform2fv(glGetUniformLocation(shader.ID, "frameSize"), 1, glm::value_ptr(sprite.getFrameSize()));
 
 	glBindVertexArray(VAO_id);
 	glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);

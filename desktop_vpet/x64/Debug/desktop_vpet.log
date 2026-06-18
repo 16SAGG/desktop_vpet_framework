@@ -1,4 +1,7 @@
-﻿  renderer_2d.cpp
-  sprite.cpp
-  Generando código...
+﻿  main.cpp
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.26100.0\shared\minwindef.h(130,9): warning C4005: 'APIENTRY': redefinición de macro
+  (compilando archivo de origen "main.cpp")
+      C:\Workspace\desktop_vpet_framework\Libraries\include\glad\glad.h(32,9):
+      vea la definición anterior de “APIENTRY”
+  
   desktop_vpet.vcxproj -> C:\Workspace\desktop_vpet_framework\x64\Debug\desktop_vpet.exe

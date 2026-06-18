@@ -17,30 +17,31 @@ int main() {
 
 	Renderer2D renderer;
 
-	Texture texture("texture_2.png", GL_TEXTURE_2D, GL_TEXTURE0, GL_RGBA, GL_UNSIGNED_BYTE);
-	texture.texUnit(renderer.shader, "tex0", 0);
+	auto textureShared = std::make_shared<Texture>("texture.png", GL_TEXTURE_2D, GL_TEXTURE0, GL_RGBA, GL_UNSIGNED_BYTE);
+	textureShared -> texUnit(renderer.shader, "tex0", 0);
 
-	Sprite sprite(
-		texture,
-		glm::vec2(0, 0),
-		glm::vec2(160, 160),
-		glm::ivec2(0, 0),
-		glm::vec2(1, 21),
-		glm::vec2(16, 16),
-		glm::vec2(1, 0)
-	);
+	Sprite sprite(textureShared);
+
+	Sprite sprite2 = Sprite::createFromPath("texture_2.png", renderer);
+	sprite2.setSize({ 100, 100 });
+	sprite2.setFrameSize({ 16,16 });
+	sprite2.setFrameOffset({ 1, 21 });
+	sprite2.setFrameGap({ 1, 0 });
 
 	float posX = 100.0f;
 	float posY = 100.0f;
 	float velocidad = 200.0f;
 
 	proccess.run([&](float deltaTime) {
-		//posX += velocidad * deltaTime;
+		posX += velocidad * deltaTime;
 
 		if (posX > 800.0f) posX = 0.0f;
 
+		sprite.setPosition({ posX, posY });
+		sprite2.setPosition({ posX, 300 });
+
 		renderer.draw(sprite, window.projection);
-		sprite.setPosition(glm::vec2(posX, posY));
+		renderer.draw(sprite2, window.projection);
 	});
 
 	glfwTerminate();
