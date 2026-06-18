@@ -2,7 +2,7 @@
 <Project>
   <ProjectOutputs>
     <ProjectOutput>
-      <FullPath>C:\Workspace\desktop_vpet\x64\Debug\desktop_vpet.exe</FullPath>
+      <FullPath>C:\Workspace\desktop_vpet_framework\x64\Debug\desktop_vpet.exe</FullPath>
     </ProjectOutput>
   </ProjectOutputs>
   <ContentFiles />
