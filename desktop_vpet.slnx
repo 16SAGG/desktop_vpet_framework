@@ -1,0 +1,7 @@
+<Solution>
+  <Configurations>
+    <Platform Name="x64" />
+    <Platform Name="x86" />
+  </Configurations>
+  <Project Path="desktop_vpet.vcxproj" Id="8d5e7e54-1332-496d-b359-fc6da8682da4" />
+</Solution>

@@ -1,0 +1,33 @@
+1. Usa Doxygen para los comentarios
+Si usas el formato de comentarios de Doxygen (/ ... */), los IDEs como Visual Studio, CLion o VS Code mostrarán una ventana emergente con la descripción de tu función cada vez que escribas su nombre.
+
+Ejemplo de comentario descriptivo:
+
+C++
+/**
+ * @brief Dibuja un sprite 2D en la pantalla utilizando una matriz de proyección.
+ * * @param texture Referencia al objeto de textura previamente cargado.
+ * @param pos Vector 2D con las coordenadas (X, Y) en píxeles.
+ * @param size Vector 2D con las dimensiones (ancho, alto) en píxeles.
+ * @param projection Matriz ortográfica 4x4 para el sistema de coordenadas.
+ */
+void Draw(Texture& texture, glm::vec2 pos, glm::vec2 size, const glm::mat4& projection);
+2. Mejores prácticas de nomenclatura (Naming Conventions)
+La consistencia es más importante que la elección exacta. Aquí tienes el estándar de la industria:
+
+Clases y Structs: PascalCase (ej. Renderer2D, VertexArray).
+
+Funciones y Métodos: camelCase (ej. draw(), bind(), calculateModelMatrix()).
+
+Variables miembro (Privadas): camelCase con un guion bajo al final o inicio para distinguirlas, ej: vaoId_ o m_vao.
+
+Constantes: SCREAMING_SNAKE_CASE (ej. MAX_SPRITES_PER_BATCH).
+
+3. Tips para una Base de Código "a prueba de balas"
+Ya que estás profesionalizando tu base, te sugiero considerar estos tres conceptos:
+
+const correctness: Sé estricto. Si una función como Draw no debería modificar la projection, márcala como const glm::mat4& projection. Esto evita bugs donde el shader modifica tu matriz original sin querer.
+
+Getter / Setter: Si haces tu clase Renderer2D más robusta, no expongas variables como shader. Crea un método void setShader(Shader& shader) o Shader& getShader(). Esto te permite añadir lógica de validación después.
+
+Encapsulación total: Intenta que el usuario de tu clase (tu main) nunca tenga que escribir gl... (funciones de OpenGL). Si el main necesita escribir glEnable o glBind, significa que tu clase todavía no está abstraída al 100%.

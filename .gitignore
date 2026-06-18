@@ -1,0 +1,12 @@
+# Archivos ejecutables
+*.exe
+*.obj
+*.o
+*.out
+
+# Carpetas de compilación o de IDEs (ajusta según lo que uses)
+build/
+bin/
+.vscode/
+.vs/
+*.pdb
