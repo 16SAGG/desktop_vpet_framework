@@ -153,12 +153,16 @@
     </Manifest>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\Users\Hp\Desktop\C++\glad\src\glad.c" />
+    <ClCompile Include="character.cpp" />
+    <ClCompile Include="collision_box.cpp" />
+    <ClCompile Include="collision_manager.cpp" />
     <ClCompile Include="ebo.cpp" />
+    <ClCompile Include="glad.c" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="process.cpp" />
     <ClCompile Include="renderer_2d.cpp" />
     <ClCompile Include="shader.cpp" />
+    <ClCompile Include="collidable_entity.cpp" />
     <ClCompile Include="sprite.cpp" />
     <ClCompile Include="stb.cpp" />
     <ClCompile Include="texture.cpp" />
@@ -171,6 +175,10 @@
     <None Include="default.vert" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="character.h" />
+    <ClInclude Include="collidable_entity.h" />
+    <ClInclude Include="collision_box.h" />
+    <ClInclude Include="collision_manager.h" />
     <ClInclude Include="ebo.h" />
     <ClInclude Include="entity.h" />
     <ClInclude Include="process.h" />

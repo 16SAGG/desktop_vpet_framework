@@ -2,8 +2,22 @@
 #ifndef COLLISION_BOX_CLASS_H
 #define COLLISION_BOX_CLASS_H
 
+#include <memory>
+
 #include "entity.h"
 
+/*
+Contiene datos de la colision. 
+*/
+struct CollisionResult {
+    bool intersecting; // Si intersecta o no.
+    glm::vec2 normal; // Dirección del choque (ej: {0, -1} para un choque desde arriba)
+    float penetration; // Cuántos píxeles se solapan
+};
+
+/**
+* @brief Es una caja empleada para detectar el contacto con otros
+*/
 class CollisionBox : public Entity
 {
 private:
@@ -19,18 +33,7 @@ public:
      * @brief Determina si este CollisionBox colisiona con otro o no.
      * * @param other El CollisionBox con el que se comparara la interseccion. Tipo CollisionBox&
      */
-    bool intersects(const CollisionBox& other) const {
-        if (getLayer() != other.getLayer()) return false;
-
-        glm::vec2 min1 = getGlobalPosition();
-        glm::vec2 max1 = min1 + getSize();
-
-        glm::vec2 min2 = other.getGlobalPosition();;
-        glm::vec2 max2 = min2 + other.getSize();
-
-        return (min1.x < max2.x && max1.x > min2.x &&
-            min1.y < max2.y && max1.y > min2.y);
-    }
+    CollisionResult checkCollision(const std::shared_ptr<CollisionBox> other) const;
 
     // SETTERS
 

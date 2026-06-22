@@ -6,8 +6,11 @@
 #include "texture.h"
 #include "renderer_2d.h"
 #include "sprite.h"
+#include "collision_box.h"
+#include "character.h"
 #include "window.h"
 #include "process.h"
+#include "collision_manager.h"
 
 int main() {
 	Window window(800, 600);
@@ -17,31 +20,38 @@ int main() {
 
 	Renderer2D renderer;
 
+	CollisionManager collisionManager;
+
 	auto textureShared = std::make_shared<Texture>("texture.png", GL_TEXTURE_2D, GL_TEXTURE0, GL_RGBA, GL_UNSIGNED_BYTE);
 	textureShared -> texUnit(renderer.shader, "tex0", 0);
+	auto spr1 = std::make_shared<Sprite>(textureShared);
+	spr1->setSize({ 100, 100 });
+	auto col1 = std::make_shared<CollisionBox>();
+	col1 -> setSize({100,100});
+	auto char1 = std::make_shared<Character>(spr1, col1);
+	char1->setPosition({ 400, 400 });
+	char1->setAcceleration({ -1, 0});
+	collisionManager.addCollidableEntity(char1);
 
-	Sprite sprite(textureShared);
-
-	Sprite sprite2 = Sprite::createFromPath("texture_2.png", renderer);
-	sprite2.setSize({ 100, 100 });
-	sprite2.setFrameSize({ 16,16 });
-	sprite2.setFrameOffset({ 1, 21 });
-	sprite2.setFrameGap({ 1, 0 });
-
-	float posX = 100.0f;
-	float posY = 100.0f;
-	float velocidad = 200.0f;
+	auto spr2 = Sprite::createFromPath("texture_2.png", renderer);
+	spr2 -> setFrameSize({ 16,16 });
+	spr2 -> setFrameOffset({ 1, 21 });
+	spr2 -> setFrameGap({ 1, 0 });
+	spr2->setSize({ 100, 100 });
+	auto col2 = std::make_shared<CollisionBox>();
+	col2->setSize({ 100,100 });
+	auto char2 = std::make_shared<Character>(spr2, col2);
+	char2->setPosition({ 200, 400 });
+	char2->setAcceleration({ 0, 0 });
+	collisionManager.addCollidableEntity(char2);
 
 	process.run([&](float deltaTime) {
-		posX += velocidad * deltaTime;
+		char1->move(deltaTime);
+		char2->move(deltaTime);
 
-		if (posX > 800.0f) posX = 0.0f;
-
-		sprite.setPosition({ posX, posY });
-		sprite2.setPosition({ posX, 300 });
-
-		renderer.draw(sprite, window.projection);
-		renderer.draw(sprite2, window.projection);
+		renderer.draw(spr1, window.projection);
+		renderer.draw(spr2, window.projection);
+		collisionManager.update();
 	});
 
 	glfwTerminate();

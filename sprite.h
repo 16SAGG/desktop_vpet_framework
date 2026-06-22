@@ -56,7 +56,7 @@ public:
      * * @param path Ruta al archivo. Tipo char*
      *  @param _renderer Objeto renderer donde se dibujara este sprite. Tipo Renderer
      */
-    static Sprite createFromPath(const char* path, Renderer2D& renderer);
+    static std::shared_ptr<Sprite> createFromPath(const char* path, Renderer2D& renderer);
 
     //SETTERS
 

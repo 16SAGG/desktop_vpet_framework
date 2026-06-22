@@ -20,13 +20,22 @@ protected:
 public:
     virtual ~Entity() = default;
 
+    /**
+    * @brief Cambia el valor de la posicion de sus hijos.
+    * * @param _position Posicion base del padre. Tipo glm::vec2
+    */
+    virtual void setChildrenPosition(const glm::vec2& _position) { return; };
+
     // SETTERS
 
     /**
-    * @brief Cambia el valor de la variable position.
+    * @brief Cambia el valor de la variable position y de sus hijos en caso de ser definido.
     * * @param _position Posicion base, en caso de que este entity pertenezca a otro aca ira la posicion del padre. Tipo glm::vec2
     */
-    void setPosition(const glm::vec2& _position) { position = _position; }
+    void setPosition(const glm::vec2& _position) { 
+        position = _position;
+        setChildrenPosition(_position);
+    }
     /**
     * @brief Cambia el valor de la variable offset.
     * * @param _offset Desviacion con respecto a su posicion base. Tipo glm::vec2
@@ -41,7 +50,11 @@ public:
     //GETTERS
 
     /**
-    * @brief Obtiene la posicion real. Tipo glm::vec2
+    * @brief Obtiene la posicion. Tipo glm::vec2
+    */
+    glm::vec2 getPosition() const { return position; }
+    /**
+    * @brief Obtiene la posicion de dibujado. Tipo glm::vec2
     */
     glm::vec2 getGlobalPosition() const { return position + offset; }
     /**

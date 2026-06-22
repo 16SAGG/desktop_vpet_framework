@@ -41,7 +41,7 @@ class Renderer2D
 		 * @param projection Matriz 4x4 de proyección que define cómo se mapean las coordenadas
 		 * del mundo a la pantalla (útil para manejar la relación de aspecto). Tipo glm::mat4&
 		 */
-		void draw(const Sprite& sprite, const glm::mat4& projection) const;
+		void draw(std::shared_ptr<Sprite> sprite, const glm::mat4& projection) const;
 	private:
 		// ID del VAO vinculado al renderer
 		GLuint VAO_id;
