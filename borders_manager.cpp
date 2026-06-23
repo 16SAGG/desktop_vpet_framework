@@ -7,23 +7,27 @@ BordersManager::BordersManager(const glm::vec2 screenSize, const std::shared_ptr
 	topBorderCol->setPosition({ -extraSpace, -extraSpace });
 	topBorderCol->setSize({ screenSize.x + extraSpace, THICKNESS });
 	auto topBorder = std::make_shared<Wall>(topBorderCol);
+	topBorder->setOneWayCollisionDirection({ 0, 1 });
 	collisionManager->addCollidableEntity(topBorder);
 
 	auto leftBorderCol = std::make_shared<CollisionBox>();
 	leftBorderCol->setPosition({ -extraSpace, -extraSpace });
 	leftBorderCol->setSize({ THICKNESS, screenSize.y + extraSpace});
 	auto leftBorder = std::make_shared<Wall>(leftBorderCol);
+	leftBorder->setOneWayCollisionDirection({ 1, 0 });
 	collisionManager->addCollidableEntity(leftBorder);
 
 	auto rightBorderCol = std::make_shared<CollisionBox>();
 	rightBorderCol->setPosition({ screenSize.x + 10 * extraSpace, -extraSpace });
 	rightBorderCol->setSize({ THICKNESS, screenSize.y + extraSpace});
 	auto rightBorder = std::make_shared<Wall>(rightBorderCol);
+	rightBorder->setOneWayCollisionDirection({ -1, 0 });
 	collisionManager->addCollidableEntity(rightBorder);
 
 	auto bottomBorderCol = std::make_shared<CollisionBox>();
 	bottomBorderCol->setPosition({ -extraSpace, screenSize.y + 10 * extraSpace });
 	bottomBorderCol->setSize({ screenSize.x + extraSpace, THICKNESS });
 	auto bottomBorder = std::make_shared<Wall>(bottomBorderCol);
+	bottomBorder->setOneWayCollisionDirection({ 0, -1 });
 	collisionManager->addCollidableEntity(bottomBorder);
 }

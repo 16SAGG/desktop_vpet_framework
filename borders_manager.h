@@ -19,11 +19,5 @@ public:
     * @param extraSpace Es el espacio adicional que se agrega al tamano de la pantalla. Tipo float
     */
     BordersManager(const glm::vec2 screenSize, const std::shared_ptr<CollisionManager> collisionManager, const float extraSpace = 0.0f);
-
-    //GETTERS
-
-    /**
-    * @brief Obtiene las entidades de los bordes. Tipo std::vector<std::shared_ptr<CollidableEntity>> 
-    */
 };
 #endif

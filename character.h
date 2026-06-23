@@ -4,6 +4,7 @@
 
 #include "collidable_entity.h"
 #include "sprite.h"
+#include "wall.h"
 
 /**
 * @brief Es una caja empleada para detectar el contacto con otros
@@ -25,26 +26,27 @@ private:
 public:
     /**
     * @brief Constructor de Character
-    ** @params _sprite Referencia al sprite del character. Tipo Sprite
-    * @params _collider Referencia al CollisionBox. Tipo CollisionBox
+    ** @param _sprite Referencia al sprite del character. Tipo Sprite
+    * @param _collider Referencia al CollisionBox. Tipo CollisionBox
     */
     Character(std::shared_ptr<Sprite> _sprite, std::shared_ptr<CollisionBox> _collider); 
 
     /**
     * @brief Determina el comportamiento de esta entiendad a colisionar.
-    * * @params other Referencia al CollidableEntity con el que colisiono. Tipo std::shared_ptr<CollidableEntity>
+    * * @param other Referencia al CollidableEntity con el que colisiono. Tipo std::shared_ptr<CollidableEntity>
+    * @param collisionNormalized La direccion de la colision. Tipo glm::vec2
     */
-    void onCollision(std::shared_ptr<CollidableEntity> other, glm::vec2 normal) override;
+    void onCollision(std::shared_ptr<CollidableEntity> other, glm::vec2 collisionNormalized) override;
 
     /*
     * @brief Permite el movimiento del personaje.
-    * @params deltaTime. tipo float.
+    * @param deltaTime. tipo float.
     */
     void move(float deltaTime);
 
     /*
     * @brief Es la reaccion de este cuerpo al colisionar con un objeto solido. Su efecto es detener el desplazamiento en la direccion a la que colisiona.
-    * @params normal. Es el vector normal que indica donde se colisiono. glm::vec2
+    * @param normal. Es el vector normal que indica donde se colisiono. glm::vec2
     */
     void stopUponImpact(glm::vec2 normal);
 

@@ -19,7 +19,7 @@ protected:
     // Referencia al CollisionBox. Tipo CollisionBox
     std::shared_ptr<CollisionBox> collider;
 
-    // Tipo de colision de esta entidad
+    // Tipo de colision de esta entidad. CollisionType
     CollisionType collisionType;
 public:
     /*
@@ -36,7 +36,7 @@ public:
     * @brief Constructor por parametros, permite a los hijos seleccionar su tipo de colision
     * @param _collisionType Define el tipo de colision de la entidad. Tipo CollisionType
     */
-    CollidableEntity(CollisionType _collisionType) : collisionType(_collisionType) {}
+    CollidableEntity(CollisionType _collisionType) : collisionType(_collisionType) {};
 
     /**
     * @brief Determina el comportamiento de esta entiendad a colisionar.
@@ -49,11 +49,11 @@ public:
     /**
     * @brief Obtiene el CollisionBox. Tipo std::shared_ptr<CollisionBox>
     */
-    std::shared_ptr<CollisionBox> getCollider() { return collider; }
+    std::shared_ptr<CollisionBox> getCollider() const { return collider; };
 
     /**
     * @brief Obtiene el collisionType. Tipo CollisionType
     */
-    CollisionType getCollisionType() const { return collisionType; }
+    CollisionType getCollisionType() const { return collisionType; };
 };
 #endif

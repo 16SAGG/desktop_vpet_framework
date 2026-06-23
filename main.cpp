@@ -34,8 +34,8 @@ int main() {
 	auto col1 = std::make_shared<CollisionBox>();
 	col1 -> setSize({100,100});
 	auto char1 = std::make_shared<Character>(spr1, col1);
-	char1->setPosition({ 400, 400 });
-	char1->setAcceleration({ 0, 1});
+	char1->setPosition({ 400, -200 });
+	char1->setAcceleration({ 1, 1});
 	collisionManager -> addCollidableEntity(char1);
 
 	auto spr2 = Sprite::createFromPath("texture_2.png", renderer);
@@ -46,8 +46,8 @@ int main() {
 	auto col2 = std::make_shared<CollisionBox>();
 	col2->setSize({ 100,100 });
 	auto char2 = std::make_shared<Character>(spr2, col2);
-	char2->setPosition({ 200, 400 });
-	char2->setAcceleration({ 0, -1 });
+	char2->setPosition({ 400, 800 });
+	char2->setAcceleration({ -1, -1 });
 	collisionManager->addCollidableEntity(char2);
 
 	process.run([&](float deltaTime) {
