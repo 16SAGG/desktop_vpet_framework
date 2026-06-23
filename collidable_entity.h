@@ -42,7 +42,7 @@ public:
     * @brief Determina el comportamiento de esta entiendad a colisionar.
     * * @param other Referencia al CollidableEntity con el que colisiono. Tipo std::shared_ptr<CollidableEntity>
     */
-    virtual void onCollision(std::shared_ptr<CollidableEntity> other, glm::vec2 normal) = 0;
+    virtual void onCollision(std::shared_ptr<CollidableEntity> other, glm::vec2 normal, CollisionResult collisionRes) = 0;
 
     //GETTER
 

@@ -18,8 +18,8 @@ void CollisionManager :: update() {
                 bool theyAreIntersecting = collisionRes.intersecting;
 
                 if (theyAreInSameLayer && theyAreIntersecting) {
-                    colEntityA->onCollision(colEntityB, collisionRes.normal);
-                    colEntityB->onCollision(colEntityA, -collisionRes.normal);
+                    colEntityA->onCollision(colEntityB, collisionRes.normal, collisionRes);
+                    colEntityB->onCollision(colEntityA, -collisionRes.normal, collisionRes);
                 }
             }
         }

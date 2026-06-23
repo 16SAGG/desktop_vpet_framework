@@ -170,6 +170,8 @@
     <ClCompile Include="vao.cpp" />
     <ClCompile Include="vbo.cpp" />
     <ClCompile Include="window.cpp" />
+    <ClCompile Include="window_collidable.cpp" />
+    <ClCompile Include="window_collidable.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="default.frag" />
@@ -192,6 +194,7 @@
     <ClInclude Include="vbo.h" />
     <ClInclude Include="wall.h" />
     <ClInclude Include="window.h" />
+    <ClInclude Include="windows_collidable_manager.h" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="texture.png" />

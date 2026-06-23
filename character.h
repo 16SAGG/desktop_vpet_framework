@@ -36,7 +36,7 @@ public:
     * * @param other Referencia al CollidableEntity con el que colisiono. Tipo std::shared_ptr<CollidableEntity>
     * @param collisionNormalized La direccion de la colision. Tipo glm::vec2
     */
-    void onCollision(std::shared_ptr<CollidableEntity> other, glm::vec2 collisionNormalized) override;
+    void onCollision(std::shared_ptr<CollidableEntity> other, glm::vec2 collisionNormalized, CollisionResult collisionRes) override;
 
     /*
     * @brief Permite el movimiento del personaje.
@@ -48,7 +48,13 @@ public:
     * @brief Es la reaccion de este cuerpo al colisionar con un objeto solido. Su efecto es detener el desplazamiento en la direccion a la que colisiona.
     * @param normal. Es el vector normal que indica donde se colisiono. glm::vec2
     */
-    void stopUponImpact(glm::vec2 normal);
+    void stopUponImpact(std::shared_ptr<CollidableEntity> other, glm::vec2 normal);
+
+    /*
+    * @brief Es la reaccion de este cuerpo al colisionar con un objeto solido. Su efecto es rebotar.
+    * @param normal. Es el vector normal que indica donde se colisiono. glm::vec2
+    */
+    void bounce(std::shared_ptr<CollidableEntity> other, glm::vec2 normal);
 
     // SETTERS
     

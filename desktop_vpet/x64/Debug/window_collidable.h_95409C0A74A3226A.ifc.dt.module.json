@@ -1,0 +1,22 @@
+{
+    "version": 1,
+    "revision": 0,
+    "rules": [
+        {
+            "primary-output": "desktop_vpet\\x64\\Debug\\window_collidable.obj",
+            "outputs": [
+                "desktop_vpet\\x64\\Debug\\window_collidable.h_95409C0A74A3226A.ifc.dt.module.json",
+                "desktop_vpet\\x64\\Debug\\window_collidable.h_95409C0A74A3226A.ifc.dt.d.json",
+                "desktop_vpet\\x64\\Debug\\window_collidable.h.ifc"
+            ],
+            "provides": [
+                {
+                    "logical-name": "C:\\Workspace\\desktop_vpet_framework\\window_collidable.h",
+                    "source-path": "c:\\workspace\\desktop_vpet_framework\\window_collidable.h",
+                    "lookup-method": "absolute"
+                }
+            ],
+            "requires": []
+        }
+    ]
+}

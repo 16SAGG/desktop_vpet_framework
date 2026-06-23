@@ -12,6 +12,7 @@
 #include "process.h"
 #include "collision_manager.h"
 #include "borders_manager.h"
+#include "windows_collidable_manager.h"
 
 const glm::vec2 WINDOW_SIZE = { 800, 600 };
 
@@ -27,6 +28,8 @@ int main() {
 
 	BordersManager bordersManager(WINDOW_SIZE, collisionManager, 10.0);
 
+	WindowsCollidableManager windowsCollidableManager;
+
 	auto textureShared = std::make_shared<Texture>("texture.png", GL_TEXTURE_2D, GL_TEXTURE0, GL_RGBA, GL_UNSIGNED_BYTE);
 	textureShared -> texUnit(renderer.shader, "tex0", 0);
 	auto spr1 = std::make_shared<Sprite>(textureShared);
@@ -34,7 +37,7 @@ int main() {
 	auto col1 = std::make_shared<CollisionBox>();
 	col1 -> setSize({100,100});
 	auto char1 = std::make_shared<Character>(spr1, col1);
-	char1->setPosition({ 400, -200 });
+	char1->setPosition({ 200, 400 });
 	char1->setAcceleration({ 1, 1});
 	collisionManager -> addCollidableEntity(char1);
 
@@ -46,16 +49,21 @@ int main() {
 	auto col2 = std::make_shared<CollisionBox>();
 	col2->setSize({ 100,100 });
 	auto char2 = std::make_shared<Character>(spr2, col2);
-	char2->setPosition({ 400, 800 });
+	char2->setPosition({ 400, 400 });
 	char2->setAcceleration({ -1, -1 });
 	collisionManager->addCollidableEntity(char2);
 
+	static int frameCounter = 0;
 	process.run([&](float deltaTime) {
 		char1->move(deltaTime);
 		char2->move(deltaTime);
 
 		renderer.draw(spr1, window.projection);
 		renderer.draw(spr2, window.projection);
+
+		if (frameCounter++ % 60 == 0) {
+			//windowsCollidableManager.syncWindows(collisionManager); //Continuar probando con esto
+		}
 		collisionManager->update();
 	});
 

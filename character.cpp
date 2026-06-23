@@ -7,7 +7,7 @@ Character::Character(std::shared_ptr<Sprite> _sprite, std::shared_ptr<CollisionB
     this->collider = _collider;
 }
 
-void Character::onCollision(std::shared_ptr<CollidableEntity> other, glm::vec2 collisionNormalized) {
+void Character::onCollision(std::shared_ptr<CollidableEntity> other, glm::vec2 collisionNormalized, CollisionResult collisionRes) {
     bool itCollidesWithASolidEntity = other->getCollisionType() == CollisionType::CHARACTER || other->getCollisionType() == CollisionType::WALL;
     
     if (!itCollidesWithASolidEntity) return;
@@ -29,7 +29,10 @@ void Character::onCollision(std::shared_ptr<CollidableEntity> other, glm::vec2 c
         }
     }
     
-    stopUponImpact(collisionNormalized);
+    this->position.x += collisionNormalized.x * collisionRes.penetration;
+    this->position.y += collisionNormalized.y * collisionRes.penetration;
+    //stopUponImpact(other, collisionNormalized);
+    bounce(other, collisionNormalized);
 }
 
 void Character::move(float deltaTime) {
@@ -38,11 +41,20 @@ void Character::move(float deltaTime) {
     setPosition(getPosition() + velocity * deltaTime);
 }
 
-void Character::stopUponImpact(glm::vec2 normal) {
+void Character::stopUponImpact(std::shared_ptr<CollidableEntity> other, glm::vec2 normal) {
     if (normal.x != 0) {
         this->acceleration.x = 0;
     }
     else if (normal.y != 0) {
         this->acceleration.y = 0;
+    }
+}
+
+void Character::bounce(std::shared_ptr<CollidableEntity> other, glm::vec2 normal) {
+    if (normal.x != 0) {
+        this->acceleration.x = -this->acceleration.x;
+    }
+    else if (normal.y != 0) {
+        this->acceleration.y = -this->acceleration.y;
     }
 }
