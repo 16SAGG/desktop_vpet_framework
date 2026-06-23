@@ -1,13 +1,18 @@
 #include "character.h"
 
 Character::Character(std::shared_ptr<Sprite> _sprite, std::shared_ptr<CollisionBox> _collider) :
+    CollidableEntity(CollisionType::CHARACTER),
     sprite(_sprite)
 {
     this->collider = _collider;
 }
 
 void Character::onCollision(std::shared_ptr<CollidableEntity> other, glm::vec2 normal) {
-    stopUponImpact(normal);
+    bool itCollidesWithASolidEntity = other->getCollisionType() == CollisionType::CHARACTER || other->getCollisionType() == CollisionType::WALL;
+    
+    if (itCollidesWithASolidEntity) {
+        stopUponImpact(normal);
+    }
 }
 
 void Character::move(float deltaTime) {

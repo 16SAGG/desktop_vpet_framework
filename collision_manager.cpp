@@ -3,17 +3,24 @@
 void CollisionManager :: update() {
     for (size_t i = 0; i < collidableEntities.size(); ++i) {
         for (size_t j = i + 1; j < collidableEntities.size(); ++j) {
-            std::shared_ptr<CollisionBox> boxA = collidableEntities[i]->getCollider();
-            std::shared_ptr<CollisionBox> boxB = collidableEntities[j]->getCollider();
+            std::shared_ptr<CollidableEntity> colEntityA = collidableEntities[i];
+            std::shared_ptr<CollidableEntity> colEntityB = collidableEntities[j];
 
-            CollisionResult collisionRes = boxA -> checkCollision(boxB);
+            bool oneOfThemIsACharacter = (colEntityA->getCollisionType() == CollisionType::CHARACTER) || (colEntityB->getCollisionType() == CollisionType::CHARACTER);
+            
+            if (oneOfThemIsACharacter) {
+                std::shared_ptr<CollisionBox> boxA = colEntityA->getCollider();
+                std::shared_ptr<CollisionBox> boxB = colEntityB->getCollider();
 
-            bool theyAreInSameLayer = boxA->getLayer() == boxB->getLayer();
-            bool theyAreIntersecting = collisionRes.intersecting;
+                CollisionResult collisionRes = boxA->checkCollision(boxB);
 
-            if (theyAreInSameLayer && theyAreIntersecting) {
-                collidableEntities[i]->onCollision(collidableEntities[j], collisionRes.normal);
-                collidableEntities[j]->onCollision(collidableEntities[i], -collisionRes.normal);
+                bool theyAreInSameLayer = boxA->getLayer() == boxB->getLayer();
+                bool theyAreIntersecting = collisionRes.intersecting;
+
+                if (theyAreInSameLayer && theyAreIntersecting) {
+                    colEntityA->onCollision(colEntityB, collisionRes.normal);
+                    colEntityB->onCollision(colEntityA, -collisionRes.normal);
+                }
             }
         }
     }

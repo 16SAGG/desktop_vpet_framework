@@ -163,6 +163,7 @@
     <ClCompile Include="renderer_2d.cpp" />
     <ClCompile Include="shader.cpp" />
     <ClCompile Include="collidable_entity.cpp" />
+    <ClCompile Include="borders_manager.cpp" />
     <ClCompile Include="sprite.cpp" />
     <ClCompile Include="stb.cpp" />
     <ClCompile Include="texture.cpp" />
@@ -175,6 +176,7 @@
     <None Include="default.vert" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="borders_manager.h" />
     <ClInclude Include="character.h" />
     <ClInclude Include="collidable_entity.h" />
     <ClInclude Include="collision_box.h" />
@@ -188,6 +190,7 @@
     <ClInclude Include="texture.h" />
     <ClInclude Include="vao.h" />
     <ClInclude Include="vbo.h" />
+    <ClInclude Include="wall.h" />
     <ClInclude Include="window.h" />
   </ItemGroup>
   <ItemGroup>

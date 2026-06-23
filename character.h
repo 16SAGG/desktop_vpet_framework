@@ -18,7 +18,7 @@ private:
     glm::vec2 velocity = { 0, 0 };
 
     // Es la velocidad maxima del personaje. Tipo glm::vec2
-    glm::vec2 maxSpeed = { 20, 20 };
+    glm::vec2 maxSpeed = { 200, 200 };
 
     // Es la aceleracion actual del personaje, las propiedades son porcentuales donde '1' equivale al 100%. Tipo glm::vec2
     glm::vec2 acceleration = { 1, 0 };

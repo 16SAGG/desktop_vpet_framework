@@ -8,6 +8,7 @@ C:\Workspace\desktop_vpet_framework\process.cpp;C:\Workspace\desktop_vpet_framew
 C:\Workspace\desktop_vpet_framework\renderer_2d.cpp;C:\Workspace\desktop_vpet_framework\desktop_vpet\x64\Debug\renderer_2d.obj
 C:\Workspace\desktop_vpet_framework\shader.cpp;C:\Workspace\desktop_vpet_framework\desktop_vpet\x64\Debug\shader.obj
 C:\Workspace\desktop_vpet_framework\collidable_entity.cpp;C:\Workspace\desktop_vpet_framework\desktop_vpet\x64\Debug\collidable_entity.obj
+C:\Workspace\desktop_vpet_framework\borders_manager.cpp;C:\Workspace\desktop_vpet_framework\desktop_vpet\x64\Debug\borders_manager.obj
 C:\Workspace\desktop_vpet_framework\sprite.cpp;C:\Workspace\desktop_vpet_framework\desktop_vpet\x64\Debug\sprite.obj
 C:\Workspace\desktop_vpet_framework\stb.cpp;C:\Workspace\desktop_vpet_framework\desktop_vpet\x64\Debug\stb.obj
 C:\Workspace\desktop_vpet_framework\texture.cpp;C:\Workspace\desktop_vpet_framework\desktop_vpet\x64\Debug\texture.obj

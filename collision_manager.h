@@ -25,7 +25,7 @@ public:
 
     /*
     * @brief Incluye un nuevo CollidableEntity en el array a monitorear.
-    * @params newCollidableEntity Es la una entidad colisionable que se incluira. Tipo std::shared_ptr<CollidableEntity>
+    * @params newCollidableEntity Es la entidad colisionable que se incluira. Tipo std::shared_ptr<CollidableEntity>
     */
     void addCollidableEntity(std::shared_ptr<CollidableEntity> newCollidableEntity) {
         collidableEntities.push_back(newCollidableEntity);
