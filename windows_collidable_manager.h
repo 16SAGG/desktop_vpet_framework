@@ -5,6 +5,8 @@
 #include <windows.h>
 #include <iostream>
 #include <cstdlib>
+#include <dwmapi.h>
+#pragma comment(lib, "dwmapi.lib")
 
 #include "wall.h"
 #include "collision_manager.h"
@@ -27,8 +29,8 @@ public:
     * @brief Sincroniza todas las ventanas activas del SO al motor fisicas del juego
     */
     void syncWindows(std::shared_ptr<CollisionManager> collisionManager) {
-        std::cout << activeWindows.size();
-        system("cls");
+        //std::cout << activeWindows.size();
+        //system("cls");
 
         struct CallbackData {
             WindowsCollidableManager* self;
@@ -39,51 +41,43 @@ public:
         EnumWindows([](HWND hwnd, LPARAM lParam) -> BOOL {
             auto data = reinterpret_cast<CallbackData*>(lParam);
 
-            // --- FILTROS DE VALIDACIÓN ---
+            //if (hwnd == data->gameWindowHandle) return TRUE;
 
-            // 1. ¿Es visible?
-            if (!IsWindowVisible(hwnd)) return TRUE;
+            // 1. DWM Cloak: Elimina minimizadas y ventanas en segundo plano
+            int cloaked = 0;
+            if (SUCCEEDED(DwmGetWindowAttribute(hwnd, DWMWA_CLOAKED, &cloaked, sizeof(cloaked))) && cloaked != 0)
+                return TRUE;
 
-            // 2. ¿Está minimizada? (IsIconic devuelve true si está minimizada)
-            if (IsIconic(hwnd)) return TRUE;
-
-            // 3. Ignorar ventanas sin título o sin dimensiones (muy útil para evitar previews)
-            char title[256];
-            GetWindowTextA(hwnd, title, sizeof(title));
-            if (strlen(title) == 0) return TRUE;
-
-            // 4. Ignorar "Program Manager" (el escritorio mismo)
-            if (strcmp(title, "Program Manager") == 0) return TRUE;
-
-            // 5. Ignorar ventanas de herramienta o invisibles al usuario
+            // 2. Filtro de Estilo: Ignora ventanas que no tienen bordes de aplicación normal
+            // WS_POPUP y WS_CAPTION son necesarios para ventanas interactivas normales
             LONG style = GetWindowLong(hwnd, GWL_STYLE);
-            if ((style & WS_DISABLED) || !(style & WS_VISIBLE)) return TRUE;
+            if (!(style & WS_VISIBLE)) return TRUE; // Si no es visible, descartar
 
-            char className[256];
-            GetClassNameA(hwnd, className, sizeof(className));
-            // Las previews de la barra suelen ser 'DwmThumbnail' o similares
-            if (strcmp(className, "DwmThumbnail") == 0) return TRUE;
+            // 3. Obtener el estado real de la ventana
+            WINDOWPLACEMENT wp;
+            wp.length = sizeof(WINDOWPLACEMENT);
+            GetWindowPlacement(hwnd, &wp);
 
-            // 1. Obtener estilos extendidos
+            // Si está minimizada (la ventana tiene un estado de "minimizada" en el sistema)
+            if (wp.showCmd == SW_SHOWMINIMIZED) return TRUE;
+
+            // 4. Excluir las "fantasma" que tienen tamaño 0x0
+            RECT rect;
+            GetWindowRect(hwnd, &rect);
+            if ((rect.right - rect.left) <= 0 || (rect.bottom - rect.top) <= 0) return TRUE;
+
+            // 5. Filtro de barra de tareas y herramientas
             LONG_PTR exStyle = GetWindowLongPtr(hwnd, GWL_EXSTYLE);
+            if ((exStyle & WS_EX_TOOLWINDOW) || (exStyle & WS_EX_NOACTIVATE)) return TRUE;
 
-            // 2. Filtro: WS_EX_TOOLWINDOW suele ocultar ventanas de la barra de tareas 
-            // y muchas de estas previews tienen este estilo.
-            if (exStyle & WS_EX_TOOLWINDOW) return TRUE;
+            // 6. Si el título está vacío, es casi seguro que es una preview o proceso interno
+            char title[256];
+            if (GetWindowTextA(hwnd, title, sizeof(title)) == 0) return TRUE;
 
-            // 3. Filtro: Si la ventana no tiene un "propietario", a veces son ventanas fantasma de sistema.
-            if (GetWindow(hwnd, GW_OWNER) != NULL) return TRUE;
-
-            // 4. Filtro por Título: Muchas previews tienen el mismo título que la ventana real, 
-            // pero a veces el sistema les asigna un título vacío o "Default IME".
-            GetWindowTextA(hwnd, title, sizeof(title));
-            if (strcmp(title, "Default IME") == 0) return TRUE;
-
-            // Si pasa todos los filtros, es una ventana real
+            // Llegados a este punto, la ventana es real, visible y no está minimizada
             data->self->addOrUpdateWindow(hwnd, data->_collisionManager);
-
             return TRUE;
-        }, reinterpret_cast<LPARAM>(&data));
+            }, reinterpret_cast<LPARAM>(&data));
     }
 
     void addOrUpdateWindow(HWND hwnd, std::shared_ptr<CollisionManager> collisionManager) {
@@ -99,5 +93,12 @@ public:
         collisionManager->addCollidableEntity(newWin);
         activeWindows.push_back(newWin);
     }
+
+    //GETTER
+
+    /*
+    * @brief Obtiene las ventanas activas. Tipo std::vector<std::shared_ptr<WindowCollidable>> 
+    */
+    std::vector<std::shared_ptr<WindowCollidable>> getActiveWindows() { return activeWindows; };
 };
 #endif

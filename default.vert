@@ -9,14 +9,25 @@ uniform mat4 projection;
 uniform vec2 uvOffset;
 uniform vec2 frameSize;
 uniform vec2 textureSize;
+uniform bool useSolidColor;
+uniform vec4 solidColor;
 
 out vec2 texCoord;
+out vec4 _solidColor;
+out float _useSolidColor;
 
 void main()
 {
     gl_Position = projection * model * vec4(aPos, 1.0);
 
-    vec2 normalizedOffset = uvOffset / textureSize;
-    vec2 normalizedScale = frameSize / textureSize;
-    texCoord = (aTex * normalizedScale) + normalizedOffset;
+    if (useSolidColor){
+        _solidColor = solidColor;
+        _useSolidColor = 1.0;
+    }
+    else{
+        vec2 normalizedOffset = uvOffset / textureSize;
+        vec2 normalizedScale = frameSize / textureSize;
+        texCoord = (aTex * normalizedScale) + normalizedOffset;
+        _useSolidColor = 0.0;
+    }
 }

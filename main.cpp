@@ -26,16 +26,16 @@ int main() {
 
 	auto collisionManager = std::make_shared<CollisionManager>();
 
-	BordersManager bordersManager(WINDOW_SIZE, collisionManager, 10.0);
+	BordersManager bordersManager(WINDOW_SIZE, collisionManager, -60, 10, 10, 10);
 
 	WindowsCollidableManager windowsCollidableManager;
 
 	auto textureShared = std::make_shared<Texture>("texture.png", GL_TEXTURE_2D, GL_TEXTURE0, GL_RGBA, GL_UNSIGNED_BYTE);
-	textureShared -> texUnit(renderer.shader, "tex0", 0);
+	textureShared->texUnit(renderer.shader, "tex0", 0);
 	auto spr1 = std::make_shared<Sprite>(textureShared);
 	spr1->setSize({ 100, 100 });
 	auto col1 = std::make_shared<CollisionBox>();
-	col1 -> setSize({100,100});
+	col1->setSize({ 100,100 });
 	auto char1 = std::make_shared<Character>(spr1, col1);
 	char1->setPosition({ 200, 400 });
 	char1->setAcceleration({ 1, 1});
@@ -62,8 +62,14 @@ int main() {
 		renderer.draw(spr2, window.projection);
 
 		if (frameCounter++ % 60 == 0) {
-			//windowsCollidableManager.syncWindows(collisionManager); //Continuar probando con esto
+			windowsCollidableManager.syncWindows(collisionManager); //Continuar probando con esto
 		}
+
+		for (const auto& activeWindow : windowsCollidableManager.getActiveWindows()) {
+			renderer.drawColoredEntity(activeWindow -> getCollider(), window.projection, {1.0f, 0.0f, 0.0f, .5f});
+			// Por alguna razon lo que se dibuja no esta teniendo contacto alguno
+		}
+		renderer.drawColoredEntity(char1->getCollider() , window.projection, { 1.0f, 0.0f, 0.0f, .5f });
 		collisionManager->update();
 	});
 

@@ -1,4 +1,5 @@
 #include "character.h"
+#include <iostream>
 
 Character::Character(std::shared_ptr<Sprite> _sprite, std::shared_ptr<CollisionBox> _collider) :
     CollidableEntity(CollisionType::CHARACTER),
@@ -29,9 +30,6 @@ void Character::onCollision(std::shared_ptr<CollidableEntity> other, glm::vec2 c
         }
     }
     
-    this->position.x += collisionNormalized.x * collisionRes.penetration;
-    this->position.y += collisionNormalized.y * collisionRes.penetration;
-    //stopUponImpact(other, collisionNormalized);
     bounce(other, collisionNormalized);
 }
 

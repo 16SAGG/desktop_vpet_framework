@@ -31,7 +31,7 @@ Renderer2D::Renderer2D() : shader("default.vert", "default.frag") {
 	EBO1.unbind();
 }
 
-void Renderer2D::draw(std::shared_ptr<Sprite> sprite, const glm::mat4& projection) const{
+void Renderer2D::draw(const std::shared_ptr<Sprite> sprite, const glm::mat4& projection) const{
 	shader.activate();
 	sprite -> getTexture() -> bind();
 	glm::mat4 model = glm::mat4(1.0f);
@@ -44,6 +44,24 @@ void Renderer2D::draw(std::shared_ptr<Sprite> sprite, const glm::mat4& projectio
 	glUniform2f(glGetUniformLocation(shader.getID(), "textureSize"), (float)sprite -> getTexture() -> getWidthImg(), (float)sprite -> getTexture() -> getHeightImg());
 	glUniform2fv(glGetUniformLocation(shader.getID(), "uvOffset"), 1, glm::value_ptr(sprite -> getUVOffset()));
 	glUniform2fv(glGetUniformLocation(shader.getID(), "frameSize"), 1, glm::value_ptr(sprite -> getFrameSize()));
+	glUniform1i(glGetUniformLocation(shader.getID(), "useSolidColor"), 0);
+
+	glBindVertexArray(VAO_id);
+	glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
+	glBindVertexArray(0);
+}
+
+void Renderer2D::drawColoredEntity(const std::shared_ptr<Entity> entity, const glm::mat4& projection, const glm::vec4 color) const {
+	shader.activate();
+	glm::mat4 model = glm::mat4(1.0f);
+	model = glm::translate(model, glm::vec3(entity->getGlobalPosition(), 0.0f));
+	model = glm::scale(model, glm::vec3(entity->getSize(), 1.0f));
+
+	glUniformMatrix4fv(glGetUniformLocation(shader.getID(), "model"), 1, GL_FALSE, glm::value_ptr(model));
+	glUniformMatrix4fv(glGetUniformLocation(shader.getID(), "projection"), 1, GL_FALSE, glm::value_ptr(projection));
+
+	glUniform1i(glGetUniformLocation(shader.getID(), "useSolidColor"), 1);
+	glUniform4fv(glGetUniformLocation(shader.getID(), "solidColor"), 1, glm::value_ptr(color));
 
 	glBindVertexArray(VAO_id);
 	glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
