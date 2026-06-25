@@ -26,7 +26,7 @@ int main() {
 
 	auto collisionManager = std::make_shared<CollisionManager>();
 
-	BordersManager bordersManager(WINDOW_SIZE, collisionManager, -60, 10, 10, 10);
+	BordersManager bordersManager(WINDOW_SIZE, collisionManager, -70, 10, 10, 10);
 
 	WindowsCollidableManager windowsCollidableManager;
 
@@ -38,7 +38,7 @@ int main() {
 	col1->setSize({ 100,100 });
 	auto char1 = std::make_shared<Character>(spr1, col1);
 	char1->setPosition({ 200, 400 });
-	char1->setAcceleration({ 1, 1});
+	char1->setAcceleration({ 0, 1});
 	collisionManager -> addCollidableEntity(char1);
 
 	auto spr2 = Sprite::createFromPath("texture_2.png", renderer);
@@ -55,8 +55,10 @@ int main() {
 
 	static int frameCounter = 0;
 	process.run([&](float deltaTime) {
+		collisionManager->update(deltaTime);
+
 		char1->move(deltaTime);
-		char2->move(deltaTime);
+		//char2->move(deltaTime);
 
 		renderer.draw(spr1, window.projection);
 		renderer.draw(spr2, window.projection);
@@ -70,7 +72,6 @@ int main() {
 			// Por alguna razon lo que se dibuja no esta teniendo contacto alguno
 		}
 		renderer.drawColoredEntity(char1->getCollider() , window.projection, { 1.0f, 0.0f, 0.0f, .5f });
-		collisionManager->update();
 	});
 
 	glfwTerminate();

@@ -1,6 +1,6 @@
 #include "window_collidable.h"
 
-const float WINDOW_COLLISION_THICKNESS = 1.0f;
+const float WINDOW_COLLISION_THICKNESS = 10.0f;
 const float LEFT_OFFSET = 80.0f;
 const float TOP_OFFSET = 55.0f;
 

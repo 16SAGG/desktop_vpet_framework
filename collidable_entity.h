@@ -19,8 +19,14 @@ protected:
     // Referencia al CollisionBox. Tipo CollisionBox
     std::shared_ptr<CollisionBox> collider;
 
-    // Tipo de colision de esta entidad. CollisionType
+    // Tipo de colision de esta entidad. Tipo CollisionType
     CollisionType collisionType;
+
+    // Determina si la colision esta activa. Tipo Bool
+    bool isCollisionEnabled = true;
+
+    // El id de la capa en la cual se colisiona.
+    int layer = 0;
 public:
     /*
     * @brief Destructor de collidableEntity
@@ -36,13 +42,15 @@ public:
     * @brief Constructor por parametros, permite a los hijos seleccionar su tipo de colision
     * @param _collisionType Define el tipo de colision de la entidad. Tipo CollisionType
     */
-    CollidableEntity(CollisionType _collisionType) : collisionType(_collisionType) {};
+    CollidableEntity(const CollisionType _collisionType) : collisionType(_collisionType) {};
 
     /**
     * @brief Determina el comportamiento de esta entiendad a colisionar.
     * * @param other Referencia al CollidableEntity con el que colisiono. Tipo std::shared_ptr<CollidableEntity>
+    * @param normal El vector normal de la colision. Tipo glm::vec2
+    * @param collisionRes Estructura de datos con informacion de la colision (vector normal de colision, interseccion e interaccion). tipo CollisionResult
     */
-    virtual void onCollision(std::shared_ptr<CollidableEntity> other, glm::vec2 normal, CollisionResult collisionRes) = 0;
+    virtual void onCollision(const std::shared_ptr<CollidableEntity> other, const glm::vec2 normal, const CollisionResult collisionRes) = 0;
 
     //GETTER
 
@@ -55,5 +63,28 @@ public:
     * @brief Obtiene el collisionType. Tipo CollisionType
     */
     CollisionType getCollisionType() const { return collisionType; };
+
+    /**
+    * @brief Obtiene si la colision esta activa. Tipo bool
+    */
+    bool getIsCollisionEnabled() const { return isCollisionEnabled; };
+
+    /**
+     * @brief Obtiene el id de la capa en la cual se colisiona. Tipo int
+     */
+    int getLayer() const { return layer; }
+
+    //SETTER
+
+    /**
+    * @brief Define si la colision esta activa
+    */
+    void setIsCollisionEnabled(bool _isCollisionEnabled) { isCollisionEnabled = _isCollisionEnabled; };
+
+    /**
+    * @brief Cambia el valor de la variable layer
+    */
+    void setLayer(int _layer) { layer = _layer; }
+    
 };
 #endif

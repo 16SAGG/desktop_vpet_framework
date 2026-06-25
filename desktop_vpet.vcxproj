@@ -170,6 +170,7 @@
     <ClCompile Include="vao.cpp" />
     <ClCompile Include="vbo.cpp" />
     <ClCompile Include="window.cpp" />
+    <ClCompile Include="windows_collidable_manager.cpp" />
     <ClCompile Include="window_collidable.cpp" />
     <ClCompile Include="window_collidable.h" />
   </ItemGroup>

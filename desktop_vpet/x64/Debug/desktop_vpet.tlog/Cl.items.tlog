@@ -15,5 +15,6 @@ C:\Workspace\desktop_vpet_framework\texture.cpp;C:\Workspace\desktop_vpet_framew
 C:\Workspace\desktop_vpet_framework\vao.cpp;C:\Workspace\desktop_vpet_framework\desktop_vpet\x64\Debug\vao.obj
 C:\Workspace\desktop_vpet_framework\vbo.cpp;C:\Workspace\desktop_vpet_framework\desktop_vpet\x64\Debug\vbo.obj
 C:\Workspace\desktop_vpet_framework\window.cpp;C:\Workspace\desktop_vpet_framework\desktop_vpet\x64\Debug\window.obj
+C:\Workspace\desktop_vpet_framework\windows_collidable_manager.cpp;C:\Workspace\desktop_vpet_framework\desktop_vpet\x64\Debug\windows_collidable_manager.obj
 C:\Workspace\desktop_vpet_framework\window_collidable.cpp;C:\Workspace\desktop_vpet_framework\desktop_vpet\x64\Debug\window_collidable.obj
 C:\Workspace\desktop_vpet_framework\window_collidable.h;C:\Workspace\desktop_vpet_framework\desktop_vpet\x64\Debug\window_collidable.h.obj

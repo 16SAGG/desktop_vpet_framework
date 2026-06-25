@@ -1,8 +1,8 @@
 #include "collision_box.h"
 
-CollisionResult CollisionBox::checkCollision(const std::shared_ptr<CollisionBox> other) const {
-    glm::vec2 pos1 = getGlobalPosition();
-    glm::vec2 pos2 = other->getGlobalPosition();
+CollisionResult CollisionBox::checkCollision(const std::shared_ptr<CollisionBox> other, const float deltaTime) {
+    glm::vec2 pos1 = getNextPosition(deltaTime);
+    glm::vec2 pos2 = other->getNextPosition(deltaTime);
 
     float overlapX = std::min(pos1.x + getSize().x, pos2.x + other->getSize().x) - std::max(pos1.x, pos2.x);
     float overlapY = std::min(pos1.y + getSize().y, pos2.y + other->getSize().y) - std::max(pos1.y, pos2.y);

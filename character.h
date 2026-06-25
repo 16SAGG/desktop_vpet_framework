@@ -14,15 +14,6 @@ class Character : public CollidableEntity
 private:
     // Referencia al sprite del character. Tipo Sprite
     std::shared_ptr<Sprite> sprite;
-
-    // Determina la velocidad de desplazamiento actual del personaje. Tipo glm::vec2
-    glm::vec2 velocity = { 0, 0 };
-
-    // Es la velocidad maxima del personaje. Tipo glm::vec2
-    glm::vec2 maxSpeed = { 200, 200 };
-
-    // Es la aceleracion actual del personaje, las propiedades son porcentuales donde '1' equivale al 100%. Tipo glm::vec2
-    glm::vec2 acceleration = { 1, 0 };
 public:
     /**
     * @brief Constructor de Character
@@ -35,14 +26,10 @@ public:
     * @brief Determina el comportamiento de esta entiendad a colisionar.
     * * @param other Referencia al CollidableEntity con el que colisiono. Tipo std::shared_ptr<CollidableEntity>
     * @param collisionNormalized La direccion de la colision. Tipo glm::vec2
+    * @param collisionRes Estructura con informacion de la colision (vector normal, interseccion e interaccion). Tipo CollisionResult
+    * @param deltaTime Tiempo transcurrido en segundos desde el último frame. tipo float.
     */
-    void onCollision(std::shared_ptr<CollidableEntity> other, glm::vec2 collisionNormalized, CollisionResult collisionRes) override;
-
-    /*
-    * @brief Permite el movimiento del personaje.
-    * @param deltaTime. tipo float.
-    */
-    void move(float deltaTime);
+    void onCollision(const std::shared_ptr<CollidableEntity> other, const glm::vec2 collisionNormalized, const CollisionResult collisionRes) override;
 
     /*
     * @brief Es la reaccion de este cuerpo al colisionar con un objeto solido. Su efecto es detener el desplazamiento en la direccion a la que colisiona.
@@ -58,18 +45,6 @@ public:
 
     // SETTERS
     
-    /**
-    * @brief Establecer la velocidad maxima.
-    * * @param _acceleration Es la aceleracion actual del personaje, las propiedades son porcentuales donde '1' equivale al 100%. Tipo glm::vec2
-    */
-    void setSpeed(const glm::vec2& _maxSpeed) { maxSpeed = _maxSpeed; };
-
-    /**
-    * @brief Establecer acceleration.
-    * * @param _acceleration Es la aceleracion actual del personaje, las propiedades son porcentuales donde '1' equivale al 100%. Tipo glm::vec2
-    */
-    void setAcceleration(const glm::vec2& _acceleration) { acceleration = _acceleration; };
-
     /**
     * @brief Cambia el valor de la posicion de sus hijos.
     * * @param _position Posicion base del padre. Tipo glm::vec2

@@ -20,9 +20,6 @@ struct CollisionResult {
 */
 class CollisionBox : public Entity
 {
-private:
-	// El id de la capa en la cual se colisiona.
-	int layer = 0;
 public:
     /**
      * @brief Constructor del CollisionBox
@@ -32,21 +29,9 @@ public:
     /**
      * @brief Determina si este CollisionBox colisiona con otro o no.
      * * @param other El CollisionBox con el que se comparara la interseccion. Tipo CollisionBox&
+     * @param deltaTime Tiempo transcurrido en segundos desde el último frame. tipo float.
      */
-    CollisionResult checkCollision(const std::shared_ptr<CollisionBox> other) const;
+    CollisionResult checkCollision(const std::shared_ptr<CollisionBox> other, const float deltaTime);
 
-    // SETTERS
-
-    /**
-    * @brief Cambia el valor de la variable layer
-    */
-    void setLayer(int _layer) { layer = _layer; }
-
-    // GETTERS
-
-    /**
-     * @brief Obtiene el id de la capa en la cual se colisiona. Tipo int
-     */
-    int getLayer() const { return layer; }
 };
 #endif

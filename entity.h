@@ -17,6 +17,12 @@ protected:
     // Dimensiones. Tipo glm::vec2 
     glm::vec2 size = { 0.0f, 0.0f };
 
+    // Determina la velocidad de desplazamiento. Tipo glm::vec2
+    glm::vec2 velocity = { 0, 0 };
+    // Es la velocidad maxima. Tipo glm::vec2
+    glm::vec2 maxSpeed = { 200, 200 };
+    // Es la aceleracion actual del personaje, las propiedades son porcentuales donde '1' equivale al 100%. Tipo glm::vec2
+    glm::vec2 acceleration = { 1, 0 };
 public:
     virtual ~Entity() = default;
 
@@ -25,6 +31,14 @@ public:
     * * @param _position Posicion base del padre. Tipo glm::vec2
     */
     virtual void setChildrenPosition(const glm::vec2& _position) { return; };
+
+    /*
+    * @brief Permite el movimiento de la entindad.
+    * @param deltaTime Tiempo transcurrido en segundos desde el último frame. tipo float.
+    */
+    virtual void move(float deltaTime) {
+        setPosition(getNextPosition(deltaTime));
+    }
 
     // SETTERS
 
@@ -47,6 +61,18 @@ public:
     */
     void setSize(const glm::vec2& _size) { size = _size; }
 
+    /**
+    * @brief Establecer la velocidad maxima.
+    * * @param _acceleration Es la aceleracion actual del personaje, las propiedades son porcentuales donde '1' equivale al 100%. Tipo glm::vec2
+    */
+    void setSpeed(const glm::vec2& _maxSpeed) { maxSpeed = _maxSpeed; };
+
+    /**
+    * @brief Establecer acceleration.
+    * * @param _acceleration Es la aceleracion actual del personaje, las propiedades son porcentuales donde '1' equivale al 100%. Tipo glm::vec2
+    */
+    void setAcceleration(const glm::vec2& _acceleration) { acceleration = _acceleration; };
+
     //GETTERS
 
     /**
@@ -61,5 +87,14 @@ public:
     * @brief Obtiene las dimensiones. Tipo glm::vec2
     */
     glm::vec2 getSize() const { return size; }
+
+    /*
+    * @brief obtiene la proxima position de la entidad. tipo glm::vec2
+    * @param deltaTime tiempo transcurrido entre cada frame. float
+    */
+    glm::vec2 getNextPosition(float deltaTime) {
+        this->velocity = acceleration * maxSpeed;
+        return getGlobalPosition() + velocity * deltaTime;
+    }
 };
 #endif

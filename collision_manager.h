@@ -3,6 +3,7 @@
 #define COLLISION_MANAGER_CLASS_H
 
 #include "collidable_entity.h"
+#include <algorithm>
 
 /**
 * @brief Es una caja empleada para detectar el contacto con otros
@@ -20,15 +21,20 @@ public:
 
     /**
     * @brief Monitor que consulta constantemente si hay colisiones
+    * @param deltaTime Tiempo transcurrido en segundos desde el último frame. Tipo Float
     */
-    void update();
+    void update(const float deltaTime);
 
     /*
     * @brief Incluye un nuevo CollidableEntity en el array a monitorear.
     * @params newCollidableEntity Es la entidad colisionable que se incluira. Tipo std::shared_ptr<CollidableEntity>
     */
-    void addCollidableEntity(std::shared_ptr<CollidableEntity> newCollidableEntity) {
-        collidableEntities.push_back(newCollidableEntity);
-    }
+    void addCollidableEntity(std::shared_ptr<CollidableEntity> newCollidableEntity);
+
+    /*
+    * @brief Remueve un CollidableEntity en el array a monitorear.
+    * @params entityToRemove Es la entidad colisionable que se removera. Tipo std::shared_ptr<CollidableEntity>
+    */
+    void removeCollidableEntity(std::shared_ptr<CollidableEntity> entityToRemove);
 };
 #endif
