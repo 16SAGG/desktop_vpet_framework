@@ -3,6 +3,9 @@
 #define COLLISION_MANAGER_CLASS_H
 
 #include "collidable_entity.h"
+#include "wall.h"
+#include <glad/glad.h>
+#include <GLFW/glfw3.h>
 #include <algorithm>
 
 /**

@@ -54,9 +54,6 @@
     <ClCompile Include="process.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
-    <ClCompile Include="collision_box.cpp">
-      <Filter>Archivos de origen</Filter>
-    </ClCompile>
     <ClCompile Include="collision_manager.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>

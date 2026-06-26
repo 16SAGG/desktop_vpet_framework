@@ -12,9 +12,6 @@
 * @brief Entidad con colision estatica
 */
 class Wall : public CollidableEntity {
-protected:
-    // Determina desde que direccion existe la colision, por defecto esta {0,0} que significa que todos los lados. Tipo glm::vec2
-    glm::vec2 oneWayCollisionDirection = { 0,0 };
 public:
     /*
     * @brief Constructor por defecto de la clase Wall
@@ -32,20 +29,7 @@ public:
      */
     void onCollision(std::shared_ptr<CollidableEntity> other, glm::vec2 normal, CollisionResult collisionRes) {};
 
-    //GETTER
-
-    /*
-    * @brief Obtiene el oneWayCollisionDirection. Tipo glm::vec2
-    */
-    glm::vec2 getOneWayCollisionDirection() const { return oneWayCollisionDirection; };
-
     //SETTER
-
-    /*
-    * @brief Establece el oneWayCollisionDirection. Tipo glm::vec2
-    */
-    void setOneWayCollisionDirection(glm::vec2 _oneWayCollisionDirection) { oneWayCollisionDirection = _oneWayCollisionDirection; };
-
     /**
     * @brief Cambia el valor de la posicion de sus hijos.
     * * @param _position Posicion base del padre. Tipo glm::vec2

@@ -1,5 +1,4 @@
 #include "character.h"
-#include <iostream>
 
 Character::Character(std::shared_ptr<Sprite> _sprite, std::shared_ptr<CollisionBox> _collider) :
     CollidableEntity(CollisionType::CHARACTER),
@@ -9,31 +8,6 @@ Character::Character(std::shared_ptr<Sprite> _sprite, std::shared_ptr<CollisionB
 }
 
 void Character::onCollision(const std::shared_ptr<CollidableEntity> other, const glm::vec2 collisionNormalized, const CollisionResult collisionRes) {
-    bool itCollidesWithASolidEntity = other->getCollisionType() == CollisionType::CHARACTER || other->getCollisionType() == CollisionType::WALL;
-    bool insignificantPenetration = collisionRes.penetration < .01f;
-
-    if (!itCollidesWithASolidEntity || insignificantPenetration) return;
-    
-    bool itIsAWall = other->getCollisionType() == CollisionType::WALL;
-    if (itIsAWall) {
-        std::shared_ptr<Wall> wall = std::dynamic_pointer_cast<Wall>(other);
-
-        if (wall) {
-            glm::vec2 wallCollisionDir = wall->getOneWayCollisionDirection();
-
-            bool wallHasASpecificCollisionDir = wallCollisionDir != glm::vec2(0, 0);
-            if (wallHasASpecificCollisionDir) {
-                glm::vec2 velocityNormalized = glm::normalize(velocity);
-
-                bool movingOppositeX = (velocityNormalized.x * wallCollisionDir.x < -0.5f);
-                bool movingOppositeY = (velocityNormalized.y * wallCollisionDir.y < -0.5f);
-
-                if (wallCollisionDir.x != 0 && !movingOppositeX) return;
-                if (wallCollisionDir.y != 0 && !movingOppositeY) return;
-            }
-        }
-    }
-    
     glm::vec2 correction = collisionNormalized * collisionRes.penetration;
     this->setPosition(this->getPosition() + correction);
 

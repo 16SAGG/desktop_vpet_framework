@@ -154,7 +154,6 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="character.cpp" />
-    <ClCompile Include="collision_box.cpp" />
     <ClCompile Include="collision_manager.cpp" />
     <ClCompile Include="ebo.cpp" />
     <ClCompile Include="glad.c" />

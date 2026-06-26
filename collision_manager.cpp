@@ -1,4 +1,5 @@
 #include "collision_manager.h"
+#include <iostream>
 
 void CollisionManager :: update(const float deltaTime) {
     for (size_t i = 0; i < collidableEntities.size(); ++i) {
@@ -10,18 +11,23 @@ void CollisionManager :: update(const float deltaTime) {
             bool bothCollisionsAreEnabled = colEntityA->getIsCollisionEnabled() && colEntityB->getIsCollisionEnabled();
 
             if (oneOfThemIsACharacter && bothCollisionsAreEnabled) {
-                std::shared_ptr<CollisionBox> boxA = colEntityA->getCollider();
-                std::shared_ptr<CollisionBox> boxB = colEntityB->getCollider();
 
-                CollisionResult collisionRes = boxA->checkCollision(boxB, deltaTime);
+                CollisionResult collisionRes = colEntityA->checkCollision(colEntityB, deltaTime);
 
                 bool theyAreInSameLayer = colEntityA->getLayer() == colEntityB->getLayer();
                 bool theyAreIntersecting = collisionRes.intersecting;
+                bool itCollidesWithASolidEntity = colEntityB->getCollisionType() == CollisionType::CHARACTER || colEntityB->getCollisionType() == CollisionType::WALL;
+                bool insignificantPenetration = collisionRes.penetration < .01f;
 
-                if (theyAreInSameLayer && theyAreIntersecting) {
-                    colEntityA->onCollision(colEntityB, collisionRes.normal, collisionRes);
-                    colEntityB->onCollision(colEntityA, -collisionRes.normal, collisionRes);
-                }
+                if (
+                    !(theyAreInSameLayer && theyAreIntersecting) || 
+                    !itCollidesWithASolidEntity || 
+                    insignificantPenetration ||
+                    !colEntityA->checkOneWayCollision(colEntityB -> getOneWayCollisionDirection(), collisionRes) // Chequear esto, no me gusta mucho ubicarlo en CollisionBox, quizas sea mejor ubicarlo en collidable entity
+                ) continue;
+
+                colEntityA->onCollision(colEntityB, collisionRes.normal, collisionRes);
+                colEntityB->onCollision(colEntityA, -collisionRes.normal, collisionRes);
             }
         }
     }

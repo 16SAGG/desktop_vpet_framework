@@ -1,6 +1,6 @@
 #include "borders_manager.h"
 
-const float THICKNESS = 0.1f;
+const float THICKNESS = 100.0f;
 
 BordersManager::BordersManager(
 	const glm::vec2 screenSize,
