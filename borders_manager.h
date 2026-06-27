@@ -11,6 +11,9 @@
 */
 class BordersManager
 {
+private:
+    // Lista de los borders para mantenerlos vivos.std::vector<std::shared_ptr<Wall>>
+    std::vector<std::shared_ptr<Wall>> borders; 
 public:
     /**
     * @brief Constructor de BordersManager
@@ -22,8 +25,7 @@ public:
     * @param bottomMargin Es el espacio que se agrega o resta a la posicion del borde inferior. Tipo float
     */
     BordersManager(
-        const glm::vec2 screenSize, 
-        const std::shared_ptr<CollisionManager> collisionManager, 
+        const glm::vec2 screenSize,
         const float topMargin = 0, 
         const float leftMargin = 0,
         const float rightMargin = 0,

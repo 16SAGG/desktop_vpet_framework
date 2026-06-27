@@ -7,18 +7,10 @@
 
 #include "entity.h"
 #include "collision_box.h"
+#include "collision_manager.h"
 
 // Tipos de colision disponibles
 enum class CollisionType { CHARACTER, WALL, AREA };
-
-/*
-Contiene datos de la colision.
-*/
-struct CollisionResult {
-    bool intersecting; // Si intersecta o no.
-    glm::vec2 normal; // Dirección del choque (ej: {0, -1} para un choque desde arriba)
-    float penetration; // Cuántos píxeles se solapan
-};
 
 /**
 * @brief Entidad que posee una colision
@@ -39,16 +31,39 @@ protected:
 
     // Determina desde que direccion existe la colision, por defecto esta {0,0} que significa que todos los lados. Tipo glm::vec2
     glm::vec2 oneWayCollisionDirection = { 0,0 };
-public:
-    /*
-    * @brief Destructor de collidableEntity
-    */
-    virtual ~CollidableEntity() = default;
+
+    // Tiempo restante de inmunidad
+    float collisionCooldown = 0.0f;
+
+    // 100ms de inmunidad tras colisionar
+    const float COOLDOWN_DURATION = .1f;
 
     /*
     * @brief Constructor por defecto, asigna el CollisionType WALL por defecto
     */
     CollidableEntity() : collisionType(CollisionType::WALL) {}
+public:
+    /*
+    * @brief Destructor de collidableEntity
+    */
+    virtual ~CollidableEntity() {
+        try {
+            auto self = std::static_pointer_cast<CollidableEntity>(shared_from_this());
+            CollisionManager::getInstance().removeCollidableEntity(self);
+        }
+        catch (...) {
+        }
+    };
+
+    //Factoria de puntero para collidableEntity
+    template<typename T, typename... Args>
+    static std::shared_ptr<T> create(Args&&... args) {
+        auto ptr = std::make_shared<T>(std::forward<Args>(args)...);
+        CollisionManager::getInstance().addCollidableEntity(
+            std::static_pointer_cast<CollidableEntity>(ptr)
+        );
+        return ptr;
+    }
 
     /*
     * @brief Constructor por parametros, permite a los hijos seleccionar su tipo de colision
@@ -56,28 +71,43 @@ public:
     */
     CollidableEntity(const CollisionType _collisionType) : collisionType(_collisionType) {};
 
+    /*
+    * @brief Actualiza el collisionCooldown
+    * @param deltaTime Tiempo transcurrido en segundos desde el último frame. tipo float.
+    */
+    void updateCollisionCooldown (float deltaTime) {
+        if (collisionCooldown > 0.0f) {
+            collisionCooldown -= deltaTime;
+        }
+    }
+
+    /*
+    * @brief Determina si la entidad esta lista para colisionar. Tipo bool
+    */
+    bool canCollide() const {
+        return collisionCooldown <= 0.0f;
+    }
+
+    /*
+    * @brief Inicia el collisionCooldown
+    */
+    void startCollisionCooldown() {
+        collisionCooldown = COOLDOWN_DURATION;
+    }
+
     /**
     * @brief Determina el comportamiento de esta entiendad a colisionar.
     * * @param other Referencia al CollidableEntity con el que colisiono. Tipo std::shared_ptr<CollidableEntity>
     * @param normal El vector normal de la colision. Tipo glm::vec2
     * @param collisionRes Estructura de datos con informacion de la colision (vector normal de colision, interseccion e interaccion). tipo CollisionResult
     */
-    virtual void onCollision(const std::shared_ptr<CollidableEntity> other, const glm::vec2 normal, const CollisionResult collisionRes) = 0;
-
-
-    /**
-     * @brief Determina si este CollisionBox colisiona con otro o no. Tipo CollisionResult
-    * @param otherEntity La entidad con la que colisiona. Tipo CollidableEntity
-     * @param deltaTime Tiempo transcurrido en segundos desde el último frame. tipo float.
-     */
-    CollisionResult checkCollision(const std::shared_ptr<CollidableEntity> otherEntity, const float deltaTime);
+    virtual void onCollision(const CollidableEntity* other, const glm::vec2 collisionNormalized, const CollisionResult collisionRes) = 0;
 
     /*
-    * @brief Comprueba si hay una colision especial de una direccion. Tipo bool
-    * @param collisionDir Determina la direccion de la collision. Tipo CollidableEntity
-    * @param collisionRes Estructura de datos de la colision (si intersecta, su vector normal y su penetracion).tipo CollisionResult
+    * @brief Permite el movimiento de la entindad.
+    * @param deltaTime Tiempo transcurrido en segundos desde el último frame. tipo float.
     */
-    bool checkOneWayCollision(const glm::vec2 collisionDir, const CollisionResult collisionRes) const;
+    void move(float deltaTime) override;
 
     //GETTER
 

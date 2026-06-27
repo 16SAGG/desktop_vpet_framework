@@ -28,13 +28,13 @@ public:
     /*
     * @brief Sincroniza todas las ventanas activas del SO al motor fisicas del juego
     */
-    void syncWindows(std::shared_ptr<CollisionManager> collisionManager);
+    void syncWindows();
 
-    void cleanupInactiveWindows(std::shared_ptr<CollisionManager> collisionManager);
+    void cleanupInactiveWindows();
 
-    void updateAllVisibleWindows(std::shared_ptr<CollisionManager> collisionManager);
+    void updateAllVisibleWindows();
 
-    void addOrUpdateWindow(HWND hwnd, std::shared_ptr<CollisionManager> collisionManager);
+    void addOrUpdateWindow(HWND hwnd);
 
     //GETTER
 

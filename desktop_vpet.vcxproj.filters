@@ -63,9 +63,6 @@
     <ClCompile Include="glad.c">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
-    <ClCompile Include="collidable_entity.cpp">
-      <Filter>Archivos de origen</Filter>
-    </ClCompile>
     <ClCompile Include="borders_manager.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
@@ -76,6 +73,9 @@
       <Filter>Archivos de origen</Filter>
     </ClCompile>
     <ClCompile Include="windows_collidable_manager.cpp">
+      <Filter>Archivos de origen</Filter>
+    </ClCompile>
+    <ClCompile Include="collidable_entity.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
   </ItemGroup>

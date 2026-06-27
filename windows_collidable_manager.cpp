@@ -1,11 +1,11 @@
 #include "windows_collidable_manager.h"
 
-void WindowsCollidableManager :: syncWindows(std::shared_ptr<CollisionManager> collisionManager) {
-	this->cleanupInactiveWindows(collisionManager);
-	this->updateAllVisibleWindows(collisionManager);
+void WindowsCollidableManager :: syncWindows() {
+	this->cleanupInactiveWindows();
+	this->updateAllVisibleWindows();
 }
 
-void WindowsCollidableManager :: cleanupInactiveWindows(std::shared_ptr<CollisionManager> collisionManager) {
+void WindowsCollidableManager :: cleanupInactiveWindows() {
     auto& windows = getActiveWindows();
 
     auto iterator = windows.begin();
@@ -13,7 +13,7 @@ void WindowsCollidableManager :: cleanupInactiveWindows(std::shared_ptr<Collisio
         HWND hwnd = (*iterator)->getHwnd();
 
         if (!IsWindow(hwnd)) {
-            collisionManager->removeCollidableEntity(*iterator);
+            CollisionManager::getInstance().removeCollidableEntity(*iterator);
             iterator = windows.erase(iterator);
             continue;
         }
@@ -24,7 +24,7 @@ void WindowsCollidableManager :: cleanupInactiveWindows(std::shared_ptr<Collisio
         DwmGetWindowAttribute(hwnd, DWMWA_CLOAKED, &cloaked, sizeof(cloaked));
 
         if (IsIconic(hwnd) || cloaked != 0 || !IsWindowVisible(hwnd)) {
-            collisionManager->removeCollidableEntity(*iterator);
+            CollisionManager::getInstance().removeCollidableEntity(*iterator);
             iterator = windows.erase(iterator);
         }
         else {
@@ -33,13 +33,12 @@ void WindowsCollidableManager :: cleanupInactiveWindows(std::shared_ptr<Collisio
     }
 }
 
-void WindowsCollidableManager :: updateAllVisibleWindows(std::shared_ptr<CollisionManager> collisionManager) {
+void WindowsCollidableManager :: updateAllVisibleWindows() {
     struct CallbackData {
         WindowsCollidableManager* self;
-        std::shared_ptr<CollisionManager> _collisionManager;
     };
 
-    CallbackData data = { this, collisionManager };
+    CallbackData data = { this };
     EnumWindows([](HWND hwnd, LPARAM lParam) -> BOOL {
         auto data = reinterpret_cast<CallbackData*>(lParam);
 
@@ -77,12 +76,12 @@ void WindowsCollidableManager :: updateAllVisibleWindows(std::shared_ptr<Collisi
         if (GetWindowTextA(hwnd, title, sizeof(title)) == 0) return TRUE;
 
         // Llegados a este punto, la ventana es real, visible y no está minimizada
-        data->self->addOrUpdateWindow(hwnd, data->_collisionManager);
+        data->self->addOrUpdateWindow(hwnd);
         return TRUE;
     }, reinterpret_cast<LPARAM>(&data));
 }
 
-void WindowsCollidableManager :: addOrUpdateWindow(HWND hwnd, std::shared_ptr<CollisionManager> collisionManager) {
+void WindowsCollidableManager :: addOrUpdateWindow(HWND hwnd) {
     for (auto& win : activeWindows) {
         if (win->getHwnd() == hwnd) {
             win->updateBounds();
@@ -91,7 +90,6 @@ void WindowsCollidableManager :: addOrUpdateWindow(HWND hwnd, std::shared_ptr<Co
     }
 
     auto box = std::make_shared<CollisionBox>();
-    auto newWin = std::make_shared<WindowCollidable>(hwnd, box);
-    collisionManager->addCollidableEntity(newWin);
+    auto newWin = CollidableEntity::create<WindowCollidable>(hwnd, box);
     activeWindows.push_back(newWin);
 }

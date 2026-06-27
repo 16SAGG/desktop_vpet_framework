@@ -29,19 +29,19 @@ public:
     * @param collisionRes Estructura con informacion de la colision (vector normal, interseccion e interaccion). Tipo CollisionResult
     * @param deltaTime Tiempo transcurrido en segundos desde el último frame. tipo float.
     */
-    void onCollision(const std::shared_ptr<CollidableEntity> other, const glm::vec2 collisionNormalized, const CollisionResult collisionRes) override;
+    void onCollision(const CollidableEntity* other, const glm::vec2 collisionNormalized, const CollisionResult collisionRes) override;
 
     /*
     * @brief Es la reaccion de este cuerpo al colisionar con un objeto solido. Su efecto es detener el desplazamiento en la direccion a la que colisiona.
     * @param normal. Es el vector normal que indica donde se colisiono. glm::vec2
     */
-    void stopUponImpact(std::shared_ptr<CollidableEntity> other, glm::vec2 normal);
+    void stopUponImpact(const CollidableEntity* other, glm::vec2 normal);
 
     /*
     * @brief Es la reaccion de este cuerpo al colisionar con un objeto solido. Su efecto es rebotar.
     * @param normal. Es el vector normal que indica donde se colisiono. glm::vec2
     */
-    void bounce(std::shared_ptr<CollidableEntity> other, glm::vec2 normal);
+    void bounce(const CollidableEntity* other, glm::vec2 normal);
 
     // SETTERS
     

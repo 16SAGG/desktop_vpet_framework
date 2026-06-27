@@ -7,14 +7,16 @@ Character::Character(std::shared_ptr<Sprite> _sprite, std::shared_ptr<CollisionB
     this->collider = _collider;
 }
 
-void Character::onCollision(const std::shared_ptr<CollidableEntity> other, const glm::vec2 collisionNormalized, const CollisionResult collisionRes) {
+void Character::onCollision(const CollidableEntity* other, const glm::vec2 collisionNormalized, const CollisionResult collisionRes) {
+    if (!other) return;
+
     glm::vec2 correction = collisionNormalized * collisionRes.penetration;
     this->setPosition(this->getPosition() + correction);
 
     bounce(other, collisionNormalized);
 }
 
-void Character::stopUponImpact(std::shared_ptr<CollidableEntity> other, glm::vec2 normal) {
+void Character::stopUponImpact(const CollidableEntity* other, glm::vec2 normal) {
     if (normal.x != 0) {
         this->acceleration.x = 0;
     }
@@ -23,7 +25,7 @@ void Character::stopUponImpact(std::shared_ptr<CollidableEntity> other, glm::vec
     }
 }
 
-void Character::bounce(std::shared_ptr<CollidableEntity> other, glm::vec2 normal) {
+void Character::bounce(const CollidableEntity* other, glm::vec2 normal) {
     if (normal.x != 0) {
         this->acceleration.x = -this->acceleration.x;
     }

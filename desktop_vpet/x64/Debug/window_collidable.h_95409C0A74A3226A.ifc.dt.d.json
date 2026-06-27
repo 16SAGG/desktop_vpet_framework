@@ -472,7 +472,8 @@
             "c:\\workspace\\desktop_vpet_framework\\libraries\\include\\glm\\detail\\type_half.inl",
             "c:\\workspace\\desktop_vpet_framework\\libraries\\include\\glm\\integer.hpp",
             "c:\\workspace\\desktop_vpet_framework\\libraries\\include\\glm\\detail\\func_integer.inl",
-            "c:\\workspace\\desktop_vpet_framework\\collision_box.h"
+            "c:\\workspace\\desktop_vpet_framework\\collision_box.h",
+            "c:\\workspace\\desktop_vpet_framework\\collision_manager.h"
         ],
         "ImportedModules": [],
         "ImportedHeaderUnits": []

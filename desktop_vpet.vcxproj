@@ -154,6 +154,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="character.cpp" />
+    <ClCompile Include="collidable_entity.cpp" />
     <ClCompile Include="collision_manager.cpp" />
     <ClCompile Include="ebo.cpp" />
     <ClCompile Include="glad.c" />
@@ -161,7 +162,6 @@
     <ClCompile Include="process.cpp" />
     <ClCompile Include="renderer_2d.cpp" />
     <ClCompile Include="shader.cpp" />
-    <ClCompile Include="collidable_entity.cpp" />
     <ClCompile Include="borders_manager.cpp" />
     <ClCompile Include="sprite.cpp" />
     <ClCompile Include="stb.cpp" />
