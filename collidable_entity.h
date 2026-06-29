@@ -35,8 +35,8 @@ protected:
     // Tiempo restante de inmunidad
     float collisionCooldown = 0.0f;
 
-    // 100ms de inmunidad tras colisionar
-    const float COOLDOWN_DURATION = .1f;
+    // 10ms de inmunidad tras colisionar
+    const float COOLDOWN_DURATION = .01f;
 
     /*
     * @brief Constructor por defecto, asigna el CollisionType WALL por defecto
@@ -59,9 +59,6 @@ public:
     template<typename T, typename... Args>
     static std::shared_ptr<T> create(Args&&... args) {
         auto ptr = std::make_shared<T>(std::forward<Args>(args)...);
-        CollisionManager::getInstance().addCollidableEntity(
-            std::static_pointer_cast<CollidableEntity>(ptr)
-        );
         return ptr;
     }
 

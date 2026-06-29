@@ -3,9 +3,11 @@
 #define ENTITY_CLASS_H
 
 #include <memory>
-
+#include "glm/fwd.hpp"
+#include <glm/vec2.hpp>
 #include <glm/glm.hpp>
 
+class Window;
 
 /**
  * @brief Representa a todos los objetos que tienen una representacion en pantalla (visible o invisible)
@@ -36,11 +38,12 @@ public:
         return ptr;
     }
 
-    /**
-    * @brief Cambia el valor de la posicion de sus hijos.
-    * * @param _position Posicion base del padre. Tipo glm::vec2
+    /*
+    * @brief Actualiza el comportamiento de la entidad cada frame.
+    * @param deltaTime Tiempo transcurrido en segundos desde el último frame. tipo float.
+    * @param window Referencia a la ventana que encapsula este objeto. Tipo Window&
     */
-    virtual void setChildrenPosition(const glm::vec2& _position) { return; };
+    virtual void update(float deltaTime, Window& window) {}
 
     /*
     * @brief Permite el movimiento de la entindad.
@@ -51,6 +54,12 @@ public:
     }
 
     // SETTERS
+
+    /**
+    * @brief Cambia el valor de la posicion de sus hijos.
+    * * @param _position Posicion base del padre. Tipo glm::vec2
+    */
+    virtual void setChildrenPosition(const glm::vec2& _position) { return; };
 
     /**
     * @brief Cambia el valor de la variable position y de sus hijos en caso de ser definido.

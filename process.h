@@ -3,7 +3,8 @@
 #define PROCESS_CLASS_H
 
 #include <functional>
-#include <GLFW/glfw3.h>
+
+class Window;
 
 /**
  * @brief Gestiona el ciclo de vida de ejecución del motor.
@@ -14,7 +15,7 @@ class Process
 {
 private:
 	// Referencia a la ventana que encapsula este objeto.
-	GLFWwindow* window;
+	Window& window;
 	//Guarda temporalmente el frame anterior para compararlo con el nuevo y asi calcular el deltaTime
 	float lastFrame;
 public:
@@ -26,9 +27,9 @@ public:
 	
 	/**
 	 * @brief Constructor de Process.
-	 * @param window Puntero a la ventana de GLFW que controla el bucle. Tipo GLFWwindow*
+	 * @param window Puntero a la ventana de GLFW que controla el bucle. Tipo Window
 	 */
-	Process(GLFWwindow* window);
+	Process(Window& window);
 
 	/**
 	 * @brief Ejecuta el bucle principal de la aplicación.

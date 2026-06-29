@@ -14,6 +14,11 @@ const GLuint INDICES[] = {
 	0, 2, 3
 };
 
+Renderer2D& Renderer2D::getInstance() {
+	static Renderer2D instance;
+	return instance;
+}
+
 Renderer2D::Renderer2D() : shader("default.vert", "default.frag") {
 	VAO VAO1;
 	VAO_id = VAO1.getID();

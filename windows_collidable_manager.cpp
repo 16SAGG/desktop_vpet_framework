@@ -1,4 +1,5 @@
 #include "windows_collidable_manager.h"
+#include "entity_manager.h"
 
 void WindowsCollidableManager :: syncWindows() {
 	this->cleanupInactiveWindows();
@@ -89,7 +90,9 @@ void WindowsCollidableManager :: addOrUpdateWindow(HWND hwnd) {
         }
     }
 
-    auto box = std::make_shared<CollisionBox>();
-    auto newWin = CollidableEntity::create<WindowCollidable>(hwnd, box);
+    auto newWin = EntityManager::getInstance().createWindowCollidable({
+        .hwnd = hwnd,
+        .collider = EntityManager::getInstance().createCollisionBox({})
+    });
     activeWindows.push_back(newWin);
 }

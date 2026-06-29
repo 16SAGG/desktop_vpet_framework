@@ -1,5 +1,11 @@
+#include "glm/ext/vector_float2.hpp"
+#include <memory>
+
 #include "borders_manager.h"
 #include "wall.h"
+#include "collision_box.h"
+#include "collidable_entity.h"
+#include "entity_manager.h"
 
 const float THICKNESS = 100.0f;
 
@@ -10,31 +16,55 @@ BordersManager::BordersManager(
 	const float rightMargin,
 	const float bottomMargin
 ) {
-	auto topBorderCol = std::make_shared<CollisionBox>();
-	topBorderCol->setSize({ screenSize.x + rightMargin + leftMargin, THICKNESS });
-	auto topBorder = CollidableEntity::create<Wall>(topBorderCol);
-	topBorder->setOneWayCollisionDirection({ 0, 1 });
-	topBorder->setPosition({ -leftMargin, -topMargin });
+	auto topBorder = EntityManager::getInstance().createWall({
+		.collider = EntityManager::getInstance().createCollisionBox({
+			.entityParams = {
+				.size = { screenSize.x + rightMargin + leftMargin, THICKNESS }
+			}
+		}),
+		.oneWayCollisionDirection = { 0, 1 },
+		.entityParams = {
+			.position = { -leftMargin, -topMargin }
+		}
+	});
 	borders.push_back(topBorder);
 
-	auto leftBorderCol = std::make_shared<CollisionBox>();
-	leftBorderCol->setSize({ THICKNESS, screenSize.y + topMargin + bottomMargin });
-	auto leftBorder = CollidableEntity::create<Wall>(leftBorderCol);
-	leftBorder->setOneWayCollisionDirection({ 1, 0 });
-	leftBorder->setPosition({ -leftMargin, -topMargin });
+	auto leftBorder = EntityManager::getInstance().createWall({
+		.collider = EntityManager::getInstance().createCollisionBox({
+			.entityParams = {
+				.size = { THICKNESS, screenSize.y + topMargin + bottomMargin }
+			}
+		}),
+		.oneWayCollisionDirection = { 1, 0 },
+		.entityParams = {
+			.position = { -leftMargin, -topMargin }
+		}
+	});
 	borders.push_back(leftBorder);
 
-	auto rightBorderCol = std::make_shared<CollisionBox>();
-	rightBorderCol->setSize({ THICKNESS, screenSize.y + topMargin + bottomMargin});
-	auto rightBorder = CollidableEntity::create<Wall>(rightBorderCol);
-	rightBorder->setOneWayCollisionDirection({ -1, 0 });
-	rightBorder->setPosition({ screenSize.x + leftMargin, -topMargin });
+	auto rightBorder = EntityManager::getInstance().createWall({
+		.collider = EntityManager::getInstance().createCollisionBox({
+			.entityParams = {
+				.size = { THICKNESS, screenSize.y + topMargin + bottomMargin }
+			}
+		}),
+		.oneWayCollisionDirection = { -1, 0 },
+		.entityParams = {
+			.position = { screenSize.x + leftMargin, -topMargin }
+		}
+	});
 	borders.push_back(rightBorder);
 
-	auto bottomBorderCol = std::make_shared<CollisionBox>();
-	bottomBorderCol->setSize({ screenSize.x + rightMargin + leftMargin, THICKNESS });
-	auto bottomBorder = CollidableEntity::create<Wall>(bottomBorderCol);
-	bottomBorder->setOneWayCollisionDirection({ 0, -1 });
-	bottomBorder->setPosition({ -leftMargin, screenSize.y + topMargin });
+	auto bottomBorder = EntityManager::getInstance().createWall({
+		.collider = EntityManager::getInstance().createCollisionBox({
+			.entityParams = {
+				.size = { screenSize.x + rightMargin + leftMargin, THICKNESS }
+			}
+		}),
+		.oneWayCollisionDirection = { 0, -1 },
+		.entityParams = {
+			.position = { -leftMargin, screenSize.y + topMargin }
+		}
+	});
 	borders.push_back(bottomBorder);
 }

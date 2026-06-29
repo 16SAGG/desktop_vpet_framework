@@ -2,9 +2,11 @@
 #ifndef BORDERS_MANAGER_CLASS_H
 #define BORDERS_MANAGER_CLASS_H
 
-#include "wall.h"
-#include "collision_manager.h"
-#include "collision_box.h"
+#include <vector>
+#include <memory>
+#include <glm/fwd.hpp>
+
+class Wall;
 
 /**
 * @brief Crea y gestiona la colision de los bordes de la ventana
@@ -31,5 +33,13 @@ public:
         const float rightMargin = 0,
         const float bottomMargin = 0
     );
+
+    /*
+    * @brief Crea un borde. Tipo std::shared_ptr<Wall>
+    * @param size tamano de la colision. Tipo glm::vec2 size
+    * @param position ubicacion de la colision. Tipo glm::vec2 size
+    * @param oneWayDir direccion de la colision. Tipo glm::vec2 size
+    */
+    std::shared_ptr<Wall> createBorder(const glm::vec2 size, const glm::vec2 position, const glm::vec2 oneWayDir);
 };
 #endif

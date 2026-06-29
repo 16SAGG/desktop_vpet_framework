@@ -13,6 +13,7 @@ void CollidableEntity::move(float deltaTime) {
 
             if (collisionRes.intersecting && collisionRes.otherEntity != nullptr) {
                 this->onCollision(collisionRes.otherEntity, collisionRes.normal, collisionRes);
+                collisionRes.otherEntity->onCollision(this, -collisionRes.normal, collisionRes);
                 this->startCollisionCooldown();
                 return;
             }

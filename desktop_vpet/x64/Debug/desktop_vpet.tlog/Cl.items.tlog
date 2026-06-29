@@ -2,6 +2,7 @@ C:\Workspace\desktop_vpet_framework\character.cpp;C:\Workspace\desktop_vpet_fram
 C:\Workspace\desktop_vpet_framework\collidable_entity.cpp;C:\Workspace\desktop_vpet_framework\desktop_vpet\x64\Debug\collidable_entity.obj
 C:\Workspace\desktop_vpet_framework\collision_manager.cpp;C:\Workspace\desktop_vpet_framework\desktop_vpet\x64\Debug\collision_manager.obj
 C:\Workspace\desktop_vpet_framework\ebo.cpp;C:\Workspace\desktop_vpet_framework\desktop_vpet\x64\Debug\ebo.obj
+C:\Workspace\desktop_vpet_framework\entity_manager.cpp;C:\Workspace\desktop_vpet_framework\desktop_vpet\x64\Debug\entity_manager.obj
 C:\Workspace\desktop_vpet_framework\glad.c;C:\Workspace\desktop_vpet_framework\desktop_vpet\x64\Debug\glad.obj
 C:\Workspace\desktop_vpet_framework\main.cpp;C:\Workspace\desktop_vpet_framework\desktop_vpet\x64\Debug\main.obj
 C:\Workspace\desktop_vpet_framework\process.cpp;C:\Workspace\desktop_vpet_framework\desktop_vpet\x64\Debug\process.obj

@@ -12,7 +12,7 @@ CollisionResult CollisionManager :: checkCollision(const std::shared_ptr<Collida
 
     for (auto& weakOther : snapshot) {
         auto otherEntity = weakOther.lock();
-        if (!otherEntity || otherEntity == originEntity) continue; //|| !originEntity->canCollide() || !otherEntity->canCollide()) continue;
+        if (!otherEntity || otherEntity == originEntity || !originEntity->canCollide() || !otherEntity->canCollide()) continue;
 
         // 1. Verificación básica de solapamiento primero (optimización)
         CollisionResult collisionRes = this->getCollision(originEntity, otherEntity, deltaTime);

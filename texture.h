@@ -40,7 +40,7 @@ public:
 	 * @param uniform Nombre de la variable `uniform sampler2D` en el código GLSL. Tipo char*
 	 * @param unit El índice de la unidad de textura (0 para GL_TEXTURE0, 1 para GL_TEXTURE1, etc.). Tipo GLuint
 	 */
-	void texUnit(Shader& shader, const char* uniform, GLuint unit);
+	void texUnit(const Shader& shader, const char* uniform, GLuint unit);
 	/**
 	 * @brief Activa la textura
 	 */

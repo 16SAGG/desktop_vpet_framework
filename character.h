@@ -6,6 +6,8 @@
 #include "sprite.h"
 #include "wall.h"
 
+class Window;
+
 /**
 * @brief Es una caja empleada para detectar el contacto con otros
 */
@@ -21,6 +23,13 @@ public:
     * @param _collider Referencia al CollisionBox. Tipo CollisionBox
     */
     Character(std::shared_ptr<Sprite> _sprite, std::shared_ptr<CollisionBox> _collider); 
+
+    /*
+    * @brief Actualiza el comportamiento de la entidad cada frame.
+    * @param deltaTime Tiempo transcurrido en segundos desde el último frame. tipo float.
+    * @param window Referencia a la ventana que encapsula este objeto. Tipo Window
+    */
+    void update(float deltaTime, Window& window) override;
 
     /**
     * @brief Determina el comportamiento de esta entiendad a colisionar.
@@ -42,6 +51,9 @@ public:
     * @param normal. Es el vector normal que indica donde se colisiono. glm::vec2
     */
     void bounce(const CollidableEntity* other, glm::vec2 normal);
+
+    // GETTERS
+    std::shared_ptr<Sprite> getSprite() { return sprite; };
 
     // SETTERS
     

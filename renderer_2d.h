@@ -23,16 +23,19 @@ class Sprite;
  */
 class Renderer2D
 {
-	public:
-		/**
-		 * @brief Referencia al shader que se construye para el renderer. Tipo Shader
-		 */
+	private:
+		//Referencia al shader que se construye para el renderer. Tipo Shader
 		Shader shader;
 
 		/**
 		 * @brief Constructor del Renderer2D
 		 */
 		Renderer2D();
+	public:
+		/**
+		* @brief Obtiene la unica instancia de Renderer2D
+		*/
+		static Renderer2D& getInstance();
 
 		/**
 		 * @brief Renderiza un objeto 2D con una textura y transformación específica.
@@ -53,6 +56,20 @@ class Renderer2D
 		 * del mundo a la pantalla (útil para manejar la relación de aspecto). Tipo glm::mat4&
 		 */
 		void drawColoredEntity(const std::shared_ptr<Entity> entity, const glm::mat4& projection, const glm::vec4 color) const;
+
+		//GETTER
+
+		/**
+		 * @brief Obtiene el valor shader. Tipo Shader
+		 */
+		const Shader& getShader() const { return shader; };
+		
+		//SETTER
+
+		/**
+		 * @brief Establece el valor shader
+		 */
+		void setShader(Shader _shader) { shader = _shader; };
 	private:
 		// ID del VAO vinculado al renderer
 		GLuint VAO_id;
