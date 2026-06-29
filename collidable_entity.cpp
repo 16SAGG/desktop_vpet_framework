@@ -12,8 +12,8 @@ void CollidableEntity::move(float deltaTime) {
             CollisionResult collisionRes = CollisionManager::getInstance().checkCollision(self, deltaTime);
 
             if (collisionRes.intersecting && collisionRes.otherEntity != nullptr) {
-                this->onCollision(collisionRes.otherEntity, collisionRes.normal, collisionRes);
-                collisionRes.otherEntity->onCollision(this, -collisionRes.normal, collisionRes);
+                this->onCollision(collisionRes.otherEntity, collisionRes.normal, collisionRes.penetration);
+                collisionRes.otherEntity->onCollision(this, -collisionRes.normal, collisionRes.penetration);
                 this->startCollisionCooldown();
                 return;
             }

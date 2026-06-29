@@ -96,9 +96,9 @@ public:
     * @brief Determina el comportamiento de esta entiendad a colisionar.
     * * @param other Referencia al CollidableEntity con el que colisiono. Tipo std::shared_ptr<CollidableEntity>
     * @param normal El vector normal de la colision. Tipo glm::vec2
-    * @param collisionRes Estructura de datos con informacion de la colision (vector normal de colision, interseccion e interaccion). tipo CollisionResult
+    * @param penetration Determina cuanto fue la penetracion entre los dos objetos al colisionar. Tipo float
     */
-    virtual void onCollision(const CollidableEntity* other, const glm::vec2 collisionNormalized, const CollisionResult collisionRes) = 0;
+    virtual void onCollision(const CollidableEntity* other, const glm::vec2 collisionNormalized, const float penetration) = 0;
 
     /*
     * @brief Permite el movimiento de la entindad.

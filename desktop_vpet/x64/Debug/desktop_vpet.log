@@ -1,5 +1,27 @@
 ﻿  Examinando orígenes para las dependencias de módulo...
+  window_collidable.h
+  Compilando...
+  window_collidable.h
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.26100.0\shared\minwindef.h(130,9): warning C4005: 'APIENTRY': redefinición de macro
+  (compilando archivo de origen "window_collidable.h")
+      C:\Workspace\desktop_vpet_framework\Libraries\include\glad\glad.h(32,9):
+      vea la definición anterior de “APIENTRY”
+  
+  collidable_entity.cpp
+C:\Workspace\desktop_vpet_framework\collidable_entity.cpp(21,41): warning C4101: 'e': variable local sin referencia
+  collision_manager.cpp
+  entity_manager.cpp
+C:\Workspace\desktop_vpet_framework\character.h(13,7): warning C4099: 'CollisionResult': nombre de tipo visto anteriormente usando 'struct' ahora se ve usando 'class'
+  (compilando archivo de origen "entity_manager.cpp")
+      C:\Workspace\desktop_vpet_framework\collision_manager.h(14,8):
+      vea la declaración de 'CollisionResult'
+  
   main.cpp
+C:\Workspace\desktop_vpet_framework\character.h(13,7): warning C4099: 'CollisionResult': nombre de tipo visto anteriormente usando 'struct' ahora se ve usando 'class'
+  (compilando archivo de origen "main.cpp")
+      C:\Workspace\desktop_vpet_framework\collision_manager.h(14,8):
+      vea la declaración de 'CollisionResult'
+  
 C:\Program Files (x86)\Windows Kits\10\Include\10.0.26100.0\shared\minwindef.h(130,9): warning C4005: 'APIENTRY': redefinición de macro
   (compilando archivo de origen "main.cpp")
       C:\Workspace\desktop_vpet_framework\Libraries\include\glad\glad.h(32,9):
@@ -16,7 +38,21 @@ C:\Workspace\desktop_vpet_framework\main.cpp(18,27): warning C4244:         [
 C:\Workspace\desktop_vpet_framework\main.cpp(18,27): warning C4244:             T=float
 C:\Workspace\desktop_vpet_framework\main.cpp(18,27): warning C4244:         ]
   process.cpp
+  borders_manager.cpp
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.26100.0\shared\minwindef.h(130,9): warning C4005: 'APIENTRY': redefinición de macro
+  (compilando archivo de origen "borders_manager.cpp")
+      C:\Workspace\desktop_vpet_framework\Libraries\include\glad\glad.h(32,9):
+      vea la definición anterior de “APIENTRY”
+  
+  windows_collidable_manager.cpp
+  window_collidable.cpp
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.26100.0\shared\minwindef.h(130,9): warning C4005: 'APIENTRY': redefinición de macro
+  (compilando archivo de origen "window_collidable.cpp")
+      C:\Workspace\desktop_vpet_framework\Libraries\include\glad\glad.h(32,9):
+      vea la definición anterior de “APIENTRY”
+  
   Generando código...
+C:\Workspace\desktop_vpet_framework\collision_manager.cpp(37,1): warning C4715: 'CollisionManager::checkCollision': no todas las rutas de acceso de control devuelven un valor
 glfw3.lib(init.obj) : warning LNK4099: no se encontró PDB 'glfw3.pdb' con 'glfw3.lib(init.obj)' o en 'C:\Workspace\desktop_vpet_framework\x64\Debug\glfw3.pdb'; se vinculará el objeto sin tener en cuenta información de depuración
 glfw3.lib(window.obj) : warning LNK4099: no se encontró PDB 'glfw3.pdb' con 'glfw3.lib(window.obj)' o en 'C:\Workspace\desktop_vpet_framework\x64\Debug\glfw3.pdb'; se vinculará el objeto sin tener en cuenta información de depuración
 glfw3.lib(input.obj) : warning LNK4099: no se encontró PDB 'glfw3.pdb' con 'glfw3.lib(input.obj)' o en 'C:\Workspace\desktop_vpet_framework\x64\Debug\glfw3.pdb'; se vinculará el objeto sin tener en cuenta información de depuración

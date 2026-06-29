@@ -24,10 +24,12 @@ public:
     }
 
     /**
-     * @brief Determina el comportamiento de esta entiendad a colisionar.
-     * * @params other Referencia al CollidableEntity con el que colisiono. Tipo std::shared_ptr<CollidableEntity>
-     */
-    void onCollision(const CollidableEntity* other, const glm::vec2 normal, const CollisionResult collisionRes) {};
+    * @brief Determina el comportamiento de esta entiendad a colisionar.
+    * @param other Referencia al CollidableEntity con el que colisiono. Tipo std::shared_ptr<CollidableEntity>
+    * @param collisionNormalized La direccion de la colision. Tipo glm::vec2
+    * @param penetration Determina cuanto fue la penetracion entre los dos objetos al colisionar. Tipo float
+    */
+    void onCollision(const CollidableEntity* other, const glm::vec2 collisionNormalized, const float penetration) {};
 
     //SETTER
     /**

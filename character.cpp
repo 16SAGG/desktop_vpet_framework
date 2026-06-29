@@ -1,5 +1,12 @@
+#include <memory>
+#include "glm/fwd.hpp"
+
 #include "character.h"
 #include "window.h"
+#include "sprite.h"
+#include "collidable_entity.h"
+#include "collision_box.h"
+#include "renderer_2d.h"
 
 void Character::update(float deltaTime, Window& window) {
     move(deltaTime);
@@ -13,10 +20,10 @@ Character::Character(std::shared_ptr<Sprite> _sprite, std::shared_ptr<CollisionB
     this->collider = _collider;
 }
 
-void Character::onCollision(const CollidableEntity* other, const glm::vec2 collisionNormalized, const CollisionResult collisionRes) {
+void Character::onCollision(const CollidableEntity* other, const glm::vec2 collisionNormalized, const float penetration) {
     if (!other) return;
 
-    glm::vec2 correction = collisionNormalized * collisionRes.penetration;
+    glm::vec2 correction = collisionNormalized * penetration;
     this->setPosition(this->getPosition() + correction);
 
     bounce(other, collisionNormalized);
@@ -38,4 +45,9 @@ void Character::bounce(const CollidableEntity* other, glm::vec2 normal) {
     else if (normal.y != 0) {
         this->acceleration.y = -this->acceleration.y;
     }
+}
+
+void Character::setChildrenPosition(const glm::vec2& _position) {
+    sprite->setPosition(_position);
+    collider->setPosition(_position);
 }
