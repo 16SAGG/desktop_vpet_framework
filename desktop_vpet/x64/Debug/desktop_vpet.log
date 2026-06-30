@@ -1,7 +1,12 @@
 ﻿  Examinando orígenes para las dependencias de módulo...
 <<<<<<< Updated upstream
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
   windows_collidable_manager.cpp
+=======
+  collision_manager.cpp
+C:\Workspace\desktop_vpet_framework\collision_manager.cpp(38,1): warning C4715: 'CollisionManager::checkCollision': no todas las rutas de acceso de control devuelven un valor
+>>>>>>> Stashed changes
 =======
   collision_manager.cpp
 C:\Workspace\desktop_vpet_framework\collision_manager.cpp(38,1): warning C4715: 'CollisionManager::checkCollision': no todas las rutas de acceso de control devuelven un valor
