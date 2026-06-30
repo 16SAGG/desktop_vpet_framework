@@ -1,7 +1,6 @@
 #include <memory>
 #include <algorithm>
-#include "glm/fwd.hpp"
-#include "glm/detail/func_geometric.inl"
+#include <glm/glm.hpp>
 
 #include "collision_manager.h"
 #include "collidable_entity.h"

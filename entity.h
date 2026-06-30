@@ -3,9 +3,9 @@
 #define ENTITY_CLASS_H
 
 #include <memory>
-#include "glm/fwd.hpp"
 #include <glm/vec2.hpp>
 #include <glm/glm.hpp>
+#include <utility>
 
 class Window;
 
