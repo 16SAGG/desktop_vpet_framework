@@ -2,10 +2,6 @@
 #define SHADER_CLASS_H
 
 #include <string>
-#include <fstream>
-#include <iostream>
-#include <cstdlib>
-
 #include <glad/glad.h>
 
 /**

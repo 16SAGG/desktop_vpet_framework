@@ -1,3 +1,9 @@
+#include "glad/glad.h"
+#include <fstream>
+#include <iostream>
+#include <cstdlib>
+#include <string>
+
 #include "shader.h"
 
 std::string get_file_contents(const char* filename)
