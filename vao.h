@@ -4,7 +4,7 @@
 
 #include<glad/glad.h>
 
-#include"VBO.h"
+class VBO;
 
 /**
  * @brief VAO (Vertex Array Object) es el "manual de instrucciones" que guarda cómo se deben leer los datos de cada VBO

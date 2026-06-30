@@ -1,4 +1,7 @@
+#include "glad/glad.h"
+
 #include "vao.h"
+#include "vbo.h"
 
 VAO::VAO()
 {
