@@ -1,5 +1,5 @@
 #include <memory>
-#include <iostream>
+#include "glm/ext/vector_float2.hpp"
 
 #include "entity_manager.h"
 #include "collision_manager.h"
