@@ -1,7 +1,11 @@
+#include <memory>
+#include <algorithm>
+#include "glm/fwd.hpp"
+#include "glm/detail/func_geometric.inl"
+
 #include "collision_manager.h"
 #include "collidable_entity.h"
 #include "collision_box.h"
-#include <iostream>
 
 CollisionManager& CollisionManager::getInstance() {
     static CollisionManager instance;
@@ -9,30 +13,23 @@ CollisionManager& CollisionManager::getInstance() {
 }
 
 CollisionResult CollisionManager :: checkCollision(const std::shared_ptr<CollidableEntity> originEntity, const float deltaTime) const {
-    auto snapshot = collidableEntities;
-
-    for (auto& weakOther : snapshot) {
+    for (auto& weakOther : collidableEntities) {
         auto otherEntity = weakOther.lock();
         if (!otherEntity || otherEntity == originEntity || !originEntity->canCollide() || !otherEntity->canCollide()) continue;
 
-        // 1. Verificación básica de solapamiento primero (optimización)
         CollisionResult collisionRes = this->getCollision(originEntity, otherEntity, deltaTime);
         if (!collisionRes.intersecting) continue;
 
-        // 2. Filtros de validación (ahora positivos)
         if (originEntity->getLayer() != otherEntity->getLayer()) continue;
 
         if (collisionRes.penetration < 0.01f) continue;
 
-        // 3. Tipos de colisión
         bool isSolid = (otherEntity->getCollisionType() == CollisionType::CHARACTER ||
             otherEntity->getCollisionType() == CollisionType::WALL);
         if (!isSolid) continue;
 
-        // 4. One-way logic
         if (!this->getOneWayCollision(originEntity, otherEntity->getOneWayCollisionDirection(), collisionRes)) continue;
 
-        // Si pasamos todos los filtros, es una colisión válida
         return collisionRes;
     }
 }
@@ -80,7 +77,6 @@ void CollisionManager :: addCollidableEntity(const std::shared_ptr<CollidableEnt
 }
 
 void CollisionManager::removeCollidableEntity(std::shared_ptr<CollidableEntity> entityToRemove) {
-    std::cout << "Remove";
     collidableEntities.erase(
         std::remove_if(collidableEntities.begin(), collidableEntities.end(),
             [&entityToRemove](const std::weak_ptr<CollidableEntity>& weakEntity) {
