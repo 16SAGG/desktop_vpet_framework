@@ -1,3 +1,6 @@
+#include "glad/glad.h"
+#include "GLFW/glfw3.h"
+
 #include "process.h"
 #include "entity_manager.h"
 #include "window.h"

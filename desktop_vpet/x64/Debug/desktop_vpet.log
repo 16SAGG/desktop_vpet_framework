@@ -1,64 +1,8 @@
 ﻿  Examinando orígenes para las dependencias de módulo...
-  window_collidable.h
-  Compilando...
-  window_collidable.h
-C:\Program Files (x86)\Windows Kits\10\Include\10.0.26100.0\shared\minwindef.h(130,9): warning C4005: 'APIENTRY': redefinición de macro
-  (compilando archivo de origen "window_collidable.h")
-      C:\Workspace\desktop_vpet_framework\Libraries\include\glad\glad.h(32,9):
-      vea la definición anterior de “APIENTRY”
-  
-  borders_manager.cpp
-C:\Program Files (x86)\Windows Kits\10\Include\10.0.26100.0\shared\minwindef.h(130,9): warning C4005: 'APIENTRY': redefinición de macro
-  (compilando archivo de origen "borders_manager.cpp")
-      C:\Workspace\desktop_vpet_framework\Libraries\include\glad\glad.h(32,9):
-      vea la definición anterior de “APIENTRY”
-  
-  character.cpp
-C:\Program Files (x86)\Windows Kits\10\Include\10.0.26100.0\shared\minwindef.h(130,9): warning C4005: 'APIENTRY': redefinición de macro
-  (compilando archivo de origen "character.cpp")
-      C:\Workspace\desktop_vpet_framework\Libraries\include\glad\glad.h(32,9):
-      vea la definición anterior de “APIENTRY”
-  
-  collidable_entity.cpp
-C:\Workspace\desktop_vpet_framework\collidable_entity.cpp(32,41): warning C4101: 'e': variable local sin referencia
-  collision_manager.cpp
-  entity_manager.cpp
-C:\Workspace\desktop_vpet_framework\character.h(13,7): warning C4099: 'CollisionResult': nombre de tipo visto anteriormente usando 'struct' ahora se ve usando 'class'
-  (compilando archivo de origen "entity_manager.cpp")
-      C:\Workspace\desktop_vpet_framework\collision_manager.h(14,8):
-      vea la declaración de 'CollisionResult'
-  
-  main.cpp
-C:\Program Files (x86)\Windows Kits\10\Include\10.0.26100.0\shared\minwindef.h(130,9): warning C4005: 'APIENTRY': redefinición de macro
-  (compilando archivo de origen "main.cpp")
-      C:\Workspace\desktop_vpet_framework\Libraries\include\glad\glad.h(32,9):
-      vea la definición anterior de “APIENTRY”
-  
-C:\Workspace\desktop_vpet_framework\collision_manager.h(14,8): warning C4099: 'CollisionResult': nombre de tipo visto anteriormente usando 'class' ahora se ve usando 'struct'
-  (compilando archivo de origen "main.cpp")
-      C:\Workspace\desktop_vpet_framework\collision_manager.h(14,8):
-      vea la declaración de 'CollisionResult'
-  
-C:\Workspace\desktop_vpet_framework\main.cpp(18,42): warning C4244: 'argumento': conversión de 'const T' a 'const GLuint'; posible pérdida de datos
-C:\Workspace\desktop_vpet_framework\main.cpp(18,42): warning C4244:         with
-C:\Workspace\desktop_vpet_framework\main.cpp(18,42): warning C4244:         [
-C:\Workspace\desktop_vpet_framework\main.cpp(18,42): warning C4244:             T=float
-C:\Workspace\desktop_vpet_framework\main.cpp(18,42): warning C4244:         ]
-C:\Workspace\desktop_vpet_framework\main.cpp(18,27): warning C4244: 'argumento': conversión de 'const T' a 'const GLuint'; posible pérdida de datos
-C:\Workspace\desktop_vpet_framework\main.cpp(18,27): warning C4244:         with
-C:\Workspace\desktop_vpet_framework\main.cpp(18,27): warning C4244:         [
-C:\Workspace\desktop_vpet_framework\main.cpp(18,27): warning C4244:             T=float
-C:\Workspace\desktop_vpet_framework\main.cpp(18,27): warning C4244:         ]
   process.cpp
-  renderer_2d.cpp
-  sprite.cpp
-  window_collidable.cpp
 C:\Program Files (x86)\Windows Kits\10\Include\10.0.26100.0\shared\minwindef.h(130,9): warning C4005: 'APIENTRY': redefinición de macro
-  (compilando archivo de origen "window_collidable.cpp")
+  (compilando archivo de origen "process.cpp")
       C:\Workspace\desktop_vpet_framework\Libraries\include\glad\glad.h(32,9):
       vea la definición anterior de “APIENTRY”
   
-  windows_collidable_manager.cpp
-  Generando código...
-C:\Workspace\desktop_vpet_framework\collision_manager.cpp(34,1): warning C4715: 'CollisionManager::checkCollision': no todas las rutas de acceso de control devuelven un valor
   desktop_vpet.vcxproj -> C:\Workspace\desktop_vpet_framework\x64\Debug\desktop_vpet.exe
