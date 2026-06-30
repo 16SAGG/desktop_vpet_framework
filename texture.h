@@ -2,9 +2,8 @@
 #define TEXTURE_CLASS_H
 
 #include <glad/glad.h>
-#include <stb/stb_image.h>
 
-#include "shader.h"
+class Shader;
 
 /**
 * @brief Carga un archivo de imagen y lo convierte en una textura de OpenGL.

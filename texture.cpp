@@ -1,4 +1,8 @@
+#include <glad/glad.h>
+#include <stb/stb_image.h>
+
 #include "texture.h"
+#include "shader.h"
 
 Texture::Texture(const char* image, const GLenum texType, const GLenum slot, const GLenum format, const GLenum pixelType) {
 	type = texType;
