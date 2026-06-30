@@ -1,6 +1,17 @@
-#include<iostream>
+#include <memory>
 
 #include "collidable_entity.h"
+#include "collision_manager.h"
+#include "collision_box.h"
+
+CollidableEntity::~CollidableEntity() {
+    try {
+        auto self = std::static_pointer_cast<CollidableEntity>(shared_from_this());
+        CollisionManager::getInstance().removeCollidableEntity(self);
+    }
+    catch (...) {
+    }
+};
 
 void CollidableEntity::move(float deltaTime) {
     this->updateCollisionCooldown(deltaTime);
@@ -25,3 +36,5 @@ void CollidableEntity::move(float deltaTime) {
     
     this->setPosition(getNextPosition(deltaTime));
 }
+
+std::shared_ptr<CollisionBox> CollidableEntity::getCollider() const { return collider; };

@@ -2,21 +2,23 @@
 #ifndef COLLIDABLE_ENTITY_CLASS_H
 #define COLLIDABLE_ENTITY_CLASS_H
 
-#include <glad/glad.h>
 #include <memory>
+#include <utility>
+#include "glm/fwd.hpp"
 
 #include "entity.h"
-#include "collision_box.h"
-#include "collision_manager.h"
+
+class CollisionBox;
 
 // Tipos de colision disponibles
-enum class CollisionType { CHARACTER, WALL, AREA };
+enum CollisionType { CHARACTER, WALL, AREA };
 
 /**
 * @brief Entidad que posee una colision
 */
 class CollidableEntity : public Entity {
 protected:
+
     // Referencia al CollisionBox. Tipo CollisionBox
     std::shared_ptr<CollisionBox> collider;
 
@@ -43,17 +45,11 @@ protected:
     */
     CollidableEntity() : collisionType(CollisionType::WALL) {}
 public:
+
     /*
     * @brief Destructor de collidableEntity
     */
-    virtual ~CollidableEntity() {
-        try {
-            auto self = std::static_pointer_cast<CollidableEntity>(shared_from_this());
-            CollisionManager::getInstance().removeCollidableEntity(self);
-        }
-        catch (...) {
-        }
-    };
+    virtual ~CollidableEntity();
 
     //Factoria de puntero para collidableEntity
     template<typename T, typename... Args>
@@ -111,7 +107,7 @@ public:
     /**
     * @brief Obtiene el CollisionBox. Tipo std::shared_ptr<CollisionBox>
     */
-    std::shared_ptr<CollisionBox> getCollider() const { return collider; };
+    std::shared_ptr<CollisionBox> getCollider() const;
 
     /**
     * @brief Obtiene el collisionType. Tipo CollisionType

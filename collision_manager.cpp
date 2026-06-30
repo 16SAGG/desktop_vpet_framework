@@ -1,5 +1,6 @@
 #include "collision_manager.h"
 #include "collidable_entity.h"
+#include "collision_box.h"
 #include <iostream>
 
 CollisionManager& CollisionManager::getInstance() {
@@ -40,6 +41,8 @@ CollisionResult CollisionManager::getCollision(const std::shared_ptr<CollidableE
     glm::vec2 originNextPos = originEntity->getNextPosition(deltaTime);
     glm::vec2 otherNextPos = otherEntity->getNextPosition(deltaTime);
 
+    std::shared_ptr<CollisionBox> originBox = originEntity->getCollider();
+    std::shared_ptr<CollisionBox> otherBox = otherEntity->getCollider();
     glm::vec2 originBoxSize = originEntity->getCollider()->getSize();
     glm::vec2 otherBoxSize = otherEntity->getCollider()->getSize();
 
