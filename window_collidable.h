@@ -2,13 +2,12 @@
 #ifndef WINDOW_COLLIDABLE_CLASS_H
 #define WINDOW_COLLIDABLE_CLASS_H
 
-#include <glad/glad.h>
 #include <memory>
 #include <windows.h>
 
 #include "wall.h"
-#include "collision_box.h"
-#include "collidable_entity.h"
+
+class CollisionBox;
 
 /**
 * @brief Entidad asociada a una ventana activa para darle colision

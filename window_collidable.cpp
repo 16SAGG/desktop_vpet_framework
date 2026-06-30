@@ -1,3 +1,5 @@
+#include <Windows.h>
+
 #include "window_collidable.h"
 
 const float WINDOW_COLLISION_THICKNESS = 10.0f;
