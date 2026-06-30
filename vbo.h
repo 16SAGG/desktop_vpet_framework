@@ -10,9 +10,11 @@
 class VBO
 {
 private:
+	
 	// Identificador del VBO
 	GLuint ID;
 public:
+	
 	/**
 	 * @brief Constructor de VBO
 	 * * @param Vertices Matriz de vertices. Tipo GLfloat
@@ -24,10 +26,12 @@ public:
 	 * @brief Activa el VBO
 	 */
 	void bind() const;
+
 	/**
 	 * @brief Desactiva el VBO
 	 */
 	void unbind() const;
+	
 	/**
 	 * @brief Elimina el VBO
 	 */

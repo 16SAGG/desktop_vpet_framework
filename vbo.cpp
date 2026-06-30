@@ -1,3 +1,5 @@
+#include "glad/glad.h"
+
 #include "vbo.h"
 
 VBO::VBO(const GLfloat* vertices, const GLsizeiptr size)
