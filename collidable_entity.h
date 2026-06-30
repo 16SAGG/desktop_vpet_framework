@@ -37,8 +37,8 @@ protected:
     // Tiempo restante de inmunidad
     float collisionCooldown = 0.0f;
 
-    // 10ms de inmunidad tras colisionar
-    const float COOLDOWN_DURATION = .01f;
+    // duracion de la inmunidad tras colisionar
+    float collisionCooldownDuration = .0f;
 
     /*
     * @brief Constructor por defecto, asigna el CollisionType WALL por defecto
@@ -85,7 +85,7 @@ public:
     * @brief Inicia el collisionCooldown
     */
     void startCollisionCooldown() {
-        collisionCooldown = COOLDOWN_DURATION;
+        collisionCooldown = collisionCooldownDuration;
     }
 
     /**

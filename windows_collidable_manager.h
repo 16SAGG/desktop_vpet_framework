@@ -2,15 +2,12 @@
 #ifndef WINDOWS_COLLIDABLE_MANAGER_CLASS_H
 #define WINDOWS_COLLIDABLE_MANAGER_CLASS_H
 
-#include <windows.h>
-#include <iostream>
-#include <cstdlib>
-#include <dwmapi.h>
-#pragma comment(lib, "dwmapi.lib")
+#include <Windows.h>
+#include <memory>
+#include <vector>
 
-#include "wall.h"
-#include "collision_manager.h"
-#include "window_collidable.h"
+class Wall;
+class WindowCollidable;
 
 /**
 * @brief Crea y gestiona las ventanas con colision
@@ -18,6 +15,7 @@
 class WindowsCollidableManager
 {
 private:
+    // Lista de todas las ventanas colisionables activas. Tipo std::vector<std::shared_ptr<WindowCollidable>>
     std::vector<std::shared_ptr<WindowCollidable>> activeWindows;
 public:
     /*
@@ -30,10 +28,20 @@ public:
     */
     void syncWindows();
 
+    /*
+    * @brief Elimina todas las colisiones vinculadas a ventanas inactivas
+    */
     void cleanupInactiveWindows();
 
+    /*
+    * @brief Actualiza las propiedades de las ventanas colisionables activas
+    */
     void updateAllVisibleWindows();
 
+    /*
+    * @brief Incluye o actualiza las propiedades de una ventana colisionable.
+    * @param hwnd Es la referencia a la ventana. Tipo HWND
+    */
     void addOrUpdateWindow(HWND hwnd);
 
     //GETTER
