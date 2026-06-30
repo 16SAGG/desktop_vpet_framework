@@ -2,16 +2,11 @@
 #ifndef RENDERER_2D_CLASS_H
 #define RENDERER_CLASS_H
 
+#include <memory>
 #include <glad/glad.h>
-#include <glm/glm.hpp>
-#include <glm/gtc/matrix_transform.hpp>
-#include <glm/gtc/type_ptr.hpp>
+#include "glm/fwd.hpp"
 
 #include "shader.h"
-#include "vao.h"
-#include "vbo.h"
-#include "ebo.h"
-#include "texture.h"
 #include "entity.h"
 
 class Sprite;

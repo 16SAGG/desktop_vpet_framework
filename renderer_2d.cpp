@@ -1,5 +1,16 @@
+#include "glad/glad.h"
+#include <glm/glm.hpp>
+#include "glm/fwd.hpp"
+#include "glm/gtc/type_ptr.inl"
+#include "glm/ext/matrix_transform.inl"
+#include <memory>
+
 #include "renderer_2d.h"
 #include "sprite.h"
+#include "vao.h"
+#include "ebo.h"
+#include "vbo.h"
+#include "entity.h"
 
 // POS_X, POS_Y, POS_Z,    COLOR_R, COLOR_G, COLOR_B,   TEX_U, TEX_V
 const GLfloat VERTICES[] = {
