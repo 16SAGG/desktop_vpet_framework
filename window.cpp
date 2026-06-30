@@ -1,3 +1,15 @@
+
+#include<glad/glad.h>
+#include <GLFW/glfw3.h>
+#include "glm/fwd.hpp"
+#include <glm/gtc/matrix_transform.hpp>
+
+#ifdef _WIN32
+#define GLFW_EXPOSE_NATIVE_WIN32
+#include <GLFW/glfw3native.h>
+#include <windows.h>
+#endif
+
 #include "window.h"
 
 Window :: Window(const GLuint width, const GLuint height) : window(nullptr), projection(glm::mat4(1.0f)) {
