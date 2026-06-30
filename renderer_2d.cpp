@@ -11,6 +11,7 @@
 #include "ebo.h"
 #include "vbo.h"
 #include "entity.h"
+#include "texture.h"
 
 // POS_X, POS_Y, POS_Z,    COLOR_R, COLOR_G, COLOR_B,   TEX_U, TEX_V
 const GLfloat VERTICES[] = {

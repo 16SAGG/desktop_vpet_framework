@@ -2,15 +2,11 @@
 #ifndef SPRITE_CLASS_H
 #define SPRITE_CLASS_H
 
-#include <optional>
-
-#include <glad/glad.h>
-#include <glm/glm.hpp>
-
 #include "entity.h"
-#include "renderer_2d.h"
-#include "texture.h"
+#include <memory>
+#include "glm/fwd.hpp"
 
+class Texture;
 class Renderer2D;
 
 /**

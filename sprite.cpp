@@ -1,4 +1,10 @@
+#include "glad/glad.h"
+#include <memory>
+#include "glm/ext/vector_float2.hpp"
+
 #include "sprite.h"
+#include "texture.h"
+#include "renderer_2d.h"
 
 Sprite :: Sprite(const std::shared_ptr<Texture> _texture):
 	texture (_texture)
