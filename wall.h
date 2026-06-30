@@ -2,8 +2,8 @@
 #ifndef WALL_CLASS_H
 #define WALL_CLASS_H
 
-#include <glad/glad.h>
 #include <memory>
+#include "glm/fwd.hpp"
 
 #include "collidable_entity.h"
 #include "collision_box.h"
