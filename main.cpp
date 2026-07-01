@@ -38,11 +38,11 @@ int main() {
 			}
 		}),
 		.entityParams = {
-			.position = { 200, 400 },
-			.acceleration = { 1, 1 }
+			.position = { 200, 900 },
+			.acceleration = { -1, -1 }
 		}
 	});
-	/*
+
 	std::shared_ptr<Texture> textureShared = std::make_shared<Texture>("texture.png", GL_TEXTURE_2D, GL_TEXTURE0, GL_RGBA, GL_UNSIGNED_BYTE);
 	textureShared->texUnit(Renderer2D::getInstance().getShader(), "tex0", 0);
 
@@ -64,7 +64,7 @@ int main() {
 			.position = { 200, 900 },
 			.acceleration = { 0, -1 }
 		}
-	});*/
+	});
 
 	process.run([&](float deltaTime) {
 	});

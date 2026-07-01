@@ -1,4 +1,18 @@
 ﻿  Examinando orígenes para las dependencias de módulo...
-  collidable_entity.cpp
-C:\Workspace\desktop_vpet_framework\collidable_entity.cpp(34,41): warning C4101: 'e': variable local sin referencia
+  main.cpp
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.26100.0\shared\minwindef.h(130,9): warning C4005: 'APIENTRY': redefinición de macro
+  (compilando archivo de origen "main.cpp")
+      C:\Workspace\desktop_vpet_framework\Libraries\include\glad\glad.h(32,9):
+      vea la definición anterior de “APIENTRY”
+  
+C:\Workspace\desktop_vpet_framework\main.cpp(16,42): warning C4244: 'argumento': conversión de 'const T' a 'const GLuint'; posible pérdida de datos
+C:\Workspace\desktop_vpet_framework\main.cpp(16,42): warning C4244:         with
+C:\Workspace\desktop_vpet_framework\main.cpp(16,42): warning C4244:         [
+C:\Workspace\desktop_vpet_framework\main.cpp(16,42): warning C4244:             T=float
+C:\Workspace\desktop_vpet_framework\main.cpp(16,42): warning C4244:         ]
+C:\Workspace\desktop_vpet_framework\main.cpp(16,27): warning C4244: 'argumento': conversión de 'const T' a 'const GLuint'; posible pérdida de datos
+C:\Workspace\desktop_vpet_framework\main.cpp(16,27): warning C4244:         with
+C:\Workspace\desktop_vpet_framework\main.cpp(16,27): warning C4244:         [
+C:\Workspace\desktop_vpet_framework\main.cpp(16,27): warning C4244:             T=float
+C:\Workspace\desktop_vpet_framework\main.cpp(16,27): warning C4244:         ]
   desktop_vpet.vcxproj -> C:\Workspace\desktop_vpet_framework\x64\Debug\desktop_vpet.exe

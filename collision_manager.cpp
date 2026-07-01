@@ -1,6 +1,7 @@
 #include <memory>
 #include <algorithm>
 #include <glm/glm.hpp>
+#include <iostream>
 
 #include "collision_manager.h"
 #include "collidable_entity.h"
@@ -30,6 +31,7 @@ CollisionResult CollisionManager :: checkCollision(const std::shared_ptr<Collida
 
         return collisionRes;
     }
+	return { false, {0,0}, 0 };
 }
 
 CollisionResult CollisionManager::getCollision(const std::shared_ptr<CollidableEntity> originEntity, const std::shared_ptr<CollidableEntity> otherEntity, const float deltaTime) const{

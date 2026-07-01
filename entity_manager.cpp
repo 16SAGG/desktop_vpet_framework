@@ -10,6 +10,7 @@
 #include "wall.h"
 #include "window.h"
 #include "window_collidable.h"
+#include "renderer_2d.h"
 
 EntityManager& EntityManager::getInstance() {
     static EntityManager instance;
@@ -19,6 +20,7 @@ EntityManager& EntityManager::getInstance() {
 void EntityManager::update(float deltaTime, Window& window) {
     for (auto& entity : entities) {
         entity -> update(deltaTime, window);
+		Renderer2D::getInstance().drawColoredEntity(entity, window.getProjection(), { 1, 0, 0, 1 });
     }
 }
 
@@ -74,6 +76,7 @@ std::shared_ptr<CollisionBox> EntityManager::createCollisionBox(const CollisionB
 std::shared_ptr<Wall> EntityManager::createWall(const WallParams& wallParams) {
     std::shared_ptr<Wall> wall = CollidableEntity::create<Wall>(wallParams.collider);
 
+    wall->setOneWayCollisionDirection(wallParams.oneWayCollisionDirection);
     wall->setPosition(wallParams.entityParams.position);
 
     CollisionManager::getInstance().addCollidableEntity(wall);

@@ -7,6 +7,7 @@
 #include "windows_collidable_manager.h"
 
 const float MAX_DELTA_TIME = 0.1f;
+const int SYNC_WINDOWS_EVERY_N_FRAMES = 60;
 
 Process::Process(Window& window) : window(window), lastFrame(0.0f) {}
 
@@ -23,7 +24,7 @@ void Process::run(const UpdateCallback updateFunc) {
         glClear(GL_COLOR_BUFFER_BIT);
 
         EntityManager::getInstance().update(deltaTime, window);
-        if (frameCounter++ % 60 == 0) {
+        if (frameCounter++ % SYNC_WINDOWS_EVERY_N_FRAMES == 0) {
             windowsCollidableManager.syncWindows();
         }
         if (updateFunc) {
