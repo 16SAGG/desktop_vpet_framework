@@ -29,7 +29,22 @@ public:
     void syncWindows();
 
     /*
-    * @brief Elimina todas las colisiones vinculadas a ventanas inactivas
+	* @brief Comprueba si una ventana es valida para colisionar
+    * Contiene IsWindow(hwnd) para verificar si la ventana existe
+	* IsWindowVisible(hwnd) es una marca del SO para ventanas que son visibles
+    * IsIconic(hwnd) comprueba si esta minimizada
+    * DWMWA_CLOAKED es un atributo de una ventana oculta por el sistema (por eso cloaked != 0)
+	* Comprueba con GetWindowRect si el tamaño de la ventana es mayor a 0
+	* GetWindowLong(hwnd, GWL_STYLE) Obtiene las flags de estilo de la ventana, si no tiene WS_VISIBLE no es visible
+    * if (wp.showCmd == SW_SHOWMINIMIZED) comprueba de nuevo si esta minimizado
+	* WS_EX_TOOLWINDOW y WS_EX_NOACTIVATE son estilos de ventana que no se deben colisionar
+	* if (GetWindowTextA(hwnd, title, sizeof(title)) == 0) Es para verificar si la ventana tiene titulo, si no tiene titulo no se colisiona
+    * Si cumple alguno de estos criterios, la colision de la ventana es eliminada.
+    */
+    bool isValidWindow(HWND hwnd);
+
+    /*
+	* @brief Elimina todas las ventanas que no son validas para colisionar del motor de fisicas y de la lista de ventanas activas
     */
     void cleanupInactiveWindows();
 
