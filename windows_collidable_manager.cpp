@@ -61,13 +61,10 @@ void WindowsCollidableManager::cleanupInactiveWindows() {
     }
 }
 
-#include <iostream>
 void WindowsCollidableManager::updateAllVisibleWindows() {
     struct CallbackData {
         WindowsCollidableManager* self;
     };
-
-	std::cout << activeWindows.size() << std::endl;
 
     CallbackData data = { this };
     EnumWindows([](HWND hwnd, LPARAM lParam) -> BOOL {

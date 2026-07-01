@@ -13,6 +13,7 @@ CollidableEntity::~CollidableEntity() {
     }
 };
 
+#include <iostream>
 void CollidableEntity::move(float deltaTime) {
     this->updateCollisionCooldown(deltaTime);
 

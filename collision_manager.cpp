@@ -23,8 +23,7 @@ CollisionResult CollisionManager :: checkCollision(const std::shared_ptr<Collida
 
         if (collisionRes.penetration < 0.01f) continue;
 
-        bool isSolid = (otherEntity->getCollisionType() == CollisionType::CHARACTER ||
-            otherEntity->getCollisionType() == CollisionType::WALL);
+        bool isSolid = (otherEntity->getCollisionType() == CollisionType::CHARACTER ||otherEntity->getCollisionType() == CollisionType::WALL);
         if (!isSolid) continue;
 
         if (!this->getOneWayCollision(originEntity, otherEntity->getOneWayCollisionDirection(), collisionRes)) continue;
@@ -67,6 +66,8 @@ bool CollisionManager::getOneWayCollision(const std::shared_ptr<CollidableEntity
 
         if (collisionDir.x != 0 && !movingOppositeX) return false;
         if (collisionDir.y != 0 && !movingOppositeY) return false;
+
+		if (-collisionRes.normal == collisionDir) return false;
     }
     return true;
 }
