@@ -10,7 +10,7 @@
 #include "wall.h"
 #include "window.h"
 #include "window_collidable.h"
-#include "renderer_2d.h"
+//#include "renderer_2d.h"
 
 EntityManager& EntityManager::getInstance() {
     static EntityManager instance;
@@ -20,7 +20,7 @@ EntityManager& EntityManager::getInstance() {
 void EntityManager::update(float deltaTime, Window& window) {
     for (auto& entity : entities) {
         entity -> update(deltaTime, window);
-		Renderer2D::getInstance().drawColoredEntity(entity, window.getProjection(), { 1, 0, 0, 1 });
+		//Renderer2D::getInstance().drawColoredEntity(entity, window.getProjection(), { 1, 0, 0, 1 });
     }
 }
 

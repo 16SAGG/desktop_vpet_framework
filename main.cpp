@@ -18,7 +18,7 @@ int main() {
 
 	Process process(window);
 
-	BordersManager bordersManager(WINDOW_SIZE, -10, 10, 10, 10);
+	BordersManager bordersManager(WINDOW_SIZE, 180, 10, 10, 10);
 
 	auto char1 = EntityManager::getInstance().createCharacter({
 		.sprite = EntityManager::getInstance().createSpritePath({
@@ -38,7 +38,7 @@ int main() {
 			}
 		}),
 		.entityParams = {
-			.position = { 200, 900 },
+			.position = { 200, 400 },
 			.acceleration = { -1, -1 }
 		}
 	});
@@ -61,8 +61,8 @@ int main() {
 			}
 		}),
 		.entityParams = {
-			.position = { 200, 900 },
-			.acceleration = { 0, -1 }
+			.position = { 200, 600 },
+			.acceleration = { -1, -1}
 		}
 	});
 

@@ -63,7 +63,7 @@ BordersManager::BordersManager(
 		}),
 		.oneWayCollisionDirection = { 0, -1 },
 		.entityParams = {
-			.position = { -leftMargin, screenSize.y + topMargin }
+			.position = { -leftMargin, screenSize.y + bottomMargin }
 		}
 	});
 	borders.push_back(bottomBorder);
