@@ -22,14 +22,18 @@ private:
 	
 	// Proyección ortográfica 2D: convierte píxeles del mundo a coordenadas de clip. Tipo glm::mat4
 	glm::mat4 projection;
+
+	// Ancho de la ventana. Tipo GLuint
+	GLuint screenWidth;
+
+	// Ancho de la ventana. Tipo GLuint
+	GLuint screenHeight;
 public:
 
 	/**
 	 * @brief Constructor de window.
-	 * * @param width Ancho de la ventana. Tipo GLuint
-	 * * @param height Alto de la ventana. Tipo GLuint
 	 */
-	Window(const GLuint width, const GLuint height);
+	Window();
 
 	//GETTER
 	
@@ -47,6 +51,11 @@ public:
 	 * @brief Obtiene la Proyección ortográfica 2D. Tipo glm::mat4
 	 */
 	glm::mat4 getProjection() const { return projection; }
+
+	/**
+	 * @brief Obtiene las dimensiones de la ventana. Tipo glm::vec2
+	 */
+	glm::vec2 getScreenSize() const { return {screenWidth, screenHeight}; }
 };
 
 #endif

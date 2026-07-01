@@ -21,6 +21,7 @@ void Process::run(const UpdateCallback updateFunc) {
         lastFrame = currentFrame;
 
         if (deltaTime > MAX_DELTA_TIME) deltaTime = MAX_DELTA_TIME;
+        glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
         glClear(GL_COLOR_BUFFER_BIT);
 
         EntityManager::getInstance().update(deltaTime, window);

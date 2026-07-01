@@ -1,10 +1,6 @@
 #include "glm/ext/vector_float2.hpp"
-#include <memory>
 
 #include "borders_manager.h"
-#include "wall.h"
-#include "collision_box.h"
-#include "collidable_entity.h"
 #include "entity_manager.h"
 
 const float THICKNESS = 100.0f;
@@ -24,7 +20,7 @@ BordersManager::BordersManager(
 		}),
 		.oneWayCollisionDirection = { 0, 1 },
 		.entityParams = {
-			.position = { -leftMargin, -topMargin }
+			.position = { -leftMargin, -topMargin - THICKNESS/2 }
 		}
 	});
 	borders.push_back(topBorder);
@@ -37,7 +33,7 @@ BordersManager::BordersManager(
 		}),
 		.oneWayCollisionDirection = { 1, 0 },
 		.entityParams = {
-			.position = { -leftMargin, -topMargin }
+			.position = { -leftMargin - THICKNESS/2, -topMargin }
 		}
 	});
 	borders.push_back(leftBorder);
@@ -50,7 +46,7 @@ BordersManager::BordersManager(
 		}),
 		.oneWayCollisionDirection = { -1, 0 },
 		.entityParams = {
-			.position = { screenSize.x + leftMargin, -topMargin }
+			.position = { screenSize.x + leftMargin + THICKNESS/2, -topMargin }
 		}
 	});
 	borders.push_back(rightBorder);
@@ -63,7 +59,7 @@ BordersManager::BordersManager(
 		}),
 		.oneWayCollisionDirection = { 0, -1 },
 		.entityParams = {
-			.position = { -leftMargin, screenSize.y + bottomMargin }
+			.position = { -leftMargin, screenSize.y + bottomMargin + THICKNESS/2 }
 		}
 	});
 	borders.push_back(bottomBorder);

@@ -10,15 +10,13 @@
 #include <memory>
 #include "glm/fwd.hpp"
 
-const glm::vec2 WINDOW_SIZE = { 800, 600 };
-
 int main() {
-	Window window(WINDOW_SIZE.x, WINDOW_SIZE.y);
+	Window window;
 	if (!window.getWindow()) return -1;
 
 	Process process(window);
 
-	BordersManager bordersManager(WINDOW_SIZE, 180, 10, 10, 10);
+	BordersManager bordersManager(window.getScreenSize(), 0, 0, 0, 0);
 
 	auto char1 = EntityManager::getInstance().createCharacter({
 		.sprite = EntityManager::getInstance().createSpritePath({
