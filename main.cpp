@@ -1,22 +1,20 @@
-#include <iostream>
-#include <cmath>
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 
 #include "texture.h"
 #include "renderer_2d.h"
-#include "character.h"
 #include "window.h"
 #include "process.h"
 #include "borders_manager.h"
-#include "windows_collidable_manager.h"
 #include "entity_manager.h"
+#include <memory>
+#include "glm/fwd.hpp"
 
 const glm::vec2 WINDOW_SIZE = { 800, 600 };
 
 int main() {
 	Window window(WINDOW_SIZE.x, WINDOW_SIZE.y);
-	if (!window.window) return -1;
+	if (!window.getWindow()) return -1;
 
 	Process process(window);
 

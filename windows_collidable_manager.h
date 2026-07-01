@@ -6,6 +6,7 @@
 #include <memory>
 #include <vector>
 
+class Window;
 class Wall;
 class WindowCollidable;
 
@@ -15,13 +16,16 @@ class WindowCollidable;
 class WindowsCollidableManager
 {
 private:
+    // Referencia a la ventana que encapsula este objeto.
+    Window& window;
+
     // Lista de todas las ventanas colisionables activas. Tipo std::vector<std::shared_ptr<WindowCollidable>>
     std::vector<std::shared_ptr<WindowCollidable>> activeWindows;
 public:
     /*
     * @brief Constructor de WindowsCollidableManager
     */
-    WindowsCollidableManager() {}
+    WindowsCollidableManager(Window& _window): window(_window) {}
     
     /*
     * @brief Sincroniza todas las ventanas activas del SO al motor fisicas del juego
@@ -37,9 +41,10 @@ public:
 	* Comprueba con GetWindowRect si el tamaño de la ventana es mayor a 0
 	* GetWindowLong(hwnd, GWL_STYLE) Obtiene las flags de estilo de la ventana, si no tiene WS_VISIBLE no es visible
     * if (wp.showCmd == SW_SHOWMINIMIZED) comprueba de nuevo si esta minimizado
+    * if (wp.showCmd == SW_SHOWMAXIMIZED) comprueba de nuevo si esta maximizado
 	* WS_EX_TOOLWINDOW y WS_EX_NOACTIVATE son estilos de ventana que no se deben colisionar
 	* if (GetWindowTextA(hwnd, title, sizeof(title)) == 0) Es para verificar si la ventana tiene titulo, si no tiene titulo no se colisiona
-    * Si cumple alguno de estos criterios, la colision de la ventana es eliminada.
+	* Si cumple alguno de estos criterios, no es una ventana valida para colisionar
     */
     bool isValidWindow(HWND hwnd);
 

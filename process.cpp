@@ -11,10 +11,10 @@ const float MAX_DELTA_TIME = 0.1f;
 Process::Process(Window& window) : window(window), lastFrame(0.0f) {}
 
 void Process::run(const UpdateCallback updateFunc) {
-    WindowsCollidableManager windowsCollidableManager;
+    WindowsCollidableManager windowsCollidableManager(window);
     
     static int frameCounter = 0;
-    while (!glfwWindowShouldClose(window.window)) {
+    while (!glfwWindowShouldClose(window.getWindow())) {
         float currentFrame = static_cast<float>(glfwGetTime());
         float deltaTime = currentFrame - lastFrame;
         lastFrame = currentFrame;
@@ -30,7 +30,7 @@ void Process::run(const UpdateCallback updateFunc) {
             updateFunc(deltaTime);
         }
 
-        glfwSwapBuffers(window.window);
+        glfwSwapBuffers(window.getWindow());
         glfwPollEvents();
     }
 }

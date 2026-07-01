@@ -12,7 +12,7 @@
 
 #include "window.h"
 
-Window :: Window(const GLuint width, const GLuint height) : window(nullptr), projection(glm::mat4(1.0f)) {
+Window :: Window(const GLuint width, const GLuint height) : window(nullptr), windowHWND(nullptr), projection(glm::mat4(1.0f)) {
 	if (!glfwInit()) return;
 
 	glfwWindowHint(GLFW_TRANSPARENT_FRAMEBUFFER, GLFW_TRUE);
@@ -22,11 +22,11 @@ Window :: Window(const GLuint width, const GLuint height) : window(nullptr), pro
 	glfwMakeContextCurrent(window);
 	gladLoadGLLoader((GLADloadproc)glfwGetProcAddress);
 
+	windowHWND = glfwGetWin32Window(window);
 	#ifdef _WIN32
-		HWND hwnd = glfwGetWin32Window(window);
-		LONG exStyle = GetWindowLong(hwnd, GWL_EXSTYLE);
-		SetWindowLong(hwnd, GWL_EXSTYLE, exStyle | WS_EX_LAYERED | WS_EX_TRANSPARENT);
-		SetWindowPos(hwnd, HWND_TOPMOST, 0, 0, 0, 0, SWP_NOMOVE | SWP_NOSIZE);
+		LONG exStyle = GetWindowLong(windowHWND, GWL_EXSTYLE);
+		SetWindowLong(windowHWND, GWL_EXSTYLE, exStyle | WS_EX_LAYERED | WS_EX_TRANSPARENT);
+		SetWindowPos(windowHWND, HWND_TOPMOST, 0, 0, 0, 0, SWP_NOMOVE | SWP_NOSIZE);
 	#endif
 
 	glEnable(GL_BLEND);

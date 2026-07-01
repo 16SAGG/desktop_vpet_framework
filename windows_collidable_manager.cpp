@@ -6,6 +6,7 @@
 #include "window_collidable.h"
 #include "entity_manager.h"
 #include "collision_manager.h"
+#include "window.h"
 
 void WindowsCollidableManager::syncWindows() {
 	this->cleanupInactiveWindows();
@@ -13,6 +14,8 @@ void WindowsCollidableManager::syncWindows() {
 }
 
 bool WindowsCollidableManager::isValidWindow(HWND hwnd) {
+    if (window.getWindowHWND() != nullptr && hwnd == window.getWindowHWND()) return false;
+
     if (!IsWindow(hwnd) || IsIconic(hwnd) || !IsWindowVisible(hwnd)) return false;
 
     int cloaked = 0;
@@ -30,7 +33,7 @@ bool WindowsCollidableManager::isValidWindow(HWND hwnd) {
     wp.length = sizeof(WINDOWPLACEMENT);
     GetWindowPlacement(hwnd, &wp);
 
-    if (wp.showCmd == SW_SHOWMINIMIZED) return false;
+    if (wp.showCmd == SW_SHOWMINIMIZED || wp.showCmd == SW_SHOWMAXIMIZED) return false;
 
     LONG_PTR exStyle = GetWindowLongPtr(hwnd, GWL_EXSTYLE);
     if ((exStyle & WS_EX_TOOLWINDOW) || (exStyle & WS_EX_NOACTIVATE)) return false;
@@ -58,11 +61,13 @@ void WindowsCollidableManager::cleanupInactiveWindows() {
     }
 }
 
+#include <iostream>
 void WindowsCollidableManager::updateAllVisibleWindows() {
     struct CallbackData {
         WindowsCollidableManager* self;
-
     };
+
+	std::cout << activeWindows.size() << std::endl;
 
     CallbackData data = { this };
     EnumWindows([](HWND hwnd, LPARAM lParam) -> BOOL {

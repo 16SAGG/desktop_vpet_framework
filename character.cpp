@@ -10,7 +10,7 @@
 
 void Character::update(float deltaTime, Window& window) {
     move(deltaTime);
-    Renderer2D::getInstance().draw(sprite, window.projection);
+    Renderer2D::getInstance().draw(sprite, window.getProjection());
 }
 
 Character::Character(std::shared_ptr<Sprite> _sprite, std::shared_ptr<CollisionBox> _collider) :
