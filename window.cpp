@@ -12,7 +12,6 @@
 
 #include "window.h"
 
-#include <iostream>
 Window :: Window() : window(nullptr), windowHWND(nullptr), projection(glm::mat4(1.0f)), screenWidth(0), screenHeight(0) {
 	if (!glfwInit()) return;
 

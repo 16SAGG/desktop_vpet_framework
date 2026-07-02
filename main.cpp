@@ -1,5 +1,6 @@
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
+#include <memory>
 
 #include "texture.h"
 #include "renderer_2d.h"
@@ -7,8 +8,8 @@
 #include "process.h"
 #include "borders_manager.h"
 #include "entity_manager.h"
-#include <memory>
-#include "glm/fwd.hpp"
+#include "input_manager.h"
+#include "character.h"
 
 int main() {
 	Window window;
@@ -17,6 +18,8 @@ int main() {
 	Process process(window);
 
 	BordersManager bordersManager(window.getScreenSize(), 0, 0, 0, 0);
+
+	InputManager inputManager(window);
 
 	auto char1 = EntityManager::getInstance().createCharacter({
 		.sprite = EntityManager::getInstance().createSpritePath({
@@ -65,6 +68,9 @@ int main() {
 	});
 
 	process.run([&](float deltaTime) {
+		inputManager.update();
+
+		char2->setPosition(inputManager.getMousePosition());
 	});
 
 	glfwTerminate();

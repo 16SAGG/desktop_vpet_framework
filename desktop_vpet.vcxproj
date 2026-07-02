@@ -159,6 +159,7 @@
     <ClCompile Include="ebo.cpp" />
     <ClCompile Include="entity_manager.cpp" />
     <ClCompile Include="glad.c" />
+    <ClCompile Include="input_manager.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="process.cpp" />
     <ClCompile Include="renderer_2d.cpp" />
@@ -187,6 +188,7 @@
     <ClInclude Include="ebo.h" />
     <ClInclude Include="entity.h" />
     <ClInclude Include="entity_manager.h" />
+    <ClInclude Include="input_manager.h" />
     <ClInclude Include="process.h" />
     <ClInclude Include="renderer_2d.h" />
     <ClInclude Include="shader.h" />
