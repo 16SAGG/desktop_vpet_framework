@@ -168,6 +168,7 @@
     <ClCompile Include="sprite.cpp" />
     <ClCompile Include="stb.cpp" />
     <ClCompile Include="texture.cpp" />
+    <ClCompile Include="utils.cpp" />
     <ClCompile Include="vao.cpp" />
     <ClCompile Include="vbo.cpp" />
     <ClCompile Include="window.cpp" />
@@ -194,6 +195,7 @@
     <ClInclude Include="shader.h" />
     <ClInclude Include="sprite.h" />
     <ClInclude Include="texture.h" />
+    <ClInclude Include="utils.h" />
     <ClInclude Include="vao.h" />
     <ClInclude Include="vbo.h" />
     <ClInclude Include="wall.h" />

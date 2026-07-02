@@ -2,9 +2,6 @@
 #include <GLFW/glfw3.h>
 #include "Windows.h"
 
-#include <iostream>
-
-
 #include "input_manager.h"
 #include "window.h"
 

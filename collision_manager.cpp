@@ -7,6 +7,8 @@
 #include "collidable_entity.h"
 #include "collision_box.h"
 
+const float ONE_WAY_COLLISION_THRESHOLD = 0.05f;
+
 CollisionManager& CollisionManager::getInstance() {
     static CollisionManager instance;
     return instance;
@@ -35,11 +37,12 @@ CollisionResult CollisionManager :: checkCollision(const std::shared_ptr<Collida
 }
 
 CollisionResult CollisionManager::getCollision(const std::shared_ptr<CollidableEntity> originEntity, const std::shared_ptr<CollidableEntity> otherEntity, const float deltaTime) const{
-    glm::vec2 originNextPos = originEntity->getNextPosition(deltaTime);
-    glm::vec2 otherNextPos = otherEntity->getNextPosition(deltaTime);
-
     std::shared_ptr<CollisionBox> originBox = originEntity->getCollider();
     std::shared_ptr<CollisionBox> otherBox = otherEntity->getCollider();
+
+    glm::vec2 originNextPos = originEntity->getNextPosition(deltaTime) + originBox->getOffset();
+    glm::vec2 otherNextPos = otherEntity->getNextPosition(deltaTime) + otherBox->getOffset();
+
     glm::vec2 originBoxSize = originEntity->getCollider()->getSize();
     glm::vec2 otherBoxSize = otherEntity->getCollider()->getSize();
 
@@ -61,15 +64,13 @@ bool CollisionManager::getOneWayCollision(const std::shared_ptr<CollidableEntity
     bool itHasASpecificCollisionDir = collisionDir != glm::vec2(0, 0);
 
     if (itHasASpecificCollisionDir) {
-        glm::vec2 velocityNormalized = glm::normalize(originEntity->getVelocity());
+        glm::vec2 directionNormalized = glm::normalize(originEntity->getDirection());
 
-        bool movingOppositeX = (velocityNormalized.x * collisionDir.x < -0.5f);
-        bool movingOppositeY = (velocityNormalized.y * collisionDir.y < -0.5f);
+        bool movingOppositeX = (directionNormalized.x * collisionDir.x < -ONE_WAY_COLLISION_THRESHOLD);
+        bool movingOppositeY = (directionNormalized.y * collisionDir.y < -ONE_WAY_COLLISION_THRESHOLD);
 
         if (collisionDir.x != 0 && !movingOppositeX) return false;
         if (collisionDir.y != 0 && !movingOppositeY) return false;
-
-		if (-collisionRes.normal == collisionDir) return false;
     }
     return true;
 }

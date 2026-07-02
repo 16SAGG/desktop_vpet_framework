@@ -10,7 +10,7 @@
 #include "wall.h"
 #include "window.h"
 #include "window_collidable.h"
-//#include "renderer_2d.h"
+#include "renderer_2d.h"
 
 EntityManager& EntityManager::getInstance() {
     static EntityManager instance;
@@ -20,7 +20,7 @@ EntityManager& EntityManager::getInstance() {
 void EntityManager::update(float deltaTime, Window& window) {
     for (auto& entity : entities) {
         entity -> update(deltaTime, window);
-		//Renderer2D::getInstance().drawColoredEntity(entity, window.getProjection(), { 1, 0, 0, 1 });
+		Renderer2D::getInstance().drawColoredEntity(entity, window.getProjection(), { 1, 0, 0, 1 });
     }
 }
 
@@ -29,6 +29,7 @@ std::shared_ptr<Character> EntityManager::createCharacter(const CharacterParams&
 
     character->setPosition(characterParams.entityParams.position);
     character->setAcceleration(characterParams.entityParams.acceleration);
+    character->setDirection(characterParams.entityParams.direction);
 
     CollisionManager::getInstance().addCollidableEntity(character);
     entities.push_back(character);
@@ -67,6 +68,7 @@ std::shared_ptr<Sprite> EntityManager::setSpriteParams(const std::shared_ptr<Spr
 std::shared_ptr<CollisionBox> EntityManager::createCollisionBox(const CollisionBoxParams& collisionBoxParams) {
     std::shared_ptr<CollisionBox> collisionBox = std::make_shared<CollisionBox>();
 
+    collisionBox->setOffset(collisionBoxParams.entityParams.offset);
     collisionBox->setSize(collisionBoxParams.entityParams.size);
     entities.push_back(collisionBox);
 

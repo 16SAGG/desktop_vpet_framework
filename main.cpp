@@ -9,7 +9,10 @@
 #include "borders_manager.h"
 #include "entity_manager.h"
 #include "input_manager.h"
+#include "utils.h"
 #include "character.h"
+
+#include "glm/fwd.hpp"
 
 int main() {
 	Window window;
@@ -39,8 +42,7 @@ int main() {
 			}
 		}),
 		.entityParams = {
-			.position = { 200, 400 },
-			.acceleration = { -1, -1 }
+			.position = { 200, 400 }
 		}
 	});
 
@@ -58,19 +60,20 @@ int main() {
 		}),
 		.collider = EntityManager::getInstance().createCollisionBox({
 			.entityParams = {
-				.size = { 100, 100 }
+				.size = { 60, 60 },
+				.offset = { 20, 40 }
 			}
 		}),
 		.entityParams = {
-			.position = { 200, 600 },
-			.acceleration = { -1, -1}
+			.position = { 200, 600 }
 		}
 	});
 
 	process.run([&](float deltaTime) {
 		inputManager.update();
 
-		char2->setPosition(inputManager.getMousePosition());
+		glm::vec2 direction = Utils::getInstance().getNormalizedDirection(char2->getGlobalPosition(), inputManager.getMousePosition());
+		char2->setDirection(direction);
 	});
 
 	glfwTerminate();

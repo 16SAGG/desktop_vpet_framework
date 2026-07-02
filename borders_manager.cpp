@@ -18,7 +18,6 @@ BordersManager::BordersManager(
 				.size = { screenSize.x + rightMargin + leftMargin, THICKNESS }
 			}
 		}),
-		.oneWayCollisionDirection = { 0, 1 },
 		.entityParams = {
 			.position = { -leftMargin, -topMargin - THICKNESS/2 }
 		}
@@ -31,7 +30,6 @@ BordersManager::BordersManager(
 				.size = { THICKNESS, screenSize.y + topMargin + bottomMargin }
 			}
 		}),
-		.oneWayCollisionDirection = { 1, 0 },
 		.entityParams = {
 			.position = { -leftMargin - THICKNESS/2, -topMargin }
 		}
@@ -44,7 +42,6 @@ BordersManager::BordersManager(
 				.size = { THICKNESS, screenSize.y + topMargin + bottomMargin }
 			}
 		}),
-		.oneWayCollisionDirection = { -1, 0 },
 		.entityParams = {
 			.position = { screenSize.x + leftMargin + THICKNESS/2, -topMargin }
 		}
@@ -57,7 +54,6 @@ BordersManager::BordersManager(
 				.size = { screenSize.x + rightMargin + leftMargin, THICKNESS }
 			}
 		}),
-		.oneWayCollisionDirection = { 0, -1 },
 		.entityParams = {
 			.position = { -leftMargin, screenSize.y + bottomMargin + THICKNESS/2 }
 		}

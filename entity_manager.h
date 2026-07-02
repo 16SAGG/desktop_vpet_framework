@@ -22,7 +22,9 @@ class WindowCollidable;
 struct EntityParams {
     glm::vec2 size = { 0,0 };
     glm::vec2 position = { 0,0 };
-    glm::vec2 acceleration = { 0,0 };
+	glm::vec2 offset = { 0,0 };
+    glm::vec2 acceleration = { 1, 1 };
+    glm::vec2 direction = { 0, 0 };
 };
 
 //Parametros de creacion de Character

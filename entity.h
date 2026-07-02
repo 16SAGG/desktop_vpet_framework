@@ -26,8 +26,11 @@ protected:
     // Es la velocidad maxima. Tipo glm::vec2
     glm::vec2 maxSpeed = { 200, 200 };
 
-    // Es la aceleracion actual del personaje, las propiedades son porcentuales donde '1' equivale al 100%. Tipo glm::vec2
-    glm::vec2 acceleration = { 1, 0 };
+    // Es la aceleracion actual de la entidad, las propiedades son porcentuales donde '1' equivale al 100%. Tipo glm::vec2
+    glm::vec2 acceleration = { 1, 1 };
+
+    // Es la direccion actual de la entidad. Tipo glm::vec2
+    glm::vec2 direction = { 1,1 };
 public:
     virtual ~Entity() = default;
 
@@ -90,9 +93,15 @@ public:
 
     /**
     * @brief Establecer acceleration.
-    * * @param _acceleration Es la aceleracion actual del personaje, las propiedades son porcentuales donde '1' equivale al 100%. Tipo glm::vec2
+    * * @param _acceleration Es la aceleracion actual de la entidad, las propiedades son porcentuales donde '1' equivale al 100%. Tipo glm::vec2
     */
     void setAcceleration(const glm::vec2& _acceleration) { acceleration = _acceleration; };
+
+    /**
+    * @brief Establecer direction.
+    * * @param _direction Es la direccion actual de la entidad. Tipo glm::vec2
+    */
+    void setDirection(const glm::vec2& _direction) { direction = _direction; };
 
     //GETTERS
 
@@ -100,6 +109,11 @@ public:
     * @brief Obtiene la posicion. Tipo glm::vec2
     */
     glm::vec2 getPosition() const { return position; }
+
+    /**
+    * @brief Obtiene el offset. Tipo glm::vec2
+    */
+    glm::vec2 getOffset() const { return offset; }
     
     /**
     * @brief Obtiene la posicion de dibujado. Tipo glm::vec2
@@ -114,7 +128,12 @@ public:
     /**
     * @brief Obtiene la velocidad. Tipo glm::vec2
     */
-    glm::vec2 getVelocity() const { return acceleration * maxSpeed; }
+    glm::vec2 getVelocity() const { return acceleration * direction * maxSpeed; }
+
+    /**
+    * @brief Obtiene la direccion. Tipo glm::vec2
+    */
+    glm::vec2 getDirection() const { return direction; }
 
     /*
     * @brief obtiene la proxima position de la entidad. tipo glm::vec2

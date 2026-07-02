@@ -13,6 +13,7 @@ C:\Workspace\desktop_vpet_framework\borders_manager.cpp;C:\Workspace\desktop_vpe
 C:\Workspace\desktop_vpet_framework\sprite.cpp;C:\Workspace\desktop_vpet_framework\desktop_vpet\x64\Debug\sprite.obj
 C:\Workspace\desktop_vpet_framework\stb.cpp;C:\Workspace\desktop_vpet_framework\desktop_vpet\x64\Debug\stb.obj
 C:\Workspace\desktop_vpet_framework\texture.cpp;C:\Workspace\desktop_vpet_framework\desktop_vpet\x64\Debug\texture.obj
+C:\Workspace\desktop_vpet_framework\utils.cpp;C:\Workspace\desktop_vpet_framework\desktop_vpet\x64\Debug\utils.obj
 C:\Workspace\desktop_vpet_framework\vao.cpp;C:\Workspace\desktop_vpet_framework\desktop_vpet\x64\Debug\vao.obj
 C:\Workspace\desktop_vpet_framework\vbo.cpp;C:\Workspace\desktop_vpet_framework\desktop_vpet\x64\Debug\vbo.obj
 C:\Workspace\desktop_vpet_framework\window.cpp;C:\Workspace\desktop_vpet_framework\desktop_vpet\x64\Debug\window.obj
