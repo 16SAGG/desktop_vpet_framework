@@ -13,7 +13,7 @@ class Window;
 class CollisionResult;
 
 /**
-* @brief Es una caja empleada para detectar el contacto con otros
+* @brief Es una entidad colisionable con fisicas especializadas en movimiento y la gravedad.
 */
 class Character : public CollidableEntity
 {
@@ -21,6 +21,12 @@ private:
 
     // Referencia al sprite del character. Tipo Sprite
     std::shared_ptr<Sprite> sprite;
+
+	// Fuerza de gravedad que se aplica a este character. Tipo glm::vec2
+	glm::vec2 gravity = { 0, 0 };
+
+	// Determina si el character esta en el suelo. Tipo bool
+	bool isGrounded = false;
 public:
 
     /**
@@ -66,6 +72,24 @@ public:
     */
     std::shared_ptr<Sprite> getSprite() { return sprite; };
 
+    /*
+	* @brief Obtiene la fuerza de gravedad que se aplica a este character. Tipo glm::vec2
+    */
+	glm::vec2 getGravity() const { return gravity; };
+
+    /*
+	* @brief Obtiene el vector normal de la gravedad. Tipo glm::vec2
+    */
+	glm::vec2 getGravityNormalized() const { return glm::normalize(gravity); };
+
+    /*
+    * @brief obtiene la proxima position de la entidad. tipo glm::vec2
+    * @param deltaTime tiempo transcurrido entre cada frame. float
+    */
+    glm::vec2 getNextPosition(float deltaTime) const override {
+        return getGlobalPosition() + (this->getVelocity() + gravity) * deltaTime;
+    }
+
     // SETTERS
     
     /**
@@ -73,5 +97,10 @@ public:
     * * @param _position Posicion base del padre. Tipo glm::vec2
     */
     void setChildrenPosition(const glm::vec2& _position);
+
+    /*
+	* @brief Cambia el valor de la variable gravity.
+    */
+	void setGravity(const glm::vec2& _gravity) { gravity = _gravity; };
 };
 #endif

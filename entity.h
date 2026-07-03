@@ -139,7 +139,7 @@ public:
     * @brief obtiene la proxima position de la entidad. tipo glm::vec2
     * @param deltaTime tiempo transcurrido entre cada frame. float
     */
-    glm::vec2 getNextPosition(float deltaTime) const {
+    virtual glm::vec2 getNextPosition(float deltaTime) const {
         return getGlobalPosition() + this->getVelocity() * deltaTime;
     }
 };

@@ -73,7 +73,7 @@ int main() {
 		inputManager.update();
 
 		glm::vec2 direction = Utils::getInstance().getNormalizedDirection(char2->getGlobalPosition(), inputManager.getMousePosition());
-		//char2->setDirection(direction);
+		char2->setDirection(direction);
 	});
 
 	glfwTerminate();

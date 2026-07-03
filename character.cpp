@@ -26,6 +26,10 @@ void Character::onCollision(const CollidableEntity* other, const glm::vec2 colli
     glm::vec2 correction = collisionNormalized * penetration;
     this->setPosition(this->getPosition() + correction);
 
+	if (getGravityNormalized() == collisionNormalized) {
+		isGrounded = true;
+	}
+
     bounce(other, collisionNormalized);
 }
 
