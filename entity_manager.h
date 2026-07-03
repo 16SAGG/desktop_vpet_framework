@@ -98,6 +98,13 @@ public:
     */
     void update(float deltaTime, Window& window);
 
+    /*
+	* @brief Establece los parametros base de la entidad
+	* @param entity Previamente creado al que se le aplicaran los cambios. Tipo Entity
+	* @param params Parametros de creacion de Entity. Tipo EntityParamas&
+    */
+    std::shared_ptr<Entity> setEntityParams(const std::shared_ptr<Entity> entity, const EntityParams& entityParams);
+
     /**
     * @brief Crea una entidad Character. Tipo std::shared_ptr<Character>
     * @param params Parametros de creacion de Character. Tipo CharacterParamas&

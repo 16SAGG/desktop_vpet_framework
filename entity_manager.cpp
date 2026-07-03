@@ -11,6 +11,7 @@
 #include "window.h"
 #include "window_collidable.h"
 #include "renderer_2d.h"
+#include "entity.h"
 
 EntityManager& EntityManager::getInstance() {
     static EntityManager instance;
@@ -24,12 +25,20 @@ void EntityManager::update(float deltaTime, Window& window) {
     }
 }
 
+std::shared_ptr<Entity> EntityManager::setEntityParams(const std::shared_ptr<Entity> entity, const EntityParams& entityParams) {
+    if (entityParams.size != glm::vec2(0, 0)) entity->setSize(entityParams.size);
+    if (entityParams.position != glm::vec2(0, 0)) entity->setPosition(entityParams.position);
+    if (entityParams.acceleration != glm::vec2(0, 0)) entity->setAcceleration(entityParams.acceleration);
+    if (entityParams.direction != glm::vec2(0, 0)) entity->setDirection(entityParams.direction);
+    if (entityParams.offset != glm::vec2(0, 0)) entity->setOffset(entityParams.offset);
+    
+    return entity;
+}
+
 std::shared_ptr<Character> EntityManager::createCharacter(const CharacterParams& characterParams) {
     std::shared_ptr<Character> character = CollidableEntity::create<Character>(characterParams.sprite, characterParams.collider);
 
-    character->setPosition(characterParams.entityParams.position);
-    character->setAcceleration(characterParams.entityParams.acceleration);
-    character->setDirection(characterParams.entityParams.direction);
+	character = std::static_pointer_cast<Character>(setEntityParams(character, characterParams.entityParams));
 
     CollisionManager::getInstance().addCollidableEntity(character);
     entities.push_back(character);
@@ -57,19 +66,17 @@ std::shared_ptr<Sprite> EntityManager::createSpriteTexture(const SpriteTexturePa
 
 std::shared_ptr<Sprite> EntityManager::setSpriteParams(const std::shared_ptr<Sprite> sprite, const SpriteParams& spriteParams) {
     if (spriteParams.frameSize != glm::vec2(0, 0)) sprite->setFrameSize(spriteParams.frameSize);
-    if (spriteParams.entityParams.size != glm::vec2(0, 0)) sprite->setSize(spriteParams.entityParams.size);
 
     sprite->setFrameOffset(spriteParams.frameOffset);
     sprite->setFrameGap(spriteParams.frameGap);
 
-    return sprite;
+	return std::static_pointer_cast<Sprite>(setEntityParams(sprite, spriteParams.entityParams));
 }
 
 std::shared_ptr<CollisionBox> EntityManager::createCollisionBox(const CollisionBoxParams& collisionBoxParams) {
     std::shared_ptr<CollisionBox> collisionBox = std::make_shared<CollisionBox>();
 
-    collisionBox->setOffset(collisionBoxParams.entityParams.offset);
-    collisionBox->setSize(collisionBoxParams.entityParams.size);
+    collisionBox = std::static_pointer_cast<CollisionBox>(setEntityParams(collisionBox, collisionBoxParams.entityParams));
     entities.push_back(collisionBox);
 
     return collisionBox;
@@ -79,7 +86,7 @@ std::shared_ptr<Wall> EntityManager::createWall(const WallParams& wallParams) {
     std::shared_ptr<Wall> wall = CollidableEntity::create<Wall>(wallParams.collider);
 
     wall->setOneWayCollisionDirection(wallParams.oneWayCollisionDirection);
-    wall->setPosition(wallParams.entityParams.position);
+	wall = std::static_pointer_cast<Wall>(setEntityParams(wall, wallParams.entityParams));
 
     CollisionManager::getInstance().addCollidableEntity(wall);
     entities.push_back(wall);
