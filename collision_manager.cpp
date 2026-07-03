@@ -17,7 +17,7 @@ CollisionManager& CollisionManager::getInstance() {
 CollisionResult CollisionManager :: checkCollision(const std::shared_ptr<CollidableEntity> originEntity, const float deltaTime) const {
     for (auto& weakOther : collidableEntities) {
         auto otherEntity = weakOther.lock();
-        if (!otherEntity || otherEntity == originEntity || !originEntity->canCollide() || !otherEntity->canCollide()) continue;
+        if (!otherEntity || otherEntity == originEntity) continue;
 
         CollisionResult collisionRes = this->getCollision(originEntity, otherEntity, deltaTime);
         if (!collisionRes.intersecting) continue;

@@ -1,23 +1,4 @@
 ﻿  Examinando orígenes para las dependencias de módulo...
-  borders_manager.cpp
-  entity_manager.cpp
-C:\Workspace\desktop_vpet_framework\character.h(13,7): warning C4099: 'CollisionResult': nombre de tipo visto anteriormente usando 'struct' ahora se ve usando 'class'
-  (compilando archivo de origen "entity_manager.cpp")
-      C:\Workspace\desktop_vpet_framework\collision_manager.h(14,8):
-      vea la declaración de 'CollisionResult'
-  
-  main.cpp
-C:\Program Files (x86)\Windows Kits\10\Include\10.0.26100.0\shared\minwindef.h(130,9): warning C4005: 'APIENTRY': redefinición de macro
-  (compilando archivo de origen "main.cpp")
-      C:\Workspace\desktop_vpet_framework\Libraries\include\glad\glad.h(32,9):
-      vea la definición anterior de “APIENTRY”
-  
-  process.cpp
-C:\Program Files (x86)\Windows Kits\10\Include\10.0.26100.0\shared\minwindef.h(130,9): warning C4005: 'APIENTRY': redefinición de macro
-  (compilando archivo de origen "process.cpp")
-      C:\Workspace\desktop_vpet_framework\Libraries\include\glad\glad.h(32,9):
-      vea la definición anterior de “APIENTRY”
-  
-  windows_collidable_manager.cpp
-  Generando código...
+  collidable_entity.cpp
+C:\Workspace\desktop_vpet_framework\collidable_entity.cpp(35,37): warning C4101: 'e': variable local sin referencia
   desktop_vpet.vcxproj -> C:\Workspace\desktop_vpet_framework\x64\Debug\desktop_vpet.exe

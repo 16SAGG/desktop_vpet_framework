@@ -60,8 +60,8 @@ int main() {
 		}),
 		.collider = EntityManager::getInstance().createCollisionBox({
 			.entityParams = {
-				.size = { 60, 60 },
-				.offset = { 20, 40 }
+				.size = { 100, 100 },
+				//.offset = { 20, 40 }
 			}
 		}),
 		.entityParams = {
@@ -73,7 +73,7 @@ int main() {
 		inputManager.update();
 
 		glm::vec2 direction = Utils::getInstance().getNormalizedDirection(char2->getGlobalPosition(), inputManager.getMousePosition());
-		char2->setDirection(direction);
+		//char2->setDirection(direction);
 	});
 
 	glfwTerminate();

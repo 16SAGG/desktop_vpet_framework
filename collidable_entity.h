@@ -34,12 +34,6 @@ protected:
     // Determina desde que direccion existe la colision, por defecto esta {0,0} que significa que todos los lados. Tipo glm::vec2
     glm::vec2 oneWayCollisionDirection = { 0,0 };
 
-    // Tiempo restante de inmunidad
-    float collisionCooldown = 0.0f;
-
-    // duracion de la inmunidad tras colisionar
-    float collisionCooldownDuration = .0f;
-
     /*
     * @brief Constructor por defecto, asigna el CollisionType WALL por defecto
     */
@@ -62,31 +56,7 @@ public:
     * @brief Constructor por parametros, permite a los hijos seleccionar su tipo de colision
     * @param _collisionType Define el tipo de colision de la entidad. Tipo CollisionType
     */
-    CollidableEntity(const CollisionType _collisionType) : collisionType(_collisionType) {};
-
-    /*
-    * @brief Actualiza el collisionCooldown
-    * @param deltaTime Tiempo transcurrido en segundos desde el último frame. tipo float.
-    */
-    void updateCollisionCooldown (float deltaTime) {
-        if (collisionCooldown > 0.0f) {
-            collisionCooldown -= deltaTime;
-        }
-    }
-
-    /*
-    * @brief Determina si la entidad esta lista para colisionar. Tipo bool
-    */
-    bool canCollide() const {
-        return collisionCooldown <= 0.0f;
-    }
-
-    /*
-    * @brief Inicia el collisionCooldown
-    */
-    void startCollisionCooldown() {
-        collisionCooldown = collisionCooldownDuration;
-    }
+    CollidableEntity(const CollisionType _collisionType) : collisionType(_collisionType) {}
 
     /**
     * @brief Determina el comportamiento de esta entiendad a colisionar.
@@ -101,6 +71,12 @@ public:
     * @param deltaTime Tiempo transcurrido en segundos desde el último frame. tipo float.
     */
     void move(float deltaTime) override;
+
+    /*
+	* @brief Comprueba si la entidad colisionara con otra entidad mientras se mueve, en caso de que si, se ejecuta el onCollision de ambas entidades y se devuelve false. Tipo bool
+    * @param deltaTime Tiempo transcurrido en segundos desde el último frame. tipo float.
+    */
+	bool canMove(float deltaTime);
 
     //GETTER
 

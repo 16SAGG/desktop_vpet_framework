@@ -26,7 +26,7 @@ void Character::onCollision(const CollidableEntity* other, const glm::vec2 colli
     glm::vec2 correction = collisionNormalized * penetration;
     this->setPosition(this->getPosition() + correction);
 
-    stopUponImpact(other, collisionNormalized);
+    bounce(other, collisionNormalized);
 }
 
 void Character::stopUponImpact(const CollidableEntity* other, glm::vec2 normal) {
