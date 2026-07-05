@@ -17,6 +17,7 @@ class Renderer2D;
 class Wall;
 class Window;
 class WindowCollidable;
+class DesktopPet;
 
 //Parametros de creacion de Entidad
 struct EntityParams {
@@ -25,12 +26,14 @@ struct EntityParams {
 	glm::vec2 offset = { 0,0 };
     glm::vec2 acceleration = { 1, 1 };
     glm::vec2 direction = { 0, 0 };
+	glm::vec2 maxSpeed = { 0, 0 };
 };
 
 //Parametros de creacion de Character
 struct CharacterParams {
     std::shared_ptr<Sprite> sprite = nullptr;
     std::shared_ptr<CollisionBox> collider = nullptr;
+	glm::vec2 gravity = { 0, 0 };
     EntityParams entityParams;
 };
 
@@ -72,6 +75,12 @@ struct WindowCollidableParams {
     std::shared_ptr<CollisionBox> collider = nullptr;
 };
 
+//Parametros de creacion de DesktopPet
+struct DesktopPetParams {
+	glm::vec2 friction = { 0, 0 };
+	CharacterParams characterParams;
+};
+
 /**
 * @brief Crea y gestiona todas las entidades
 */
@@ -104,6 +113,13 @@ public:
 	* @param params Parametros de creacion de Entity. Tipo EntityParamas&
     */
     std::shared_ptr<Entity> setEntityParams(const std::shared_ptr<Entity> entity, const EntityParams& entityParams);
+
+    /*
+   * @brief Establece los parametros base del character
+   * @param character Previamente creado al que se le aplicaran los cambios. Tipo Character
+   * @param params Parametros de creacion de Entity. Tipo CharacterParamas&
+   */
+    std::shared_ptr<Character> setCharacterParams(const std::shared_ptr<Character> character, const CharacterParams& characterParams);
 
     /**
     * @brief Crea una entidad Character. Tipo std::shared_ptr<Character>
@@ -147,5 +163,7 @@ public:
     * @param params Parametros de creacion de WindowCollidable. Tipo WindowCollidableParamas&
     */
     std::shared_ptr<WindowCollidable> createWindowCollidable(const WindowCollidableParams& windowCollidableParams);
+    
+	std::shared_ptr<DesktopPet> createDesktopPet(const DesktopPetParams& desktopPetParams);
 };
 #endif

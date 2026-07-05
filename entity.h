@@ -6,6 +6,7 @@
 #include <glm/vec2.hpp>
 #include <glm/glm.hpp>
 #include <utility>
+#include "glm/fwd.hpp"
 
 class Window;
 
@@ -24,13 +25,13 @@ protected:
     glm::vec2 size = { 0.0f, 0.0f };
 
     // Es la velocidad maxima. Tipo glm::vec2
-    glm::vec2 maxSpeed = { 200, 200 };
+    glm::vec2 maxSpeed = { 0, 0 };
 
     // Es la aceleracion actual de la entidad, las propiedades son porcentuales donde '1' equivale al 100%. Tipo glm::vec2
-    glm::vec2 acceleration = { 1, 1 };
+    glm::vec2 acceleration = { 0, 0 };
 
     // Es la direccion actual de la entidad. Tipo glm::vec2
-    glm::vec2 direction = { 1,1 };
+    glm::vec2 direction = { 0, 0 };
 public:
     virtual ~Entity() = default;
 
@@ -89,7 +90,7 @@ public:
     * @brief Establecer la velocidad maxima.
     * * @param _acceleration Es la aceleracion actual del personaje, las propiedades son porcentuales donde '1' equivale al 100%. Tipo glm::vec2
     */
-    void setSpeed(const glm::vec2& _maxSpeed) { maxSpeed = _maxSpeed; };
+    void setMasSpeed(const glm::vec2& _maxSpeed) { maxSpeed = _maxSpeed; };
 
     /**
     * @brief Establecer acceleration.
@@ -128,7 +129,7 @@ public:
     /**
     * @brief Obtiene la velocidad. Tipo glm::vec2
     */
-    glm::vec2 getVelocity() const { return acceleration * direction * maxSpeed; }
+    virtual glm::vec2 getVelocity() const { return acceleration * direction * maxSpeed; }
 
     /**
     * @brief Obtiene la direccion. Tipo glm::vec2

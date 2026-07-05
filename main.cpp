@@ -10,7 +10,7 @@
 #include "entity_manager.h"
 #include "input_manager.h"
 #include "utils.h"
-#include "character.h"
+#include "desktop_pet.h"
 
 #include "glm/fwd.hpp"
 
@@ -24,56 +24,37 @@ int main() {
 
 	InputManager inputManager(window);
 
-	auto char1 = EntityManager::getInstance().createCharacter({
-		.sprite = EntityManager::getInstance().createSpritePath({
-			.path = "texture_2.png",
-			.spriteParams = {
-				.frameSize = { 16, 16},
-				.frameOffset = { 1, 21 },
-				.frameGap = { 1, 0 },
+	auto pet1 = EntityManager::getInstance().createDesktopPet({
+		.friction = { 0, .5f },
+		.characterParams = {
+			.sprite = EntityManager::getInstance().createSpritePath({
+				.path = "texture_2.png",
+				.spriteParams = {
+					.frameSize = { 16, 16},
+					.frameOffset = { 1, 21 },
+					.frameGap = { 1, 0 },
+					.entityParams = {
+						.size = { 100, 100 }
+					}
+				}
+			}),
+			.collider = EntityManager::getInstance().createCollisionBox({
 				.entityParams = {
 					.size = { 100, 100 }
 				}
-			}
-		}),
-		.collider = EntityManager::getInstance().createCollisionBox({
+			}),
+			.gravity = { 0, 180.0f },
 			.entityParams = {
-				.size = { 100, 100 }
+				.position = { 200, 400 },
+				.maxSpeed = { 300, 600 }
 			}
-		}),
-		.entityParams = {
-			.position = { 200, 400 }
-		}
-	});
-
-	std::shared_ptr<Texture> textureShared = std::make_shared<Texture>("texture.png", GL_TEXTURE_2D, GL_TEXTURE0, GL_RGBA, GL_UNSIGNED_BYTE);
-	textureShared->texUnit(Renderer2D::getInstance().getShader(), "tex0", 0);
-
-	auto char2 = EntityManager::getInstance().createCharacter({
-		.sprite = EntityManager::getInstance().createSpriteTexture({
-			.texture = textureShared,
-			.spriteParams = {
-				.entityParams = {
-					.size = { 100, 100 }
-				}
-			}
-		}),
-		.collider = EntityManager::getInstance().createCollisionBox({
-			.entityParams = {
-				.size = { 100, 100 },
-				//.offset = { 20, 40 }
-			}
-		}),
-		.entityParams = {
-			.position = { 200, 600 }
-		}
+		},
 	});
 
 	process.run([&](float deltaTime) {
 		inputManager.update();
 
-		glm::vec2 direction = Utils::getInstance().getNormalizedDirection(char2->getGlobalPosition(), inputManager.getMousePosition());
-		char2->setDirection(direction);
+		pet1->setMousePosition(inputManager.getMousePosition());
 	});
 
 	glfwTerminate();

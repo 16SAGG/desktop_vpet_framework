@@ -73,10 +73,10 @@ public:
     void move(float deltaTime) override;
 
     /*
-	* @brief Comprueba si la entidad colisionara con otra entidad mientras se mueve, en caso de que si, se ejecuta el onCollision de ambas entidades y se devuelve false. Tipo bool
+	* @brief Comprueba si la entidad colisionara con otra entidad mientras se mueve, en caso de que si, se ejecuta el onCollision de ambas entidades y se devuelve la correccion de posicion. Tipo glm::vec2
     * @param deltaTime Tiempo transcurrido en segundos desde el último frame. tipo float.
     */
-	bool canMove(float deltaTime);
+	glm::vec2 handleCollision(float deltaTime);
 
     //GETTER
 

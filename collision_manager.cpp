@@ -64,10 +64,10 @@ bool CollisionManager::getOneWayCollision(const std::shared_ptr<CollidableEntity
     bool itHasASpecificCollisionDir = collisionDir != glm::vec2(0, 0);
 
     if (itHasASpecificCollisionDir) {
-        glm::vec2 directionNormalized = glm::normalize(originEntity->getDirection());
+        glm::vec2 velocityNormalized = glm::normalize(originEntity->getVelocity());
 
-        bool movingOppositeX = (directionNormalized.x * collisionDir.x < -ONE_WAY_COLLISION_THRESHOLD);
-        bool movingOppositeY = (directionNormalized.y * collisionDir.y < -ONE_WAY_COLLISION_THRESHOLD);
+        bool movingOppositeX = (velocityNormalized.x * collisionDir.x < -ONE_WAY_COLLISION_THRESHOLD);
+        bool movingOppositeY = (velocityNormalized.y * collisionDir.y < -ONE_WAY_COLLISION_THRESHOLD);
 
         if (collisionDir.x != 0 && !movingOppositeX) return false;
         if (collisionDir.y != 0 && !movingOppositeY) return false;

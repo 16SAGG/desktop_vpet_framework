@@ -12,6 +12,7 @@
 #include "window_collidable.h"
 #include "renderer_2d.h"
 #include "entity.h"
+#include "desktop_pet.h"
 
 EntityManager& EntityManager::getInstance() {
     static EntityManager instance;
@@ -28,17 +29,24 @@ void EntityManager::update(float deltaTime, Window& window) {
 std::shared_ptr<Entity> EntityManager::setEntityParams(const std::shared_ptr<Entity> entity, const EntityParams& entityParams) {
     if (entityParams.size != glm::vec2(0, 0)) entity->setSize(entityParams.size);
     if (entityParams.position != glm::vec2(0, 0)) entity->setPosition(entityParams.position);
+    if (entityParams.offset != glm::vec2(0, 0)) entity->setOffset(entityParams.offset);
     if (entityParams.acceleration != glm::vec2(0, 0)) entity->setAcceleration(entityParams.acceleration);
     if (entityParams.direction != glm::vec2(0, 0)) entity->setDirection(entityParams.direction);
-    if (entityParams.offset != glm::vec2(0, 0)) entity->setOffset(entityParams.offset);
-    
+	if (entityParams.maxSpeed != glm::vec2(0, 0)) entity->setMasSpeed(entityParams.maxSpeed);
+
     return entity;
+}
+
+std::shared_ptr<Character> EntityManager::setCharacterParams(const std::shared_ptr<Character> character, const CharacterParams& characterParams) {
+	if (characterParams.gravity != glm::vec2(0, 0)) character->setGravity(characterParams.gravity);
+
+	return std::static_pointer_cast<Character>(setEntityParams(character, characterParams.entityParams));
 }
 
 std::shared_ptr<Character> EntityManager::createCharacter(const CharacterParams& characterParams) {
     std::shared_ptr<Character> character = CollidableEntity::create<Character>(characterParams.sprite, characterParams.collider);
 
-	character = std::static_pointer_cast<Character>(setEntityParams(character, characterParams.entityParams));
+	character = setCharacterParams(character, characterParams);
 
     CollisionManager::getInstance().addCollidableEntity(character);
     entities.push_back(character);
@@ -101,4 +109,17 @@ std::shared_ptr<WindowCollidable> EntityManager::createWindowCollidable(const Wi
     entities.push_back(windowCollidable);
 
     return windowCollidable;
+}
+
+std::shared_ptr<DesktopPet> EntityManager::createDesktopPet(const DesktopPetParams& desktopPetParams) {
+	std::shared_ptr<DesktopPet> desktopPet = CollidableEntity::create<DesktopPet>(desktopPetParams.characterParams.sprite, desktopPetParams.characterParams.collider);
+    
+	desktopPet->setFriction(desktopPetParams.friction);
+
+	desktopPet = std::static_pointer_cast<DesktopPet>(setCharacterParams(desktopPet, desktopPetParams.characterParams));
+
+	CollisionManager::getInstance().addCollidableEntity(desktopPet);
+	entities.push_back(desktopPet);
+
+	return desktopPet;
 }

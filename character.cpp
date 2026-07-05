@@ -9,7 +9,9 @@
 #include "renderer_2d.h"
 
 void Character::update(float deltaTime, Window& window) {
+    isGrounded = false;
     move(deltaTime);
+
     Renderer2D::getInstance().draw(sprite, window.getProjection());
 }
 
@@ -23,32 +25,11 @@ Character::Character(std::shared_ptr<Sprite> _sprite, std::shared_ptr<CollisionB
 void Character::onCollision(const CollidableEntity* other, const glm::vec2 collisionNormalized, const float penetration) {
     if (!other) return;
 
-    glm::vec2 correction = collisionNormalized * penetration;
-    this->setPosition(this->getPosition() + correction);
-
-	if (getGravityNormalized() == collisionNormalized) {
+	bool isGravityCollision = (-getGravityNormalized() == collisionNormalized);
+	if (isGravityCollision) {
 		isGrounded = true;
+        return;
 	}
-
-    bounce(other, collisionNormalized);
-}
-
-void Character::stopUponImpact(const CollidableEntity* other, glm::vec2 normal) {
-    if (normal.x != 0) {
-        this->direction.x = 0;
-    }
-    else if (normal.y != 0) {
-        this->direction.y = 0;
-    }
-}
-
-void Character::bounce(const CollidableEntity* other, glm::vec2 normal) {
-    if (normal.x != 0) {
-        this->direction.x = -this->direction.x;
-    }
-    else if (normal.y != 0) {
-        this->direction.y = -this->direction.y;
-    }
 }
 
 void Character::setChildrenPosition(const glm::vec2& _position) {

@@ -17,7 +17,7 @@ class CollisionResult;
 */
 class Character : public CollidableEntity
 {
-private:
+protected:
 
     // Referencia al sprite del character. Tipo Sprite
     std::shared_ptr<Sprite> sprite;
@@ -58,13 +58,6 @@ public:
     */
     void stopUponImpact(const CollidableEntity* other, glm::vec2 normal);
 
-    /*
-    * @brief Es la reaccion de este cuerpo al colisionar con un objeto solido. Su efecto es rebotar.
-    * @param other Referencia al CollidableEntity con el que colisiono. Tipo std::shared_ptr<CollidableEntity>
-    * @param normal. Es el vector normal que indica donde se colisiono. glm::vec2
-    */
-    void bounce(const CollidableEntity* other, glm::vec2 normal);
-
     // GETTERS
 
     /*
@@ -83,12 +76,14 @@ public:
 	glm::vec2 getGravityNormalized() const { return glm::normalize(gravity); };
 
     /*
-    * @brief obtiene la proxima position de la entidad. tipo glm::vec2
-    * @param deltaTime tiempo transcurrido entre cada frame. float
+	* @brief Obtiene si el character esta en el suelo. Tipo bool
     */
-    glm::vec2 getNextPosition(float deltaTime) const override {
-        return getGlobalPosition() + (this->getVelocity() + gravity) * deltaTime;
-    }
+	bool getIsGrounded() const { return isGrounded; };
+
+    /**
+    * @brief Obtiene la velocidad. Tipo glm::vec2
+    */
+    glm::vec2 getVelocity() const override { return (acceleration * direction * maxSpeed) + gravity; }
 
     // SETTERS
     
