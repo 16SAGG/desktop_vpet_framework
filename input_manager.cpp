@@ -1,12 +1,12 @@
 #include<glad/glad.h>
 #include <GLFW/glfw3.h>
-#include "Windows.h"
+#include <Windows.h>
 
 #include "input_manager.h"
 #include "window.h"
 
-InputManager::InputManager(Window& _window) : window(_window), mousePosition({ 0,0 }) {
-	if (!glfwInit()) return;
+InputManager::InputManager(Window& window) {
+    if (!glfwInit()) return;
 }
 
 void InputManager::update() {
@@ -14,4 +14,14 @@ void InputManager::update() {
     if (GetCursorPos(&p)) {
         mousePosition = {p.x, p.y};
     }
+
+    for (int key : keysToTrack) {
+        keysStates[key] = (GetAsyncKeyState(key) & 0x8000) != 0;
+    }
+}
+
+bool InputManager::isKeyPressed(int key) const {
+    auto it = keysStates.find(key);
+    if (it != keysStates.end()) return it->second;
+    return false;
 }

@@ -114,7 +114,7 @@ std::shared_ptr<WindowCollidable> EntityManager::createWindowCollidable(const Wi
 std::shared_ptr<DesktopPet> EntityManager::createDesktopPet(const DesktopPetParams& desktopPetParams) {
 	std::shared_ptr<DesktopPet> desktopPet = CollidableEntity::create<DesktopPet>(desktopPetParams.characterParams.sprite, desktopPetParams.characterParams.collider);
     
-	desktopPet->setFriction(desktopPetParams.friction);
+	desktopPet->setAirFriction(desktopPetParams.airFriction);
 
 	desktopPet = std::static_pointer_cast<DesktopPet>(setCharacterParams(desktopPet, desktopPetParams.characterParams));
 

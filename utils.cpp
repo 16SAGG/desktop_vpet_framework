@@ -1,5 +1,6 @@
-#include "glm/fwd.hpp"
 #include <glm/glm.hpp>
+#include <windows.h>
+#include <random>
 
 #include "utils.h"
 
@@ -18,4 +19,24 @@ glm::vec2 Utils::getNormalizedDirection(glm::vec2 origin, glm::vec2 target) {
     }
 
     return glm::vec2(0.0f, 0.0f);
+}
+
+glm::vec2 Utils::getScreenSize() {
+    RECT workArea{};
+    SystemParametersInfo(SPI_GETWORKAREA, 0, &workArea, 0);
+
+    return { workArea.right - workArea.left, workArea.bottom - workArea.top };
+}
+
+float Utils::getRandomNumber(const float limit1, const float limit2) {
+    std::uniform_real_distribution<float> distX(limit1, limit2);
+    return distX(getGenerator());
+}
+
+glm::vec2 Utils::getRandomVector(const glm::vec2& vector1, const glm::vec2& vector2) {
+    return glm::vec2(this->getRandomNumber(vector1.x, vector2.x), this->getRandomNumber(vector1.y, vector2.y));
+}
+
+glm::vec2 Utils::convertToIntVector(const glm::vec2 vector) {
+    return glm::vec2(static_cast<int>(vector.x), static_cast<int>(vector.y));
 }

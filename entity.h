@@ -32,6 +32,9 @@ protected:
 
     // Es la direccion actual de la entidad. Tipo glm::vec2
     glm::vec2 direction = { 0, 0 };
+
+	// Contador de frames para controlar la frecuencia de actualización del movimiento. Tipo int
+	int frameCounter = 0;
 public:
     virtual ~Entity() = default;
 
@@ -47,7 +50,7 @@ public:
     * @param deltaTime Tiempo transcurrido en segundos desde el último frame. tipo float.
     * @param window Referencia a la ventana que encapsula este objeto. Tipo Window&
     */
-    virtual void update(float deltaTime, Window& window) {}
+    virtual void update(float deltaTime, Window& window) { frameCounter ++;}
 
     /*
     * @brief Permite el movimiento de la entindad.
@@ -96,7 +99,13 @@ public:
     * @brief Establecer acceleration.
     * * @param _acceleration Es la aceleracion actual de la entidad, las propiedades son porcentuales donde '1' equivale al 100%. Tipo glm::vec2
     */
-    void setAcceleration(const glm::vec2& _acceleration) { acceleration = _acceleration; };
+    void setAcceleration(const glm::vec2& _acceleration) { 
+		if (_acceleration.x < 0.0f) acceleration.x = 0.0f;
+		else acceleration.x = _acceleration.x;
+
+		if (_acceleration.y < 0.0f) acceleration.y = 0.0f;
+		else acceleration.y = _acceleration.y;
+    };
 
     /**
     * @brief Establecer direction.

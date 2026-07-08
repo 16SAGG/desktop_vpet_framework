@@ -51,13 +51,6 @@ public:
     */
     void onCollision(const CollidableEntity* other, const glm::vec2 collisionNormalized, const float penetration) override;
 
-    /*
-    * @brief Es la reaccion de este cuerpo al colisionar con un objeto solido. Su efecto es detener el desplazamiento en la direccion a la que colisiona.
-    * @param other Referencia al CollidableEntity con el que colisiono. Tipo std::shared_ptr<CollidableEntity>
-    * @param normal. Es el vector normal que indica donde se colisiono. glm::vec2
-    */
-    void stopUponImpact(const CollidableEntity* other, glm::vec2 normal);
-
     // GETTERS
 
     /*

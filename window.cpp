@@ -11,21 +11,18 @@
 #endif
 
 #include "window.h"
+#include "utils.h"
 
-Window :: Window() : window(nullptr), windowHWND(nullptr), projection(glm::mat4(1.0f)), screenWidth(0), screenHeight(0) {
+Window :: Window() : window(nullptr), windowHWND(nullptr), projection(glm::mat4(1.0f)) {
 	if (!glfwInit()) return;
-
-	RECT workArea {};
-	SystemParametersInfo(SPI_GETWORKAREA, 0, &workArea, 0);
-
-	screenWidth = workArea.right - workArea.left;
-	screenHeight = workArea.bottom - workArea.top;
 
 	glfwWindowHint(GLFW_TRANSPARENT_FRAMEBUFFER, GLFW_TRUE);
 	glfwWindowHint(GLFW_DECORATED, GLFW_FALSE);
 	glfwWindowHint(GLFW_FLOATING, GLFW_TRUE);
 
-	window = glfwCreateWindow(screenWidth, screenHeight, "Overlay", NULL, NULL);
+	glm::vec2 screenSize = Utils::getInstance().getScreenSize();
+
+	window = glfwCreateWindow(screenSize.x, screenSize.y, "Overlay", NULL, NULL);
 	glfwMakeContextCurrent(window);
 	gladLoadGLLoader((GLADloadproc)glfwGetProcAddress);
 
@@ -39,5 +36,5 @@ Window :: Window() : window(nullptr), windowHWND(nullptr), projection(glm::mat4(
 
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-	projection = glm::ortho(0.0f, float(screenWidth), float(screenHeight), 0.0f, -1.0f, 1.0f);
+	projection = glm::ortho(0.0f, float(screenSize.x), float(screenSize.y), 0.0f, -1.0f, 1.0f);
 }

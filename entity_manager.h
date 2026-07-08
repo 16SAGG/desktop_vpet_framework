@@ -77,7 +77,7 @@ struct WindowCollidableParams {
 
 //Parametros de creacion de DesktopPet
 struct DesktopPetParams {
-	glm::vec2 friction = { 0, 0 };
+	float airFriction = 0.0f;
 	CharacterParams characterParams;
 };
 

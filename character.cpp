@@ -7,12 +7,15 @@
 #include "collidable_entity.h"
 #include "collision_box.h"
 #include "renderer_2d.h"
+#include "entity.h"
 
 void Character::update(float deltaTime, Window& window) {
-    isGrounded = false;
-    move(deltaTime);
+    Entity::update(deltaTime, window);
 
-    Renderer2D::getInstance().draw(sprite, window.getProjection());
+    this->isGrounded = false;
+    this->move(deltaTime);
+
+    Renderer2D::getInstance().draw(this->sprite, window.getProjection());
 }
 
 Character::Character(std::shared_ptr<Sprite> _sprite, std::shared_ptr<CollisionBox> _collider) :
@@ -27,7 +30,7 @@ void Character::onCollision(const CollidableEntity* other, const glm::vec2 colli
 
 	bool isGravityCollision = (-getGravityNormalized() == collisionNormalized);
 	if (isGravityCollision) {
-		isGrounded = true;
+		this->isGrounded = true;
         return;
 	}
 }
