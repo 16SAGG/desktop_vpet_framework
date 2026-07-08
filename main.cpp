@@ -52,7 +52,7 @@ int main() {
 		inputManager.update();
 
 		pet1->setMousePosition(inputManager.getMousePosition());
-		pet1->setFollowCursorKeyIsPressed(inputManager.isKeyPressed(VK_SPACE));
+		pet1->setFollowCursorKeyIsPressed(inputManager.isKeyPressed(VK_CONTROL));
 	});
 
 	glfwTerminate();

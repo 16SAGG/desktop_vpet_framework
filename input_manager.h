@@ -19,7 +19,7 @@ private:
 	glm::vec2 mousePosition = { 0,0 };
 
 	// Todas las teclas que se van a registrar
-	std::vector<int> keysToTrack = { VK_SPACE };
+	std::vector<int> keysToTrack = { VK_SPACE, VK_CONTROL };
 
 	// Contiene todas las teclas del teclado y su estado (presionado o no)
 	std::map<int, bool> keysStates;
