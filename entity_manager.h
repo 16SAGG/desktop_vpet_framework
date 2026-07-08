@@ -77,7 +77,6 @@ struct WindowCollidableParams {
 
 //Parametros de creacion de DesktopPet
 struct DesktopPetParams {
-	float airFriction = 0.0f;
 	CharacterParams characterParams;
 };
 

@@ -1,6 +1,8 @@
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 #include <memory>
+#include <Windows.h>
+#include <iostream>
 
 #include "window.h"
 #include "process.h"
@@ -9,7 +11,6 @@
 #include "input_manager.h"
 #include "utils.h"
 #include "desktop_pet.h"
-#include <Windows.h>
 
 int main() {
 	Window window;
@@ -22,7 +23,6 @@ int main() {
 	InputManager inputManager(window);
 
 	auto pet1 = EntityManager::getInstance().createDesktopPet({
-		.airFriction = .5f,
 		.characterParams = {
 			.sprite = EntityManager::getInstance().createSpritePath({
 				.path = "texture_2.png",
@@ -40,7 +40,7 @@ int main() {
 					.size = { 100, 100 }
 				}
 			}),
-			.gravity = { 0, 180.0f },
+			.gravity = { 0, .5f },
 			.entityParams = {
 				.position = { 200, 400 },
 				.maxSpeed = { 300, 600 }
@@ -53,6 +53,7 @@ int main() {
 
 		pet1->setMousePosition(inputManager.getMousePosition());
 		pet1->setFollowCursorKeyIsPressed(inputManager.isKeyPressed(VK_CONTROL));
+		pet1->setIsStopped(inputManager.isKeyPressed(VK_SPACE));
 	});
 
 	glfwTerminate();

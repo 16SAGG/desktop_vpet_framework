@@ -22,6 +22,7 @@ struct TargetData {
 enum MovementBehavior {
 	FOLLOW_CURSOR,
 	FOLLOW_TARGETS,
+	STOP,
 	WANDER
 };
 
@@ -36,9 +37,6 @@ class DesktopPet : public Character
 {
 private:
 
-	// Determina la friccion que se aplicara a la aceleracion en el aire. Tipo float
-	float airFriction = 0.0f;
-
 	// Determina si la tecla para activar el comportamiento FOLLOW_CURSOR esta presionada
 	bool followCursorKeyIsPressed = false;
 
@@ -47,6 +45,9 @@ private:
 
 	// Contiene todas las entidades que la mascota de escritorio seguira. std::vector<std::shared_ptr<Entity>> 
 	std::vector<std::shared_ptr<Entity>> targetsToFollow;
+
+	// Determina si el monstruo esta detenido
+	bool isStopped = false;
 
 	// Proxima posicion a la que se desplazara el personaje en su estado Wander. Tipo glm::vec2
 	glm::vec2 wanderPosition = { 0,0 };
@@ -83,8 +84,9 @@ public:
 
 	/*
 	* @brief Realiza un salto
+	* @param targetY La altura del objetivo. Tipo float
 	*/
-	void jump();
+	void jump(float targetY);
 
 	/*
 	* @brief Incluye una nueva entidad para seguir
@@ -93,11 +95,6 @@ public:
 	void addTargetToFollow(const std::shared_ptr<Entity> newTargetToFollow);
 
 	//SETTERS
-
-	/*
-	* @brief Establece la friccion que se aplicara a la aceleracion.
-	*/
-	void setAirFriction(const float _airFriction) { this->airFriction = _airFriction; };
 
 	/*
 	* @brief Establece si la tecla para activar el comportamiento FOLLOW_CURSOR esta presionada
@@ -109,6 +106,11 @@ public:
 	* @brief Establece la posicion del mouse.
 	*/
 	void setMousePosition(const glm::vec2& _mousePosition) { this->mousePosition = _mousePosition; };
+
+	/*
+	* @brief Establece si el monstruo esta detenido o no
+	*/
+	void setIsStopped(const bool _isStopped) { this->isStopped = _isStopped; };
 
 	/*
 	* @brief Establece la proxima posicion a la que se desplazara el personaje en su estado Wander. Tipo glm::vec2
@@ -133,10 +135,10 @@ public:
 	*/
 	glm::vec2 getVelocity() const override { 
 		if (this->getIsGrounded()) {
-			return (acceleration * direction * maxSpeed) + gravity;
+			return (acceleration * direction * maxSpeed);
 		}
 		else {
-			return (acceleration * glm::vec2(direction.x, -1) * maxSpeed) + gravity;
+			return (acceleration * glm::vec2(direction.x, -1) * maxSpeed);
 		}
 	}
 };

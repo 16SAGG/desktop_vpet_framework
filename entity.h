@@ -100,10 +100,12 @@ public:
     * * @param _acceleration Es la aceleracion actual de la entidad, las propiedades son porcentuales donde '1' equivale al 100%. Tipo glm::vec2
     */
     void setAcceleration(const glm::vec2& _acceleration) { 
-		if (_acceleration.x < 0.0f) acceleration.x = 0.0f;
+        if (_acceleration.x < -1.0f) acceleration.x = -1.0f;
+        else if (_acceleration.x > 1.0f) acceleration.x = 1.0f;
 		else acceleration.x = _acceleration.x;
 
-		if (_acceleration.y < 0.0f) acceleration.y = 0.0f;
+		if (_acceleration.y < -1.0f) acceleration.y = -1.0f;
+        else if (_acceleration.y > 1.0f) acceleration.y = 1.0f;
 		else acceleration.y = _acceleration.y;
     };
 

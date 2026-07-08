@@ -1,6 +1,7 @@
 #include <cstdlib>
 #include "glm/fwd.hpp"
 #include <memory>
+#include <cmath>
 
 #include "desktop_pet.h"
 #include "character.h"
@@ -9,10 +10,11 @@
 #include "entity.h"
 
 const float TARGET_X_THRESHOLD_TO_JUMP = 200.0f;
-const float TARGET_Y_THRESHOLD_TO_JUMP = 100.0f;
+const float TARGET_Y_THRESHOLD_TO_JUMP = 50.0f;
 const float WANDER_X_MAX_POSITION_ADDED = 400.0f;
 const float SAME_POSITION_EPSILON = 1.0f;
 const int MAX_WANDER_FRAMES = 2400;
+const float JUMP_COMPENSATION = 25.0f;
 
 void DesktopPet::move(float deltaTime) {
 	Character::move(deltaTime);
@@ -30,20 +32,25 @@ void DesktopPet::move(float deltaTime) {
 			targetData = this->getTargetData(this->targetsToFollow[0]->getGlobalPosition());
 			break;
 		}
+		
+		case MovementBehavior::STOP: {
+			targetData = this->getTargetData(this->getGlobalPosition());
+			break;
+		}
 
-		case MovementBehavior::WANDER:{
-			bool timeIsOut = wanderFrames == MAX_WANDER_FRAMES;
+		case MovementBehavior::WANDER: {
+			bool timeIsOut = this->wanderFrames == MAX_WANDER_FRAMES;
 
 			if (timeIsOut) {
 				float wanderPositionXRandomLimit1 = this->getGlobalPosition().x - WANDER_X_MAX_POSITION_ADDED;
 				float wanderPositionXRandomLimit2 = this->getGlobalPosition().x + WANDER_X_MAX_POSITION_ADDED;
 
 				this->wanderPosition.x = Utils::getInstance().getRandomNumber(wanderPositionXRandomLimit1, wanderPositionXRandomLimit2);
-				wanderFrames = 0;
+				this->wanderFrames = 0;
 			}
 			this->setWanderPosition(glm::vec2(this->wanderPosition.x, this->getGlobalPosition().y));
-			wanderFrames++;
-			targetData = getTargetData(wanderPosition);
+			this->wanderFrames++;
+			targetData = this->getTargetData(this->wanderPosition);
 			break;
 		}
 
@@ -69,6 +76,9 @@ MovementBehavior DesktopPet::getCurrentMovementBehavior() {
 	else if (this->targetsToFollow.size() > 0) {
 		return MovementBehavior::FOLLOW_TARGETS;
 	}
+	else if (this->isStopped) {
+		return MovementBehavior::STOP;
+	}
 	else {
 		return MovementBehavior::WANDER;
 	}
@@ -78,19 +88,25 @@ void DesktopPet::handleGroundMovement(float deltaTime, glm::vec2 distanceToTarge
 	this->setAcceleration({ 1.0f, 0.0f });
 
 	if (-TARGET_Y_THRESHOLD_TO_JUMP >= distanceToTarget.y && std::abs(distanceToTarget.x) <= TARGET_X_THRESHOLD_TO_JUMP) {
-		this->jump();
+		this->jump(distanceToTarget.y);
 	}
 }
 
 void DesktopPet::handleAirMovement(float deltaTime) {
 	this->setAcceleration({
 		.5f,
-		this->acceleration.y - (this->airFriction * deltaTime)
+		this->acceleration.y - (this->gravity.y * deltaTime)
 	});
 }
 
-void DesktopPet::jump() {
-	this->acceleration.y = 1.0f;
+void DesktopPet::jump(float targetY) {
+	const float targetHeight = std::abs(targetY);
+
+	float requiredVelocity = std::sqrt(2.0f * this->gravity.y * targetHeight);
+
+	float jumpPercent = (requiredVelocity * JUMP_COMPENSATION) / this->maxSpeed.y;
+
+	this->acceleration.y = std::clamp(jumpPercent, 0.0f, 1.0f);
 }
 
 void DesktopPet::addTargetToFollow(const std::shared_ptr<Entity> newTargetToFollow) {
