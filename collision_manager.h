@@ -42,7 +42,7 @@ public:
     * @param originEntity La entidad que genera la colision. Tipo CollidableEntity
     * @param deltaTime Tiempo transcurrido en segundos desde el último frame. Tipo Float
     */
-    CollisionResult checkCollision(const std::shared_ptr<CollidableEntity> originEntity, const float deltaTime) const;
+    std::vector<CollisionResult> checkCollision(const std::shared_ptr<CollidableEntity> originEntity, const float deltaTime) const;
 
     /**
      * @brief Determina si este CollisionBox colisiona con otro o no. Tipo CollisionResult

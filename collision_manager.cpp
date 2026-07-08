@@ -1,7 +1,7 @@
 #include <memory>
 #include <algorithm>
 #include <glm/glm.hpp>
-#include <iostream>
+#include <vector>
 
 #include "collision_manager.h"
 #include "collidable_entity.h"
@@ -14,7 +14,9 @@ CollisionManager& CollisionManager::getInstance() {
     return instance;
 }
 
-CollisionResult CollisionManager :: checkCollision(const std::shared_ptr<CollidableEntity> originEntity, const float deltaTime) const {
+std::vector<CollisionResult> CollisionManager :: checkCollision(const std::shared_ptr<CollidableEntity> originEntity, const float deltaTime) const {
+    std::vector<CollisionResult> results;
+
     for (auto& weakOther : collidableEntities) {
         auto otherEntity = weakOther.lock();
         if (!otherEntity || otherEntity == originEntity) continue;
@@ -31,9 +33,10 @@ CollisionResult CollisionManager :: checkCollision(const std::shared_ptr<Collida
 
         if (!this->getOneWayCollision(originEntity, otherEntity->getOneWayCollisionDirection(), collisionRes)) continue;
 
-        return collisionRes;
+        results.push_back(collisionRes);
     }
-	return { false, {0,0}, 0 };
+
+    return results;
 }
 
 CollisionResult CollisionManager::getCollision(const std::shared_ptr<CollidableEntity> originEntity, const std::shared_ptr<CollidableEntity> otherEntity, const float deltaTime) const{

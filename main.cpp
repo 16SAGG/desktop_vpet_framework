@@ -1,7 +1,6 @@
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 #include <memory>
-#include <iostream>
 
 #include "window.h"
 #include "process.h"
