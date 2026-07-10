@@ -14,6 +14,9 @@ private:
 	 */
 	Utils() {};
 
+	/*
+	* @brief Obtiene un generador para numero aleatorio
+	*/
 	static std::mt19937& getGenerator() {
 		static std::random_device rd;
 		static std::mt19937 gen(rd());
