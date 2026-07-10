@@ -1,4 +1,3 @@
-
 #include<glad/glad.h>
 #include <GLFW/glfw3.h>
 #include "glm/fwd.hpp"
@@ -22,19 +21,19 @@ Window :: Window() : window(nullptr), windowHWND(nullptr), projection(glm::mat4(
 
 	glm::vec2 screenSize = Utils::getInstance().getScreenSize();
 
-	window = glfwCreateWindow(screenSize.x, screenSize.y, "Overlay", NULL, NULL);
-	glfwMakeContextCurrent(window);
+	this->window = glfwCreateWindow(screenSize.x, screenSize.y, "Overlay", NULL, NULL);
+	glfwMakeContextCurrent(this->window);
 	gladLoadGLLoader((GLADloadproc)glfwGetProcAddress);
 
-	windowHWND = glfwGetWin32Window(window);
+	this->windowHWND = glfwGetWin32Window(this->window);
 	#ifdef _WIN32
-		LONG_PTR exStyle = GetWindowLongPtr(windowHWND, GWL_EXSTYLE);
-		SetWindowLongPtr(windowHWND, GWL_EXSTYLE, exStyle | WS_EX_LAYERED | WS_EX_TRANSPARENT);
-		SetLayeredWindowAttributes(windowHWND, 0, 255, LWA_ALPHA);
-		SetWindowPos(windowHWND, HWND_TOPMOST, 0, 0, 0, 0, SWP_NOMOVE | SWP_NOSIZE | SWP_NOACTIVATE);
+		LONG_PTR exStyle = GetWindowLongPtr(this->windowHWND, GWL_EXSTYLE);
+		SetWindowLongPtr(this->windowHWND, GWL_EXSTYLE, exStyle | WS_EX_LAYERED | WS_EX_TRANSPARENT);
+		SetLayeredWindowAttributes(this->windowHWND, 0, 255, LWA_ALPHA);
+		SetWindowPos(this->windowHWND, HWND_TOPMOST, 0, 0, 0, 0, SWP_NOMOVE | SWP_NOSIZE | SWP_NOACTIVATE);
 	#endif
 
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-	projection = glm::ortho(0.0f, float(screenSize.x), float(screenSize.y), 0.0f, -1.0f, 1.0f);
+	this->projection = glm::ortho(0.0f, float(screenSize.x), float(screenSize.y), 0.0f, -1.0f, 1.0f);
 }
