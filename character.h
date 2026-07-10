@@ -6,6 +6,7 @@
 #include "glm/fwd.hpp"
 
 #include "collidable_entity.h"
+#include "utils.h"
 
 class Sprite;
 class CollisionBox;
@@ -43,6 +44,12 @@ public:
     */
     void update(float deltaTime, Window& window) override;
 
+    /*
+    * @brief Permite el movimiento de la entindad.
+    * @param deltaTime Tiempo transcurrido en segundos desde el último frame. tipo float.
+    */
+    void move(float deltaTime) override;
+
     /**
     * @brief Determina el comportamiento de esta entiendad a colisionar.
     * @param other Referencia al CollidableEntity con el que colisiono. Tipo std::shared_ptr<CollidableEntity>
@@ -50,6 +57,22 @@ public:
     * @param penetration Determina cuanto fue la penetracion entre los dos objetos al colisionar. Tipo float
     */
     void onCollision(const CollidableEntity* other, const glm::vec2 collisionNormalized, const float penetration) override;
+
+    /*
+    * @brief Aplica la gravedad a la direccion
+    * @param value El valor que se usara en la direccion. Tipo float.
+    */
+    void applyGravityToDirection(float value);
+
+    /*
+    * @brief Maneja el comportamiento en tierra.
+    */
+    virtual void handleGroundMovement();
+
+    /*
+    * @brief Maneja el comportamiento aereo.
+    */
+    virtual void handleAirMovement();
 
     // GETTERS
 
@@ -64,31 +87,21 @@ public:
 	glm::vec2 getGravity() const { return gravity; };
 
     /*
-	* @brief Obtiene el vector normal de la gravedad. Tipo glm::vec2
-    */
-	glm::vec2 getGravityNormalized() const { return glm::normalize(gravity); };
-
-    /*
 	* @brief Obtiene si el character esta en el suelo. Tipo bool
     */
 	bool getIsGrounded() const { return isGrounded; };
-
-    /**
-    * @brief Obtiene la velocidad. Tipo glm::vec2
-    */
-    glm::vec2 getVelocity() const override { return (acceleration * direction * maxSpeed) + gravity; }
 
     // SETTERS
     
     /**
     * @brief Cambia el valor de la posicion de sus hijos.
-    * * @param _position Posicion base del padre. Tipo glm::vec2
+    * @param _position Posicion base del padre. Tipo glm::vec2
     */
     void setChildrenPosition(const glm::vec2& _position);
 
     /*
 	* @brief Cambia el valor de la variable gravity.
     */
-	void setGravity(const glm::vec2& _gravity) { gravity = _gravity; };
+	void setGravity(const glm::vec2& _gravity) { gravity = Utils::getInstance().getRoundedNormal(_gravity); };
 };
 #endif

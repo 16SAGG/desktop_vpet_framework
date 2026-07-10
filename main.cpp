@@ -40,12 +40,35 @@ int main() {
 					.size = { 100, 100 }
 				}
 			}),
-			.gravity = { 0, .5f },
+			.gravity = { 0, 1.0f },
 			.entityParams = {
 				.position = { 200, 400 },
 				.maxSpeed = { 300, 600 }
 			}
 		},
+		.jumpFramesDuration = 1200
+	});
+
+	auto char1 = EntityManager::getInstance().createCharacter({
+		.sprite = EntityManager::getInstance().createSpritePath({
+			.path = "texture.png",
+			.spriteParams = {
+				.entityParams = {
+					.size = { 100, 100 }
+				}
+			}
+		}),
+		.collider = EntityManager::getInstance().createCollisionBox({
+			.entityParams = {
+				.size = { 100, 100 }
+			}
+		}),
+		.gravity = { 0, 1.0f },
+		.entityParams = {
+			.position = { 500, 400 },
+			.direction = { 0, 1 },
+			.maxSpeed = { 300, 600 },
+		}
 	});
 
 	process.run([&](float deltaTime) {

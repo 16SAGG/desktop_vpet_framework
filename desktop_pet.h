@@ -11,6 +11,7 @@
 
 // Estructura que contiene la direccion y distancia hacia un objetivo
 struct TargetData {
+	glm::vec2 targetPosition;
 	glm::vec2 direction;
 	glm::vec2 distance;
 };
@@ -52,8 +53,20 @@ private:
 	// Proxima posicion a la que se desplazara el personaje en su estado Wander. Tipo glm::vec2
 	glm::vec2 wanderPosition = { 0,0 };
 
-	// Contador de Frames a partir de cuando se empieza el desplazamiento en el estado Wander. int
+	// Contador de Frames a partir de cuando se empieza el desplazamiento en el estado Wander. Tipo int
 	int wanderFrames = 0;
+
+	// Determina si el monstruo esta saltando. Tipo int
+	bool isJumping = false;
+
+	// La informacion del objetivo hacia donde se salto. Tipo TargetData
+	TargetData jumpTarget = {};
+
+	// Contador de Frames a partir de que se inicializa el salto. Tipo int
+	int jumpFrames = 0;
+
+	// Cantidad maxima de frames de salto. Tipo int
+	int	jumpFramesDuration = 0;
 public:
 
 	/**
@@ -68,25 +81,6 @@ public:
 	* @param deltaTime Tiempo transcurrido en segundos desde el último frame. tipo float.
 	*/
 	void move(float deltaTime) override;
-
-	/*
-	* @brief Maneja el comportamiento en tierra
-	* @param deltaTime Tiempo transcurrido en segundos desde el último frame. tipo float.
-	* @param distanceToTarget Distancia hacia el objetivo. Tipo glm::vec2
-	*/
-	void handleGroundMovement(float deltaTime, glm::vec2 distanceToTarget);
-
-	/*
-	* @brief Maneja el comportamiento aereo
-	* @param deltaTime Tiempo transcurrido en segundos desde el último frame. tipo float.
-	*/
-	void handleAirMovement(float deltaTime);
-
-	/*
-	* @brief Realiza un salto
-	* @param targetY La altura del objetivo. Tipo float
-	*/
-	void jump(float targetY);
 
 	/*
 	* @brief Incluye una nueva entidad para seguir
@@ -117,7 +111,15 @@ public:
 	*/
 	void setWanderPosition(const glm::vec2& _wanderPosition);
 
+	/*
+	* @brief Establece la cantidad maxima en la duracion de salto
+	* @param _jumpFramesDuration. Tipo int
+	*/
+	void setJumpFramesDuration(int _jumpFramesDuration) { jumpFramesDuration = _jumpFramesDuration; };
+
 	//GETTERS
+
+	//glm::vec2 getVelocity() const override { return acceleration * direction * maxSpeed; }
 
 	/*
 	* @brief Obtiene el comportamiento del personaje al moverse
@@ -129,18 +131,6 @@ public:
 	* @param targetPosition Posicion del objetivo. Tipo glm::vec2
 	*/
 	TargetData getTargetData(glm::vec2 targetPosition) const;
-
-	/**
-	* @brief Obtiene la velocidad. Tipo glm::vec2
-	*/
-	glm::vec2 getVelocity() const override { 
-		if (this->getIsGrounded()) {
-			return (acceleration * direction * maxSpeed);
-		}
-		else {
-			return (acceleration * glm::vec2(direction.x, -1) * maxSpeed);
-		}
-	}
 };
 
 #endif

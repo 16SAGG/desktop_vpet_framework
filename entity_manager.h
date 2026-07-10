@@ -78,6 +78,7 @@ struct WindowCollidableParams {
 //Parametros de creacion de DesktopPet
 struct DesktopPetParams {
 	CharacterParams characterParams;
+    int	jumpFramesDuration = 0;
 };
 
 /**

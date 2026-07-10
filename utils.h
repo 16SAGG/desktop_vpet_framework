@@ -57,6 +57,12 @@ public:
 	* @param vector El vector a convertir. Tipo glm::vec2
 	*/
 	glm::vec2 convertToIntVector(const glm::vec2 vector);
+
+	/*
+	* @brief Convierte un vector cualquiera en un vector redondeado normal (Ej: (0, -1); (1, 0)). Tipo glm::vec2
+	* @param vector El vector a convertir. Tipo glm::vec2
+	*/
+	glm::vec2 getRoundedNormal(glm::vec2 vector);
 };
 
 #endif

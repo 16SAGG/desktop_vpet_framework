@@ -1,5 +1,6 @@
 #include <memory>
 #include "glm/fwd.hpp"
+#include <iostream>
 
 #include "character.h"
 #include "window.h"
@@ -18,6 +19,32 @@ void Character::update(float deltaTime, Window& window) {
     Renderer2D::getInstance().draw(this->sprite, window.getProjection());
 }
 
+void Character::move(float deltaTime) {
+    CollidableEntity::move(deltaTime);
+
+    this->applyGravityToDirection(1);
+
+    if (this->getIsGrounded()) this->handleGroundMovement();
+    else this->handleAirMovement();
+}
+
+void Character::applyGravityToDirection(float value) {
+    glm::vec2 newDirection = { 0,0 };
+
+    if (this->gravity.x != 0.0f) newDirection.x = value;
+    else newDirection.x = this->direction.x;
+
+    if (this->gravity.y != 0.0f) newDirection.y = value;
+    else newDirection.y = this->direction.y;
+
+    //std::cout << "Direction: " << newDirection.x << ", " << newDirection.y << std::endl;
+    this->setDirection(newDirection);
+}
+
+void Character::handleGroundMovement() { this->setAcceleration({ 1.0f, this->acceleration.y }); }
+
+void Character::handleAirMovement() { this->setAcceleration({ .5f, this->acceleration.y }); }
+
 Character::Character(std::shared_ptr<Sprite> _sprite, std::shared_ptr<CollisionBox> _collider) :
     CollidableEntity(CollisionType::CHARACTER),
     sprite(_sprite)
@@ -28,10 +55,9 @@ Character::Character(std::shared_ptr<Sprite> _sprite, std::shared_ptr<CollisionB
 void Character::onCollision(const CollidableEntity* other, const glm::vec2 collisionNormalized, const float penetration) {
     if (!other) return;
 
-	bool isGravityCollision = (-getGravityNormalized() == collisionNormalized);
+	bool isGravityCollision = (-this->gravity == collisionNormalized);
 	if (isGravityCollision) {
 		this->isGrounded = true;
-        return;
 	}
 }
 

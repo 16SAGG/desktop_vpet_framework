@@ -32,7 +32,7 @@ std::shared_ptr<Entity> EntityManager::setEntityParams(const std::shared_ptr<Ent
     if (entityParams.offset != glm::vec2(0, 0)) entity->setOffset(entityParams.offset);
     if (entityParams.acceleration != glm::vec2(0, 0)) entity->setAcceleration(entityParams.acceleration);
     if (entityParams.direction != glm::vec2(0, 0)) entity->setDirection(entityParams.direction);
-	if (entityParams.maxSpeed != glm::vec2(0, 0)) entity->setMasSpeed(entityParams.maxSpeed);
+    if (entityParams.maxSpeed != glm::vec2(0, 0)) entity->setMaxSpeed(entityParams.maxSpeed);
 
     return entity;
 }
@@ -113,6 +113,8 @@ std::shared_ptr<WindowCollidable> EntityManager::createWindowCollidable(const Wi
 
 std::shared_ptr<DesktopPet> EntityManager::createDesktopPet(const DesktopPetParams& desktopPetParams) {
 	std::shared_ptr<DesktopPet> desktopPet = CollidableEntity::create<DesktopPet>(desktopPetParams.characterParams.sprite, desktopPetParams.characterParams.collider);
+
+    desktopPet->setJumpFramesDuration(desktopPetParams.jumpFramesDuration);
 
 	desktopPet = std::static_pointer_cast<DesktopPet>(setCharacterParams(desktopPet, desktopPetParams.characterParams));
 

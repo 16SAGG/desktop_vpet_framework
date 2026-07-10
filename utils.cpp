@@ -1,6 +1,7 @@
 #include <glm/glm.hpp>
 #include <windows.h>
 #include <random>
+#include <cmath>
 
 #include "utils.h"
 
@@ -39,4 +40,14 @@ glm::vec2 Utils::getRandomVector(const glm::vec2& vector1, const glm::vec2& vect
 
 glm::vec2 Utils::convertToIntVector(const glm::vec2 vector) {
     return glm::vec2(static_cast<int>(vector.x), static_cast<int>(vector.y));
+}
+
+glm::vec2 Utils::getRoundedNormal(glm::vec2 vector) {
+    float roundedX = std::round(vector.x);
+    float roundedY = std::round(vector.y);
+
+    roundedX = std::clamp(roundedX, -1.0f, 1.0f);
+    roundedY = std::clamp(roundedY, -1.0f, 1.0f);
+
+    return glm::vec2(roundedX, roundedY);
 }

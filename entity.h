@@ -8,6 +8,8 @@
 #include <utility>
 #include "glm/fwd.hpp"
 
+#include "utils.h"
+
 class Window;
 
 /**
@@ -93,27 +95,22 @@ public:
     * @brief Establecer la velocidad maxima.
     * * @param _acceleration Es la aceleracion actual del personaje, las propiedades son porcentuales donde '1' equivale al 100%. Tipo glm::vec2
     */
-    void setMasSpeed(const glm::vec2& _maxSpeed) { maxSpeed = _maxSpeed; };
+    void setMaxSpeed(const glm::vec2& _maxSpeed) { maxSpeed = _maxSpeed; };
 
     /**
     * @brief Establecer acceleration.
     * * @param _acceleration Es la aceleracion actual de la entidad, las propiedades son porcentuales donde '1' equivale al 100%. Tipo glm::vec2
     */
     void setAcceleration(const glm::vec2& _acceleration) { 
-        if (_acceleration.x < -1.0f) acceleration.x = -1.0f;
-        else if (_acceleration.x > 1.0f) acceleration.x = 1.0f;
-		else acceleration.x = _acceleration.x;
-
-		if (_acceleration.y < -1.0f) acceleration.y = -1.0f;
-        else if (_acceleration.y > 1.0f) acceleration.y = 1.0f;
-		else acceleration.y = _acceleration.y;
+        acceleration.x = std::clamp(_acceleration.x, 0.0f, 1.0f);
+        acceleration.y = std::clamp(_acceleration.y, 0.0f, 1.0f);
     };
 
     /**
     * @brief Establecer direction.
     * * @param _direction Es la direccion actual de la entidad. Tipo glm::vec2
     */
-    void setDirection(const glm::vec2& _direction) { direction = _direction; };
+    void setDirection(const glm::vec2& _direction) { direction = Utils::getInstance().getRoundedNormal(_direction); };
 
     //GETTERS
 
