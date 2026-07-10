@@ -3,7 +3,6 @@
 #define INPUT_MANAGER_CLASS_H
 
 #include <map>
-#include "GLFW/glfw3.h"
 #include <glm/glm.hpp>
 #include "glm/fwd.hpp"
 #include <vector>
