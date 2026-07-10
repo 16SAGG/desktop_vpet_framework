@@ -1,7 +1,6 @@
 #include <cstdlib>
 #include "glm/fwd.hpp"
 #include <memory>
-#include <iostream>
 
 #include "desktop_pet.h"
 #include "character.h"
@@ -21,22 +20,29 @@ const int MAX_WANDER_FRAMES = 2400;
 void DesktopPet::move(float deltaTime) {
 	CollidableEntity::move(deltaTime);
 
-	TargetData targetData{};
+	TargetData targetData = this->getCurrentMovementBehaviorTargetData();
+	this->setDirection({ targetData.direction.x, this->direction.y });
+	this->handleJump(targetData, deltaTime);
 
+	if (this->getIsGrounded()) this->handleGroundMovement();
+	else this->handleAirMovement();
+}
+
+TargetData DesktopPet::getCurrentMovementBehaviorTargetData() {
 	switch (this->getCurrentMovementBehavior())
 	{
 		case MovementBehavior::FOLLOW_CURSOR: {
-			targetData = this->getTargetData(this->mousePosition);
+			return this->getTargetData(this->mousePosition);
 			break;
 		}
 
 		case MovementBehavior::FOLLOW_TARGETS: {
-			targetData = this->getTargetData(this->targetsToFollow[0]->getGlobalPosition());
+			return this->getTargetData(this->targetsToFollow[0]->getGlobalPosition());
 			break;
 		}
-		
+
 		case MovementBehavior::STOP: {
-			targetData = this->getTargetData(this->getGlobalPosition());
+			return this->getTargetData(this->getGlobalPosition());
 			break;
 		}
 
@@ -52,7 +58,7 @@ void DesktopPet::move(float deltaTime) {
 			}
 			this->setWanderPosition(glm::vec2(this->wanderPosition.x, this->getGlobalPosition().y));
 			this->wanderFrames++;
-			targetData = this->getTargetData(this->wanderPosition);
+			return this->getTargetData(this->wanderPosition);
 			break;
 		}
 
@@ -60,9 +66,46 @@ void DesktopPet::move(float deltaTime) {
 			break;
 		}
 	}
+}
 
-	this->setDirection({ targetData.direction.x, this->direction.y });
+MovementBehavior DesktopPet::getCurrentMovementBehavior() {
+	if (this->followCursorKeyIsPressed) {
+		return MovementBehavior::FOLLOW_CURSOR;
+	}
+	else if (this->targetsToFollow.size() > 0) {
+		return MovementBehavior::FOLLOW_TARGETS;
+	}
+	else if (this->isStopped) {
+		return MovementBehavior::STOP;
+	}
+	else {
+		return MovementBehavior::WANDER;
+	}
+}
 
+TargetData DesktopPet::getTargetData(glm::vec2 targetPosition) const {
+	glm::vec2 directionToTarget = Utils::getInstance().getNormalizedDirection(this->getGlobalPosition(), targetPosition);
+	glm::vec2 distanceToTarget = targetPosition - this->getGlobalPosition();
+	return { targetPosition, directionToTarget, distanceToTarget };
+}
+
+void DesktopPet::setWanderPosition(const glm::vec2& _wanderPosition) {
+	glm::vec2 screenSize = Utils::getInstance().getScreenSize();
+
+	std::shared_ptr<CollisionBox> collider = this->getCollider();
+	glm::vec2 wanderLimit = glm::vec2(screenSize.x, screenSize.y - collider->getSize().y);
+	glm::vec2 intWanderPosition = Utils::getInstance().convertToIntVector(_wanderPosition);
+
+	if (intWanderPosition.x > wanderLimit.x) this->wanderPosition.x = wanderLimit.x;
+	else if (intWanderPosition.x < 0) this->wanderPosition.x = 0;
+	else this->wanderPosition.x = intWanderPosition.x;
+
+	if (intWanderPosition.y > wanderLimit.y) this->wanderPosition.y = wanderLimit.y;
+	else if (intWanderPosition.y < collider->getSize().y) this->wanderPosition.y = collider->getSize().y;
+	else this->wanderPosition.y = intWanderPosition.y;
+}
+
+void DesktopPet::handleJump(TargetData targetData, float deltaTime) {
 	switch (this->currentJumpPhase)
 	{
 		case JumpPhase::JUMPING: {
@@ -71,7 +114,7 @@ void DesktopPet::move(float deltaTime) {
 
 			bool isJumpFramesDurationReached = this->jumpFrames >= this->jumpFramesDuration;
 			bool isTargetPositionReached = (this->jumpTarget.targetPosition.y - this->getGlobalPosition().y) >= TARGET_POSITION_REACHED_THRESHOLD;
-			if ( isJumpFramesDurationReached || isTargetPositionReached ) {
+			if (isJumpFramesDurationReached || isTargetPositionReached) {
 				this->currentJumpPhase = JumpPhase::FINISHING;
 			}
 
@@ -104,48 +147,8 @@ void DesktopPet::move(float deltaTime) {
 			break;
 		}
 	}
-
-	if (this->getIsGrounded()) this->handleGroundMovement();
-	else this->handleAirMovement();
-}
-
-MovementBehavior DesktopPet::getCurrentMovementBehavior() {
-	if (this->followCursorKeyIsPressed) {
-		return MovementBehavior::FOLLOW_CURSOR;
-	}
-	else if (this->targetsToFollow.size() > 0) {
-		return MovementBehavior::FOLLOW_TARGETS;
-	}
-	else if (this->isStopped) {
-		return MovementBehavior::STOP;
-	}
-	else {
-		return MovementBehavior::WANDER;
-	}
 }
 
 void DesktopPet::addTargetToFollow(const std::shared_ptr<Entity> newTargetToFollow) {
 	this->targetsToFollow.push_back(newTargetToFollow);
-}
-
-TargetData DesktopPet::getTargetData(glm::vec2 targetPosition) const {
-	glm::vec2 directionToTarget = Utils::getInstance().getNormalizedDirection(this->getGlobalPosition(), targetPosition);
-	glm::vec2 distanceToTarget = targetPosition - this->getGlobalPosition();
-	return { targetPosition, directionToTarget, distanceToTarget };
-}
-
-void DesktopPet::setWanderPosition(const glm::vec2& _wanderPosition) {
-	glm::vec2 screenSize = Utils::getInstance().getScreenSize();
-
-	std::shared_ptr<CollisionBox> collider = this->getCollider();
-	glm::vec2 wanderLimit = glm::vec2(screenSize.x, screenSize.y - collider->getSize().y);
-	glm::vec2 intWanderPosition = Utils::getInstance().convertToIntVector(_wanderPosition);
-
-	if (intWanderPosition.x > wanderLimit.x) this->wanderPosition.x = wanderLimit.x;
-	else if (intWanderPosition.x < 0) this->wanderPosition.x = 0;
-	else this->wanderPosition.x = intWanderPosition.x;
-
-	if (intWanderPosition.y > wanderLimit.y) this->wanderPosition.y = wanderLimit.y;
-	else if (intWanderPosition.y < collider->getSize().y) this->wanderPosition.y = collider->getSize().y;
-	else this->wanderPosition.y = intWanderPosition.y;
 }

@@ -104,6 +104,13 @@ public:
 	*/
 	void addTargetToFollow(const std::shared_ptr<Entity> newTargetToFollow);
 
+	/*
+	* @brief Gestiona las fases de un salto
+	* @param targetData La informacion referente al objetivo. Tipo TargetData
+	* @param deltaTime Tiempo transcurrido en segundos desde el último frame. tipo float.
+	*/
+	void handleJump(TargetData targetData, float deltaTime);
+
 	//SETTERS
 
 	/*
@@ -150,7 +157,10 @@ public:
 
 	//GETTERS
 
-	//glm::vec2 getVelocity() const override { return acceleration * direction * maxSpeed; }
+	/*
+	* @brief Obtiene el targetData del comportamiento de movimiento actual. Tipo TargetData
+	*/
+	TargetData getCurrentMovementBehaviorTargetData();
 
 	/*
 	* @brief Obtiene el comportamiento del personaje al moverse
@@ -158,7 +168,7 @@ public:
 	MovementBehavior getCurrentMovementBehavior();
 
 	/*
-	* @brief Obtiene la direccion y distancia hacia el objetivo. Tipo TargetData
+	* @brief Obtiene la direccion, distancia hacia el objetivo y su posicion. Tipo TargetData
 	* @param targetPosition Posicion del objetivo. Tipo glm::vec2
 	*/
 	TargetData getTargetData(glm::vec2 targetPosition) const;
