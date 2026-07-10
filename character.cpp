@@ -1,6 +1,5 @@
 #include <memory>
 #include "glm/fwd.hpp"
-#include <iostream>
 
 #include "character.h"
 #include "window.h"
@@ -37,7 +36,6 @@ void Character::applyGravityToDirection(float value) {
     if (this->gravity.y != 0.0f) newDirection.y = value;
     else newDirection.y = this->direction.y;
 
-    //std::cout << "Direction: " << newDirection.x << ", " << newDirection.y << std::endl;
     this->setDirection(newDirection);
 }
 
