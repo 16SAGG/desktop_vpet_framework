@@ -8,7 +8,7 @@ const float TOP_OFFSET = 55.0f;
 
 void WindowCollidable :: updateBounds() {
     RECT rect;
-    if (GetWindowRect(hwnd, &rect)) {
+    if (GetWindowRect(this->hwnd, &rect)) {
         this->setPosition({ LEFT_OFFSET + (float)rect.left, TOP_OFFSET + (float)rect.top });
         this->getCollider()->setSize({ (float)(rect.right - rect.left), WINDOW_COLLISION_THICKNESS });
     }

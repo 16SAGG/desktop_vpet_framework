@@ -8,6 +8,7 @@
 #include "collision_box.h"
 
 const float ONE_WAY_COLLISION_THRESHOLD = 0.05f;
+const float PENETRATION_THRESHOLD = 0.01f;
 
 CollisionManager& CollisionManager::getInstance() {
     static CollisionManager instance;
@@ -26,7 +27,7 @@ std::vector<CollisionResult> CollisionManager :: checkCollision(const std::share
 
         if (originEntity->getLayer() != otherEntity->getLayer()) continue;
 
-        if (collisionRes.penetration < 0.01f) continue;
+        if (collisionRes.penetration < PENETRATION_THRESHOLD) continue;
 
         bool isSolid = (otherEntity->getCollisionType() == CollisionType::CHARACTER ||otherEntity->getCollisionType() == CollisionType::WALL);
         if (!isSolid) continue;

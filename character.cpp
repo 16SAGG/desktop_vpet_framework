@@ -60,6 +60,6 @@ void Character::onCollision(const CollidableEntity* other, const glm::vec2 colli
 }
 
 void Character::setChildrenPosition(const glm::vec2& _position) {
-    sprite->setPosition(_position);
-    collider->setPosition(_position);
+    this->sprite->setPosition(_position);
+    this->collider->setPosition(_position);
 }

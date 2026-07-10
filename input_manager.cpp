@@ -12,16 +12,16 @@ InputManager::InputManager(Window& window) {
 void InputManager::update() {
     POINT p;
     if (GetCursorPos(&p)) {
-        mousePosition = {p.x, p.y};
+        this->mousePosition = {p.x, p.y};
     }
 
     for (int key : keysToTrack) {
-        keysStates[key] = (GetAsyncKeyState(key) & 0x8000) != 0;
+        this->keysStates[key] = (GetAsyncKeyState(key) & 0x8000) != 0;
     }
 }
 
 bool InputManager::isKeyPressed(int key) const {
-    auto it = keysStates.find(key);
-    if (it != keysStates.end()) return it->second;
+    auto it = this->keysStates.find(key);
+    if (it != this->keysStates.end()) return it->second;
     return false;
 }

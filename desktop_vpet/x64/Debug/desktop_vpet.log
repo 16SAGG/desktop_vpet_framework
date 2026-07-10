@@ -1,50 +1,16 @@
 ﻿  Examinando orígenes para las dependencias de módulo...
-  window_collidable.h
-  Compilando...
-  window_collidable.h
-  character.cpp
-C:\Program Files (x86)\Windows Kits\10\Include\10.0.26100.0\shared\minwindef.h(130,9): warning C4005: 'APIENTRY': redefinición de macro
-  (compilando archivo de origen "character.cpp")
-      C:\Workspace\desktop_vpet_framework\Libraries\include\glad\glad.h(32,9):
-      vea la definición anterior de “APIENTRY”
-  
-  collidable_entity.cpp
-C:\Workspace\desktop_vpet_framework\collidable_entity.cpp(42,37): warning C4101: 'e': variable local sin referencia
-  collision_manager.cpp
-  desktop_pet.cpp
+  ebo.cpp
   entity_manager.cpp
 C:\Workspace\desktop_vpet_framework\character.h(14,7): warning C4099: 'CollisionResult': nombre de tipo visto anteriormente usando 'struct' ahora se ve usando 'class'
   (compilando archivo de origen "entity_manager.cpp")
       C:\Workspace\desktop_vpet_framework\collision_manager.h(14,8):
       vea la declaración de 'CollisionResult'
   
-  main.cpp
-C:\Program Files (x86)\Windows Kits\10\Include\10.0.26100.0\shared\minwindef.h(130,9): warning C4005: 'APIENTRY': redefinición de macro
-  (compilando archivo de origen "main.cpp")
-      C:\Workspace\desktop_vpet_framework\Libraries\include\glad\glad.h(32,9):
-      vea la definición anterior de “APIENTRY”
-  
-  renderer_2d.cpp
-  sprite.cpp
   utils.cpp
-  window.cpp
-C:\Program Files (x86)\Windows Kits\10\Include\10.0.26100.0\shared\minwindef.h(130,9): warning C4005: 'APIENTRY': redefinición de macro
-  (compilando archivo de origen "window.cpp")
-      C:\Workspace\desktop_vpet_framework\Libraries\include\glad\glad.h(32,9):
-      vea la definición anterior de “APIENTRY”
-  
-C:\Workspace\desktop_vpet_framework\window.cpp(25,52): warning C4244: 'argumento': conversión de 'T' a 'int'; posible pérdida de datos
-C:\Workspace\desktop_vpet_framework\window.cpp(25,52): warning C4244:         with
-C:\Workspace\desktop_vpet_framework\window.cpp(25,52): warning C4244:         [
-C:\Workspace\desktop_vpet_framework\window.cpp(25,52): warning C4244:             T=float
-C:\Workspace\desktop_vpet_framework\window.cpp(25,52): warning C4244:         ]
-C:\Workspace\desktop_vpet_framework\window.cpp(25,38): warning C4244: 'argumento': conversión de 'T' a 'int'; posible pérdida de datos
-C:\Workspace\desktop_vpet_framework\window.cpp(25,38): warning C4244:         with
-C:\Workspace\desktop_vpet_framework\window.cpp(25,38): warning C4244:         [
-C:\Workspace\desktop_vpet_framework\window.cpp(25,38): warning C4244:             T=float
-C:\Workspace\desktop_vpet_framework\window.cpp(25,38): warning C4244:         ]
+  vao.cpp
+C:\Workspace\desktop_vpet_framework\vao.cpp(21,63): warning C4244: 'argumento': conversión de 'const GLsizeiptr' a 'GLsizei'; posible pérdida de datos
+  vbo.cpp
   window_collidable.cpp
   windows_collidable_manager.cpp
   Generando código...
-C:\Workspace\desktop_vpet_framework\desktop_pet.cpp(69,1): warning C4715: 'DesktopPet::getCurrentMovementBehaviorTargetData': no todas las rutas de acceso de control devuelven un valor
   desktop_vpet.vcxproj -> C:\Workspace\desktop_vpet_framework\x64\Debug\desktop_vpet.exe

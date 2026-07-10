@@ -12,19 +12,19 @@ const int SYNC_WINDOWS_EVERY_N_FRAMES = 60;
 Process::Process(Window& window) : window(window), lastFrame(0.0f) {}
 
 void Process::run(const UpdateCallback updateFunc) {
-    WindowsCollidableManager windowsCollidableManager(window);
+    WindowsCollidableManager windowsCollidableManager(this->window);
     
     static int frameCounter = 0;
-    while (!glfwWindowShouldClose(window.getWindow())) {
+    while (!glfwWindowShouldClose(this->window.getWindow())) {
         float currentFrame = static_cast<float>(glfwGetTime());
-        float deltaTime = currentFrame - lastFrame;
-        lastFrame = currentFrame;
+        float deltaTime = currentFrame - this->lastFrame;
+        this->lastFrame = currentFrame;
 
         if (deltaTime > MAX_DELTA_TIME) deltaTime = MAX_DELTA_TIME;
         glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
         glClear(GL_COLOR_BUFFER_BIT);
 
-        EntityManager::getInstance().update(deltaTime, window);
+        EntityManager::getInstance().update(deltaTime, this->window);
         if (frameCounter++ % SYNC_WINDOWS_EVERY_N_FRAMES == 0) {
             windowsCollidableManager.syncWindows();
         }
@@ -32,7 +32,7 @@ void Process::run(const UpdateCallback updateFunc) {
             updateFunc(deltaTime);
         }
 
-        glfwSwapBuffers(window.getWindow());
+        glfwSwapBuffers(this->window.getWindow());
         glfwPollEvents();
     }
 }

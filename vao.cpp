@@ -25,7 +25,7 @@ void VAO::linkAttrib(
 
 void VAO::bind() const
 {
-	glBindVertexArray(ID);
+	glBindVertexArray(this->ID);
 }
 
 void VAO::unbind() const
@@ -35,5 +35,5 @@ void VAO::unbind() const
 
 void VAO::deleteVAO() const
 {
-	glDeleteVertexArrays(1, &ID);
+	glDeleteVertexArrays(1, &this->ID);
 }

@@ -4,22 +4,14 @@
 
 VBO::VBO(const GLfloat* vertices, const GLsizeiptr size)
 {
-	glGenBuffers(1, &ID);
-	glBindBuffer(GL_ARRAY_BUFFER, ID);
-
-	/**
-	 * @brief Transfiere los datos de los vértices (geometría) de la RAM a la VRAM.
-	 * * Este comando toma el array de vértices y lo carga en el VBO (Vertex Buffer Object)
-	 * actualmente vinculado. Al usar GL_ARRAY_BUFFER, le informamos a la GPU que esta
-	 * memoria contendrá atributos de vértice (posiciones, texturas, normales, etc.),
-	 * los cuales serán procesados posteriormente por el Vertex Shader.
-	 */
+	glGenBuffers(1, &this->ID);
+	glBindBuffer(GL_ARRAY_BUFFER, this->ID);
 	glBufferData(GL_ARRAY_BUFFER, size, vertices, GL_STATIC_DRAW);
 }
 
 void VBO::bind() const
 {
-	glBindBuffer(GL_ARRAY_BUFFER, ID);
+	glBindBuffer(GL_ARRAY_BUFFER, this->ID);
 }
 
 void VBO::unbind() const
@@ -29,5 +21,5 @@ void VBO::unbind() const
 
 void VBO::deleteVBO() const
 {
-	glDeleteBuffers(1, &ID);
+	glDeleteBuffers(1, &this->ID);
 }

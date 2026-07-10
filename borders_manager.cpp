@@ -22,7 +22,7 @@ BordersManager::BordersManager(
 			.position = { -leftMargin, -topMargin - THICKNESS/2 }
 		}
 	});
-	borders.push_back(topBorder);
+	this->borders.push_back(topBorder);
 
 	auto leftBorder = EntityManager::getInstance().createWall({
 		.collider = EntityManager::getInstance().createCollisionBox({
@@ -34,7 +34,7 @@ BordersManager::BordersManager(
 			.position = { -leftMargin - THICKNESS/2, -topMargin }
 		}
 	});
-	borders.push_back(leftBorder);
+	this->borders.push_back(leftBorder);
 
 	auto rightBorder = EntityManager::getInstance().createWall({
 		.collider = EntityManager::getInstance().createCollisionBox({
@@ -46,7 +46,7 @@ BordersManager::BordersManager(
 			.position = { screenSize.x + leftMargin + THICKNESS/2, -topMargin }
 		}
 	});
-	borders.push_back(rightBorder);
+	this->borders.push_back(rightBorder);
 
 	auto bottomBorder = EntityManager::getInstance().createWall({
 		.collider = EntityManager::getInstance().createCollisionBox({
@@ -58,5 +58,5 @@ BordersManager::BordersManager(
 			.position = { -leftMargin, screenSize.y + bottomMargin + THICKNESS/2 }
 		}
 	});
-	borders.push_back(bottomBorder);
+	this->borders.push_back(bottomBorder);
 }

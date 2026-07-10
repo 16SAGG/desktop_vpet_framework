@@ -1,4 +1,5 @@
 #include <glm/glm.hpp>
+#include "glm/fwd.hpp"
 #include <windows.h>
 #include <random>
 #include <cmath>

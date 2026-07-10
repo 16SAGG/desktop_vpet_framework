@@ -9,8 +9,8 @@
 Sprite :: Sprite(const std::shared_ptr<Texture> _texture):
 	texture (_texture)
 {
-    size = glm::vec2((float)_texture -> getWidthImg(), (float)_texture -> getHeightImg());
-    frameSize = glm::vec2((float)_texture->getWidthImg(), (float)_texture->getHeightImg());
+    this->size = glm::vec2((float)_texture -> getWidthImg(), (float)_texture -> getHeightImg());
+    this->frameSize = glm::vec2((float)_texture->getWidthImg(), (float)_texture->getHeightImg());
 }
 
 std::shared_ptr<Sprite> Sprite::createFromPath(const char* path) {
@@ -21,5 +21,5 @@ std::shared_ptr<Sprite> Sprite::createFromPath(const char* path) {
 }
 
 glm::vec2 Sprite::getUVOffset() const {
-    return frameOffset + (glm::vec2(frameIndex) * (frameSize + frameGap));
+    return this->frameOffset + (glm::vec2(this->frameIndex) * (this->frameSize + this->frameGap));
 }

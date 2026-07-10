@@ -20,7 +20,7 @@ EntityManager& EntityManager::getInstance() {
 }
 
 void EntityManager::update(float deltaTime, Window& window) {
-    for (auto& entity : entities) {
+    for (auto& entity : this->entities) {
         entity -> update(deltaTime, window);
 		Renderer2D::getInstance().drawColoredEntity(entity, window.getProjection(), { 1, 0, 0, 1 });
     }
@@ -49,7 +49,7 @@ std::shared_ptr<Character> EntityManager::createCharacter(const CharacterParams&
 	character = setCharacterParams(character, characterParams);
 
     CollisionManager::getInstance().addCollidableEntity(character);
-    entities.push_back(character);
+    this->entities.push_back(character);
 
     return character;
 }
@@ -58,7 +58,7 @@ std::shared_ptr<Sprite> EntityManager::createSpritePath(const SpritePathParams& 
     std::shared_ptr<Sprite> sprite = Sprite::createFromPath(spritePathParams.path);
 
     sprite = setSpriteParams(sprite, spritePathParams.spriteParams);
-    entities.push_back(sprite);
+    this->entities.push_back(sprite);
 
     return sprite;
 }
@@ -67,7 +67,7 @@ std::shared_ptr<Sprite> EntityManager::createSpriteTexture(const SpriteTexturePa
     std::shared_ptr<Sprite> sprite = std::make_shared<Sprite>(spriteTextureParams.texture);
 
     sprite = setSpriteParams(sprite, spriteTextureParams.spriteParams);
-    entities.push_back(sprite);
+    this->entities.push_back(sprite);
 
     return sprite;
 }
@@ -85,7 +85,7 @@ std::shared_ptr<CollisionBox> EntityManager::createCollisionBox(const CollisionB
     std::shared_ptr<CollisionBox> collisionBox = std::make_shared<CollisionBox>();
 
     collisionBox = std::static_pointer_cast<CollisionBox>(setEntityParams(collisionBox, collisionBoxParams.entityParams));
-    entities.push_back(collisionBox);
+    this->entities.push_back(collisionBox);
 
     return collisionBox;
 }
@@ -97,7 +97,7 @@ std::shared_ptr<Wall> EntityManager::createWall(const WallParams& wallParams) {
 	wall = std::static_pointer_cast<Wall>(setEntityParams(wall, wallParams.entityParams));
 
     CollisionManager::getInstance().addCollidableEntity(wall);
-    entities.push_back(wall);
+    this->entities.push_back(wall);
 
     return wall;
 }
@@ -106,7 +106,7 @@ std::shared_ptr<WindowCollidable> EntityManager::createWindowCollidable(const Wi
     std::shared_ptr<WindowCollidable> windowCollidable = CollidableEntity::create<WindowCollidable>(windowCollidableParams.hwnd, windowCollidableParams.collider);
 
     CollisionManager::getInstance().addCollidableEntity(windowCollidable);
-    entities.push_back(windowCollidable);
+    this->entities.push_back(windowCollidable);
 
     return windowCollidable;
 }
@@ -121,7 +121,7 @@ std::shared_ptr<DesktopPet> EntityManager::createDesktopPet(const DesktopPetPara
 	desktopPet = std::static_pointer_cast<DesktopPet>(setCharacterParams(desktopPet, desktopPetParams.characterParams));
 
 	CollisionManager::getInstance().addCollidableEntity(desktopPet);
-	entities.push_back(desktopPet);
+	this->entities.push_back(desktopPet);
 
 	return desktopPet;
 }

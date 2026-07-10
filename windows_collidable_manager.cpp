@@ -14,7 +14,7 @@ void WindowsCollidableManager::syncWindows() {
 }
 
 bool WindowsCollidableManager::isValidWindow(HWND hwnd) {
-    if (window.getWindowHWND() != nullptr && hwnd == window.getWindowHWND()) return false;
+    if (this->window.getWindowHWND() != nullptr && hwnd == this->window.getWindowHWND()) return false;
 
     if (!IsWindow(hwnd) || IsIconic(hwnd) || !IsWindowVisible(hwnd)) return false;
 
@@ -78,7 +78,7 @@ void WindowsCollidableManager::updateAllVisibleWindows() {
 }
 
 void WindowsCollidableManager::addOrUpdateWindow(HWND hwnd) {
-    for (auto& win : activeWindows) {
+    for (auto& win : this->activeWindows) {
         if (win->getHwnd() == hwnd) {
             win->updateBounds();
             return;
@@ -89,5 +89,5 @@ void WindowsCollidableManager::addOrUpdateWindow(HWND hwnd) {
         .hwnd = hwnd,
         .collider = EntityManager::getInstance().createCollisionBox({})
     });
-    activeWindows.push_back(newWin);
+    this->activeWindows.push_back(newWin);
 }

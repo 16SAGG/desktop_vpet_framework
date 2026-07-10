@@ -42,12 +42,12 @@ Shader :: Shader(const char* vertexFile, const char* fragmentFile)
 
 	compileErrors(fragmentShader, "FRAGMENT");
 
-	ID = glCreateProgram();
-	glAttachShader(ID, vertexShader);
-	glAttachShader(ID, fragmentShader);
-	glLinkProgram(ID);
+	this->ID = glCreateProgram();
+	glAttachShader(this->ID, vertexShader);
+	glAttachShader(this->ID, fragmentShader);
+	glLinkProgram(this->ID);
 
-	compileErrors(ID, "PROGRAM");
+	compileErrors(this->ID, "PROGRAM");
 
 	glDeleteShader(vertexShader);
 	glDeleteShader(fragmentShader);
@@ -55,12 +55,12 @@ Shader :: Shader(const char* vertexFile, const char* fragmentFile)
 
 void Shader::activate() const
 {
-	glUseProgram(ID);
+	glUseProgram(this->ID);
 }
 
 void Shader::deleteShader() const
 {
-	glDeleteProgram(ID);
+	glDeleteProgram(this->ID);
 }
 
 void Shader::compileErrors(unsigned int shader, const char* type) const

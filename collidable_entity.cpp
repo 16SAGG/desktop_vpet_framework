@@ -16,7 +16,7 @@ CollidableEntity::~CollidableEntity() {
 };
 
 void CollidableEntity::move(float deltaTime) {
-	glm::vec2 collisionCorrection = handleCollision(deltaTime);
+	glm::vec2 collisionCorrection = this->handleCollision(deltaTime);
 
     this->setPosition(getNextPosition(deltaTime) + collisionCorrection);
 }
