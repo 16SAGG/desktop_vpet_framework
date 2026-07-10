@@ -46,7 +46,9 @@ int main() {
 				.maxSpeed = { 300, 600 }
 			}
 		},
-		.jumpFramesDuration = 1200
+		.jumpFramesDuration = 600,
+		.incrementalJerk = { 0.0f, 1.0f },
+		.decrementalJerk = { 0.0f, 5.0f }
 	});
 
 	auto char1 = EntityManager::getInstance().createCharacter({

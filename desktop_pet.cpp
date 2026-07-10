@@ -11,11 +11,12 @@
 #include "collidable_entity.h"
 
 const float TARGET_X_THRESHOLD_TO_JUMP = 200.0f;
-const float TARGET_Y_THRESHOLD_TO_JUMP = 50.0f;
+const float TARGET_Y_THRESHOLD_TO_JUMP = 60.0f;
 const float WANDER_X_MAX_POSITION_ADDED = 400.0f;
 const float SAME_POSITION_EPSILON = 1.0f;
-const int MAX_WANDER_FRAMES = 2400;
 const float JUMP_COMPENSATION = 25.0f;
+const float TARGET_POSITION_REACHED_THRESHOLD = 5.0f;
+const int MAX_WANDER_FRAMES = 2400;
 
 void DesktopPet::move(float deltaTime) {
 	CollidableEntity::move(deltaTime);
@@ -62,31 +63,45 @@ void DesktopPet::move(float deltaTime) {
 
 	this->setDirection({ targetData.direction.x, this->direction.y });
 
-	if (isJumping) {
-		this->applyGravityToDirection(-1);
-		this->setAcceleration({ this->acceleration.x, this->acceleration.y + 1.0f * deltaTime });
+	switch (this->currentJumpPhase)
+	{
+		case JumpPhase::JUMPING: {
+			this->applyGravityToDirection(-1);
+			this->setAcceleration({ this->acceleration.x, 1 });
 
-		bool isJumpFramesDurationReached = this->jumpFrames >= this->jumpFramesDuration;
-		bool isTargetPositionReached = (this->jumpTarget.targetPosition.y - this->getGlobalPosition().y) > 5.0f;
-		if ( isJumpFramesDurationReached || isTargetPositionReached ) {
-			this->isJumping = false;
-			this->setAcceleration({ this->acceleration.x, 0 });
-		}
-
-		this->jumpFrames++;
-	}
-	else {
-		this->applyGravityToDirection(1);
-		this->setAcceleration({ this->acceleration.x, this->acceleration.y + 1.0f * deltaTime });
-
-		if (this->getIsGrounded()) {
-			bool targetIsInRangeToJump = -TARGET_Y_THRESHOLD_TO_JUMP >= targetData.distance.y && std::abs(targetData.distance.x) <= TARGET_X_THRESHOLD_TO_JUMP;
-			if (targetIsInRangeToJump) {
-				this->isJumping = true;
-				this->jumpFrames = 0;
-				this->jumpTarget = targetData;
-				this->setAcceleration({ this->acceleration.x, 1 });
+			bool isJumpFramesDurationReached = this->jumpFrames >= this->jumpFramesDuration;
+			bool isTargetPositionReached = (this->jumpTarget.targetPosition.y - this->getGlobalPosition().y) >= TARGET_POSITION_REACHED_THRESHOLD;
+			if ( isJumpFramesDurationReached || isTargetPositionReached ) {
+				this->currentJumpPhase = JumpPhase::FINISHING;
 			}
+
+			this->jumpFrames++;
+
+			break;
+		}
+		case JumpPhase::FINISHING: {
+			this->setAcceleration({ this->acceleration.x, this->acceleration.y - this->decrementalJerk.y * deltaTime });
+
+			if (this->acceleration.y <= 0) {
+				this->currentJumpPhase = JumpPhase::NONE;
+			}
+
+			break;
+		}
+		default: {
+			this->applyGravityToDirection(1);
+			this->setAcceleration({ this->acceleration.x, this->acceleration.y + this->incrementalJerk.y * deltaTime });
+
+			if (this->getIsGrounded()) {
+				bool targetIsInRangeToJump = -TARGET_Y_THRESHOLD_TO_JUMP >= targetData.distance.y && std::abs(targetData.distance.x) <= TARGET_X_THRESHOLD_TO_JUMP;
+				if (targetIsInRangeToJump) {
+					this->currentJumpPhase = JumpPhase::JUMPING;
+					this->jumpFrames = 0;
+					this->jumpTarget = targetData;
+				}
+			}
+
+			break;
 		}
 	}
 
@@ -123,14 +138,14 @@ void DesktopPet::setWanderPosition(const glm::vec2& _wanderPosition) {
 	glm::vec2 screenSize = Utils::getInstance().getScreenSize();
 
 	std::shared_ptr<CollisionBox> collider = this->getCollider();
-	glm::vec2 wanderLimit = glm::vec2(screenSize.x - collider->getSize().x, screenSize.y - collider->getSize().y);
+	glm::vec2 wanderLimit = glm::vec2(screenSize.x, screenSize.y - collider->getSize().y);
 	glm::vec2 intWanderPosition = Utils::getInstance().convertToIntVector(_wanderPosition);
 
 	if (intWanderPosition.x > wanderLimit.x) this->wanderPosition.x = wanderLimit.x;
-	else if (intWanderPosition.x < collider->getSize().x) this->wanderPosition.x = collider->getSize().x;
+	else if (intWanderPosition.x < 0) this->wanderPosition.x = 0;
 	else this->wanderPosition.x = intWanderPosition.x;
 
 	if (intWanderPosition.y > wanderLimit.y) this->wanderPosition.y = wanderLimit.y;
-	else if (intWanderPosition.y < collider->getSize().x) this->wanderPosition.y = collider->getSize().x;
+	else if (intWanderPosition.y < collider->getSize().y) this->wanderPosition.y = collider->getSize().y;
 	else this->wanderPosition.y = intWanderPosition.y;
 }

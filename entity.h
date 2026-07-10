@@ -110,7 +110,7 @@ public:
     * @brief Establecer direction.
     * * @param _direction Es la direccion actual de la entidad. Tipo glm::vec2
     */
-    void setDirection(const glm::vec2& _direction) { direction = Utils::getInstance().getRoundedNormal(_direction); };
+    void setDirection(const glm::vec2& _direction) { direction = _direction; };
 
     //GETTERS
 

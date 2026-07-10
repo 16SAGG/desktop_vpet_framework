@@ -27,6 +27,16 @@ enum MovementBehavior {
 	WANDER
 };
 
+// Enum que define las fases del salto
+// JUMPING es cuando el monstruo sube a toda velocidad
+// FINISHING es cuando el monstruo empieza a reducir su velocidad
+// NONE es cuando ya no hay salto (esta cayendo o ya aterrizo)
+enum JumpPhase {
+	JUMPING,
+	FINISHING,
+	NONE
+};
+
 class Sprite;
 class CollisionBox;
 class Window;
@@ -56,8 +66,8 @@ private:
 	// Contador de Frames a partir de cuando se empieza el desplazamiento en el estado Wander. Tipo int
 	int wanderFrames = 0;
 
-	// Determina si el monstruo esta saltando. Tipo int
-	bool isJumping = false;
+	// Determina la fase de salto actual. Tipo bool
+	JumpPhase currentJumpPhase = JumpPhase::NONE;
 
 	// La informacion del objetivo hacia donde se salto. Tipo TargetData
 	TargetData jumpTarget = {};
@@ -67,6 +77,12 @@ private:
 
 	// Cantidad maxima de frames de salto. Tipo int
 	int	jumpFramesDuration = 0;
+
+	// Es la tasa incremental de la aceleracion. Tipo glm::vec2
+	glm::vec2 incrementalJerk = { 0, 0 };
+
+	// Es la tasa decremental de la aceleracion. Tipo glm::vec2
+	glm::vec2 decrementalJerk = { 0, 0 };
 public:
 
 	/**
@@ -98,16 +114,19 @@ public:
 
 	/*
 	* @brief Establece la posicion del mouse.
+	* @param _mousePosition. Tipo glm::vec2.
 	*/
 	void setMousePosition(const glm::vec2& _mousePosition) { this->mousePosition = _mousePosition; };
 
 	/*
-	* @brief Establece si el monstruo esta detenido o no
+	* @brief Establece si el monstruo esta detenido o no.
+	* @param _isStopped. Tipo bool.
 	*/
 	void setIsStopped(const bool _isStopped) { this->isStopped = _isStopped; };
 
 	/*
-	* @brief Establece la proxima posicion a la que se desplazara el personaje en su estado Wander. Tipo glm::vec2
+	* @brief Establece la proxima posicion a la que se desplazara el personaje en su estado Wander. 
+	* @param _wanderPosition. Tipo glm::vec2
 	*/
 	void setWanderPosition(const glm::vec2& _wanderPosition);
 
@@ -116,6 +135,18 @@ public:
 	* @param _jumpFramesDuration. Tipo int
 	*/
 	void setJumpFramesDuration(int _jumpFramesDuration) { jumpFramesDuration = _jumpFramesDuration; };
+
+	/*
+	* @brief Establece la tasa incremental de la aceleracion. Tipo glm::vec2
+	* @param _incrementalJerk. Tipo glm::vec2
+	*/
+	void setIncrementalJerk(glm::vec2 _incrementalJerk) { incrementalJerk = _incrementalJerk; };
+
+	/*
+	* @brief Establece la tasa decremental de la aceleracion. Tipo glm::vec2
+	* @param _decrementalJerk. Tipo glm::vec2
+	*/
+	void setDecrementalJerk(glm::vec2 _decrementalJerk) { decrementalJerk = _decrementalJerk; };
 
 	//GETTERS
 

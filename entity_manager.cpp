@@ -115,6 +115,8 @@ std::shared_ptr<DesktopPet> EntityManager::createDesktopPet(const DesktopPetPara
 	std::shared_ptr<DesktopPet> desktopPet = CollidableEntity::create<DesktopPet>(desktopPetParams.characterParams.sprite, desktopPetParams.characterParams.collider);
 
     desktopPet->setJumpFramesDuration(desktopPetParams.jumpFramesDuration);
+    desktopPet->setIncrementalJerk(desktopPetParams.incrementalJerk);
+    desktopPet->setDecrementalJerk(desktopPetParams.decrementalJerk);
 
 	desktopPet = std::static_pointer_cast<DesktopPet>(setCharacterParams(desktopPet, desktopPetParams.characterParams));
 

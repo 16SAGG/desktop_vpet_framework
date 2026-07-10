@@ -79,6 +79,8 @@ struct WindowCollidableParams {
 struct DesktopPetParams {
 	CharacterParams characterParams;
     int	jumpFramesDuration = 0;
+    glm::vec2 incrementalJerk = { 0, 0 };
+    glm::vec2 decrementalJerk = { 0, 0 };
 };
 
 /**
