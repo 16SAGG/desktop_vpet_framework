@@ -52,6 +52,8 @@ class Renderer2D
 		 */
 		void drawColoredEntity(const std::shared_ptr<Entity> entity, const glm::mat4& projection, const glm::vec4 color) const;
 
+		void drawBorder(const glm::vec2& position, const glm::vec2& size, const glm::mat4& projection, const glm::vec4& color) const;
+
 		//GETTER
 
 		/**

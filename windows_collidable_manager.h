@@ -9,23 +9,26 @@
 class Window;
 class Wall;
 class WindowCollidable;
-
 /**
 * @brief Crea y gestiona las ventanas con colision
 */
 class WindowsCollidableManager
 {
 private:
+
     // Referencia a la ventana que encapsula este objeto.
     Window& window;
 
     // Lista de todas las ventanas colisionables activas. Tipo std::vector<std::shared_ptr<WindowCollidable>>
     std::vector<std::shared_ptr<WindowCollidable>> activeWindows;
+
+    // Lista de bordes de ventanas guardados. Tipo std::vector<RECT>
+    std::vector<RECT> windowsCachedBorders;
 public:
     /*
     * @brief Constructor de WindowsCollidableManager
     */
-    WindowsCollidableManager(Window& _window): window(_window) {}
+    WindowsCollidableManager(Window& _window);
     
     /*
     * @brief Sincroniza todas las ventanas activas del SO al motor fisicas del juego
@@ -70,6 +73,11 @@ public:
     * @brief Obtiene las ventanas activas. Tipo std::vector<std::shared_ptr<WindowCollidable>>
     */
     std::vector<std::shared_ptr<WindowCollidable>>& getActiveWindows() { return activeWindows; };
+
+    /*
+    * @brief Obtiene la lista de bordes de ventanas guardados. Tipo std::vector<RECT>
+    */
+    std::vector<RECT> getWindowsCachedBorders() { return windowsCachedBorders; };
 
 };
 #endif

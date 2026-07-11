@@ -1,11 +1,11 @@
 #include "glm/ext/vector_float2.hpp"
 
-#include "borders_manager.h"
+#include "borders_collision_manager.h"
 #include "entity_manager.h"
 
 const float THICKNESS = 100.0f;
 
-BordersManager::BordersManager(
+BordersCollisionManager::BordersCollisionManager(
 	const glm::vec2 screenSize,
 	const float topMargin,
 	const float leftMargin,

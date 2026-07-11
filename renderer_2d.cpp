@@ -84,3 +84,24 @@ void Renderer2D::drawColoredEntity(const std::shared_ptr<Entity> entity, const g
 	glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
 	glBindVertexArray(0);
 }
+
+void Renderer2D::drawBorder(const glm::vec2& position, const glm::vec2& size, const glm::mat4& projection, const glm::vec4& color) const {
+	this->shader.activate();
+
+	glm::mat4 model = glm::mat4(1.0f);
+	glm::vec3 actualPos = glm::vec3(position.x + size.x * 0.5f, position.y + size.y * 0.5f, 0.0f);
+	model = glm::translate(model, actualPos);
+	model = glm::scale(model, glm::vec3(size, 1.0f));
+
+	glUniformMatrix4fv(glGetUniformLocation(this->shader.getID(), "model"), 1, GL_FALSE, glm::value_ptr(model));
+	glUniformMatrix4fv(glGetUniformLocation(this->shader.getID(), "projection"), 1, GL_FALSE, glm::value_ptr(projection));
+	
+	glUniform1i(glGetUniformLocation(this->shader.getID(), "useSolidColor"), 1);
+	glUniform4fv(glGetUniformLocation(this->shader.getID(), "solidColor"), 1, glm::value_ptr(color));
+
+	glBindVertexArray(this->VAO_id);
+
+	glDrawArrays(GL_LINE_LOOP, 0, 4);
+
+	glBindVertexArray(0);
+}

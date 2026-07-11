@@ -5,7 +5,7 @@
 
 #include "window.h"
 #include "process.h"
-#include "borders_manager.h"
+#include "borders_collision_manager.h"
 #include "entity_manager.h"
 #include "input_manager.h"
 #include "utils.h"
@@ -17,7 +17,7 @@ int main() {
 
 	Process process(window);
 
-	BordersManager bordersManager(Utils::getInstance().getScreenSize(), 0, 0, 0, 0);
+	BordersCollisionManager bordersCollisionManager(Utils::getInstance().getScreenSize(), 0, 0, 0, 0);
 
 	InputManager inputManager(window);
 

@@ -1,6 +1,6 @@
 #pragma once
-#ifndef BORDERS_MANAGER_CLASS_H
-#define BORDERS_MANAGER_CLASS_H
+#ifndef BORDERS_COLLISION_MANAGER_CLASS_H
+#define BORDERS_COLLISION_MANAGER_CLASS_H
 
 #include <vector>
 #include <memory>
@@ -11,7 +11,7 @@ class Wall;
 /**
 * @brief Crea y gestiona la colision de los bordes de la ventana
 */
-class BordersManager
+class BordersCollisionManager
 {
 private:
     // Lista de los borders para mantenerlos vivos.std::vector<std::shared_ptr<Wall>>
@@ -26,7 +26,7 @@ public:
     * @param rightMargin Es el espacio que se agrega o resta a la posicion del borde derecho. Tipo float
     * @param bottomMargin Es el espacio que se agrega o resta a la posicion del borde inferior. Tipo float
     */
-    BordersManager(
+    BordersCollisionManager(
         const glm::vec2 screenSize,
         const float topMargin = 0, 
         const float leftMargin = 0,

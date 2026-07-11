@@ -63,7 +63,7 @@
     <ClCompile Include="glad.c">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
-    <ClCompile Include="borders_manager.cpp">
+    <ClCompile Include="borders_collision_manager.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
     <ClCompile Include="window_collidable.h">
@@ -142,7 +142,7 @@
     <ClInclude Include="character.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
-    <ClInclude Include="borders_manager.h">
+    <ClInclude Include="borders_collision_manager.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
     <ClInclude Include="wall.h">

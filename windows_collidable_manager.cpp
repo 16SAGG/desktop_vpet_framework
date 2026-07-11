@@ -1,5 +1,7 @@
 #include <Windows.h>
 #include <dwmapi.h>
+#include <vector>
+#include <memory>
 #pragma comment(lib, "dwmapi.lib")
 
 #include "windows_collidable_manager.h"
@@ -8,8 +10,11 @@
 #include "collision_manager.h"
 #include "window.h"
 
+WindowsCollidableManager::WindowsCollidableManager(Window& _window) : window(_window) {}
+
 void WindowsCollidableManager::syncWindows() {
 	this->cleanupInactiveWindows();
+    this->windowsCachedBorders.clear();
 	this->updateAllVisibleWindows();
 }
 
@@ -64,15 +69,21 @@ void WindowsCollidableManager::cleanupInactiveWindows() {
 void WindowsCollidableManager::updateAllVisibleWindows() {
     struct CallbackData {
         WindowsCollidableManager* self;
+        std::vector<RECT>* rects;
     };
 
-    CallbackData data = { this };
+    CallbackData data = { this, &this->windowsCachedBorders };
     EnumWindows([](HWND hwnd, LPARAM lParam) -> BOOL {
         auto data = reinterpret_cast<CallbackData*>(lParam);
 
         if (!data->self->isValidWindow(hwnd)) return TRUE;
 
         data->self->addOrUpdateWindow(hwnd);
+
+        RECT rect;
+        GetWindowRect(hwnd, &rect);
+        data->rects->push_back(rect);
+
         return TRUE;
     }, reinterpret_cast<LPARAM>(&data));
 }

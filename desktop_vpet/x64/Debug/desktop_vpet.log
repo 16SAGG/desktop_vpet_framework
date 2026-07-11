@@ -1,16 +1,3 @@
 ﻿  Examinando orígenes para las dependencias de módulo...
-  ebo.cpp
-  entity_manager.cpp
-C:\Workspace\desktop_vpet_framework\character.h(14,7): warning C4099: 'CollisionResult': nombre de tipo visto anteriormente usando 'struct' ahora se ve usando 'class'
-  (compilando archivo de origen "entity_manager.cpp")
-      C:\Workspace\desktop_vpet_framework\collision_manager.h(14,8):
-      vea la declaración de 'CollisionResult'
-  
-  utils.cpp
-  vao.cpp
-C:\Workspace\desktop_vpet_framework\vao.cpp(21,63): warning C4244: 'argumento': conversión de 'const GLsizeiptr' a 'GLsizei'; posible pérdida de datos
-  vbo.cpp
-  window_collidable.cpp
-  windows_collidable_manager.cpp
-  Generando código...
+  renderer_2d.cpp
   desktop_vpet.vcxproj -> C:\Workspace\desktop_vpet_framework\x64\Debug\desktop_vpet.exe
