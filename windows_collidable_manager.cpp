@@ -2,6 +2,7 @@
 #include <dwmapi.h>
 #include <vector>
 #include <memory>
+#include "glm/fwd.hpp"
 #pragma comment(lib, "dwmapi.lib")
 
 #include "windows_collidable_manager.h"
@@ -9,6 +10,7 @@
 #include "entity_manager.h"
 #include "collision_manager.h"
 #include "window.h"
+#include "renderer_2d.h"
 
 WindowsCollidableManager::WindowsCollidableManager(Window& _window) : window(_window) {}
 
@@ -101,4 +103,20 @@ void WindowsCollidableManager::addOrUpdateWindow(HWND hwnd) {
         .collider = EntityManager::getInstance().createCollisionBox({})
     });
     this->activeWindows.push_back(newWin);
+}
+
+void WindowsCollidableManager::drawBorders() {
+    for (const auto& rect : this->windowsCachedBorders) {
+        glm::vec2 pos = {
+            static_cast<float>(rect.left),
+            static_cast<float>(rect.top)
+        };
+
+        glm::vec2 size = {
+            static_cast<float>(rect.right - rect.left),
+            static_cast<float>(rect.bottom - rect.top)
+        };
+
+        Renderer2D::getInstance().drawBorder(pos, size, window.getProjection(), glm::vec4(1.0f, 0.0f, 0.0f, 1.0f));
+    }
 }

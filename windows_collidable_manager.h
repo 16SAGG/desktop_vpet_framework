@@ -67,6 +67,11 @@ public:
     */
     void addOrUpdateWindow(HWND hwnd);
 
+    /*
+    * @brief Dibuja los bordes de las ventanas
+    */
+    void drawBorders();
+
     //GETTER
 
     /*
